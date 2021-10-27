@@ -10,7 +10,9 @@
  * @return {boolean}
  */
 var isPalindrome = function(s) {
-  let str = s.toLowerCase().match(/[a-z0-9]+/g).join('');
+  let str = s.toLowerCase().match(/[a-z0-9]+/g)?.join('');
+  // case " "
+  if(!str) return true;
   let l = 0, r = str.length - 1;
 
   while(l <= r) {

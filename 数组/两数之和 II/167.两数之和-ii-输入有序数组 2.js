@@ -12,9 +12,7 @@
  */
 var twoSum = function(numbers, target) {
   let len = numbers.length;
-  
   let l = 0, r = len - 1;
-
   while(l < r) {
     let sum = numbers[l] + numbers[r];
     if(sum < target) {
@@ -25,8 +23,6 @@ var twoSum = function(numbers, target) {
       return [l+1, r+1]
     }
   }
-
-
 };
 // @lc code=end
 

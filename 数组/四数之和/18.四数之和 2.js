@@ -16,40 +16,33 @@ var fourSum = function(nums, target) {
 // @lc code=end
 
 
-
-// solutions
+// solutions 
 
 // * 1. sort + double pointer
 
-
-// [-1,0,-5,-2,-2,-4,0,1,-2]
-
-// [-5,-4,-2,-2,-2,-1,0,0,1]
-
-// -9
-
 const fourSum = (nums, target) => {
 
-  nums.sort((a,b) => a - b);
+  nums.sort((a, b) => a - b)
+
   let res = []
 
   for (let i = 0; i < nums.length; i++) {
-    if(i > 0 && nums[i] == nums[i - 1]) continue;
+    if(i > 0 && nums[i - 1] == nums[i]) continue;
     
     for (let j = i + 1; j < nums.length; j++) {
-      if(j > i + 1 && nums[j] == nums[j - 1]) continue;
       
+      if(j > i + 1 && nums[j] == nums[j - 1]) continue;
+
       let l = j + 1;
       let r = nums.length - 1;
-      let t = (nums[i] + nums[j]);
 
       while(l < r) {
-        let sum = nums[l] + nums[r] + t
+        let sum = nums[i] + nums[j] + nums[l] + nums[r]
         if(sum == target) {
           res.push([nums[i], nums[j], nums[l], nums[r]])
-          while(l < r && (nums[l] == nums[l + 1])) l++;
+          while(l < r && nums[l] == nums[l + 1]) l++;
           l++;
-          while(l < r && (nums[r] == nums[r - 1])) r--;
+          while(l < r && nums[r] == nums[r - 1]) r--;
           r--;
         }else if(sum < target) {
           l++

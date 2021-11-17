@@ -45,12 +45,15 @@ const findClosestElements_double = (arr, k, x) => {
   }
 
   for (let i = l; i < l + k; i++) {
-    res.push(arr[i])    
+    res.push(arr[i])
   }
   return res
 }
 
 // * 2. binary search left 
+
+// $ time complexity O(logn)
+// $ space complexity O(1)
 
 const findClosestElements_binary = (arr, k, x) => {
 

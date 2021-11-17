@@ -47,7 +47,7 @@ const longestMountain_tran = arr => {
   let long = 0
 
   for (let i = 0; i < len; i++) {
-    if(left[i] > 0 && right[0] > 0) {
+    if(left[i] > 0 && right[i] > 0) {
       long = Math.max(long, left[i] + right[i] + 1)
     }    
   }

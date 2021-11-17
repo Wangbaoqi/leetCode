@@ -26,22 +26,26 @@
 // 输出: [-23,-5,1,7]
 
 
-// solutions 
+
+// solutions
+
+// * 1. Math 
 
 const sortTransformedArray = (nums, a, b, c) => {
 
-  let result = [];
+  let res = [];
 
   if(a == 0) {
+
     if(b == 0) {
-      result = Array(nums.length).fill(c)
+      res = Array(nums.length).fill(c)
     }else if(b > 0) {
       for (let i = 0; i < nums.length; i++) {
-        result.push(b * nums[i] + c)        
+        res.push(b * nums[i] + c)        
       }
     }else {
       for (let i = 0; i < nums.length; i++) {
-        result.unshift(b * nums[i] + c)        
+        res.unshift(b * nums[i] + c)        
       }
     }
   }else if(a > 0) {
@@ -50,13 +54,14 @@ const sortTransformedArray = (nums, a, b, c) => {
 
     while(l <= r) {
       let lv = a * (nums[l] ** 2) + b * nums[l] + c;
-      let rv = a * (nums[r] ** 2) + b * nums[r] + c;
+      let rv = a * (nums[r] ** 2) + b * nums{r} + c;
+
       if(lv <= rv) {
-        result.unshift(rv);
-        r--
-      }else {
-        result.unshift(lv);
+        res.unshift(rv)
         l++
+      }else {
+        res.unshift(lv)
+        r--
       }
     }
   }else {
@@ -65,15 +70,16 @@ const sortTransformedArray = (nums, a, b, c) => {
 
     while(l <= r) {
       let lv = a * (nums[l] ** 2) + b * nums[l] + c;
-      let rv = a * (nums[r] ** 2) + b * nums[r] + c;
+      let rv = a * (nums[r] ** 2) + b * nums{r} + c;
+
       if(lv <= rv) {
-        result.push(lv);
         l++
+        res.push(lv)
       }else {
-        result.push(rv);
         r--
+        res.push(rv)
       }
     }
   }
-  return result;
+  return res
 }

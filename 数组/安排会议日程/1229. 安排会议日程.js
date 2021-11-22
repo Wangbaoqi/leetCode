@@ -35,19 +35,40 @@
 
 const minAvailableDuration = (slots1, slots2, duration) => {
 
+  slots1.sort((a, b) => a[0] - b[0])
+  slots2.sort((a, b) => a[0] - b[0])
+
   let s1l = slots1.length, s2l = slots2.length;
 
-  let len = s1l > s2l ? s2l : s1l;
-
+  
   let i = 0;
+  let j = 0;
 
   let ans = []
 
-  while(i < len) {
-    let s1o = slots1[i], s2o = slots2[i];
+  while(i < s1l && j < s2l) {
 
+    let s1_0 = slots1[i][0], s1_1 = slots1[i][1];
+    let s2_0 = slots2[j][0], s2_1 = slots2[j][1];
+
+    if(s1_1 < s2_0) {
+      i++
+    }else if(s1_0 > s2_1) {
+      j++
+    }else {
+      let s1_m = Math.max(s1_0, s2_0)
+      let s2_m = Math.min(s1_1, s2_1)
+      if(s2_m - s1_m >= duration) {
+        return [s1_m, s1_m+duration]
+      }else {
+        if(s2_1 < s1_1) {
+          j++
+        }else {
+          i++
+        }
+      }
+    }
     
-    i++
   }
   return ans
 }

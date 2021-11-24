@@ -14,33 +14,34 @@ var triangleNumber = function(nums) {
 };
 // @lc code=end
 
-
-
 // solutions
 
-// * 1. double pointer - fast slow
+// * 1. double pointer
 
+// [2,2,3,4]
 
 const triangleNumber = nums => {
+
+  nums.sort((a, b) => a - b)
+
   let len = nums.length;
-  nums.sort((a, b) => a -b)
-  let ans = 0
-
-  for(let i = 0; i< nums.length; i++) {
-
+  let ans = 0;
+  
+  for (let i = 0; i < len; i++) {
+    
     let s = i + 1;
     let f = s + 1;
+
     while(s < len) {
-      
-      while(f < len && nums[f] < nums[i] + nums[s]) {
+
+      while(f < len && nums[i] + nums[s] < nums[f]) {
         f++
       }
-      // if len == 3 , then f - s - 1 < 0
+
       ans += Math.max(f - s - 1, 0)
 
       s++
     }
   }
-
   return ans
 }

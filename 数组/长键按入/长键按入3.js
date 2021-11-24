@@ -1,7 +1,5 @@
 
 
-
-
 /**
  * @param {string} name
  * @param {string} typed
@@ -10,7 +8,6 @@
  var isLongPressedName = function(name, typed) {
 
 };
-
 
 
 
@@ -26,34 +23,25 @@
 // 解释：'alex' 中的 'a' 和 'e' 被长按。
 
 
-// solutions 
+// solutions
 
-// * 1. delete repeat item in typed then compare to name
+// * 1. double pointer
 
 const isLongPressedName = (name, typed) => {
 
   let i = 0, j = 0;
 
-  const il = name.length;
-
   while(j < typed.length) {
 
-    if(i < il && name[i] == typed[j]) {
-      i++;
-      j++;
-    }else if(j > 0 && typed[j] == typed[j-1]) {
+    if(i < name.length && name[i] == typed[j]) {
+      i++
+      j++
+    }else if(j < typed.length && typed[j] == typed[j-1]) {
       j++
     }else {
       return false
     }
   }
-  
-  return i == il
-  
+
+  return true
 }
-
-
-// * 
-
-
-

@@ -71,6 +71,27 @@ const fibTable = n => {
   return dp[n]
 }
 
+// * 4. 循环 + 优化 
+// 降低空间复杂度 
+// 时间复杂度跟 dp Table
+
+const fibTraverse = n => {
+
+  if(n < 0) return 0;
+
+  if(n == 1 || n == 2) return 1;
+
+  let cur = 1;
+  let prev = 1;
+
+  for (let i = 3; i <= n; i++) {
+    let s = cur + prev
+    prev = cur
+    cur = s
+  }
+  return cur
+}
+
 
 // test 
 const mainTest = (n, fn) => {
@@ -79,7 +100,7 @@ const mainTest = (n, fn) => {
   console.log(res, 'result');
   console.timeEnd('fib time')
 }
-mainTest(30, fib)
+// mainTest(30, fib)
 mainTest(30, fibMemo)
 mainTest(30, fibTable)
-
+mainTest(30, fibTraverse)

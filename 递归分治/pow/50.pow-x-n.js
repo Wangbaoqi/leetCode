@@ -59,7 +59,7 @@ const myPow_recP = (x, n) => {
   
 }
 
-// 分析时间复杂度
+// 分析复杂度
 
 // 每一次递归需要计算一次，总共需要递归`n`次
 // 时间复杂度为O(n)
@@ -69,6 +69,12 @@ const myPow_recP = (x, n) => {
 
 // * 2. 递归快速幂
 
+// 2^6 = 2^3 * 2^3
+
+// 将原问题划分为 子问题之间相乘
+// 例如 2^6 , 只要计算出 2^3 的值，则将两个子问题的结果相乘，得到最终值
+// 这样将时间复杂度瞬间降低了
+
 const myPow_q = (x, n) => {
 
   const pow = (x, n) => {
@@ -76,8 +82,45 @@ const myPow_q = (x, n) => {
       return 1
     }
     const r = pow(x, ~~(n / 2))
-    return n >= 0 ? r * r : r * r * x
+    console.log(r, 'res');
+    return n % 2 == 0 ? r * r : r * r * x
   }
 
   return n >= 0 ? pow(x, n) : 1 / pow(x, -n)
 }
+
+// 分析复杂度
+
+// 时间O(logn)
+// 空间O(logn)
+
+
+// * 3. 循环快速幂
+
+const myPow_r = (x, n) => {
+
+  const pow = (x, n) => {
+    let ans = 1;
+    let prev = x;
+    while(n > 0) {
+      if(n % 2 == 1) {
+        ans *= prev
+      }
+      prev *= prev
+      n = ~~(n / 2)
+    }
+    return ans
+  }
+  return n >= 0 ? pow(x, n) : 1 / pow(x, -n)
+}
+
+// 分析复杂度
+
+// 时间O(logn)
+// 空间O(1)
+
+
+// ?? test case
+
+const val = myPow_q(2, 4)
+console.log(val);

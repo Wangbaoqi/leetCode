@@ -66,7 +66,7 @@ const mergerSortedArray = (left, mid, right, nums, temp) => {
     temp[i] = nums[i]
   }
 
-  // 两个区间
+  // 两个区间 
   // [left, mid] 和 [mid + 1, right]
   // 合并两个有序的子数组
 

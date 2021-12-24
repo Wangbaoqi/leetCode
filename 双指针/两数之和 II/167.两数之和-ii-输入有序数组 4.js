@@ -35,7 +35,6 @@ const twoSum_violence = (numbers, target) => {
 
 const twoSum_double = (numbers, target) => {
   let l = 0, r = numbers.length  - 1;
-
   while(l < r) {
     if(numbers[l] + numbers[r] == target) {
       return [l+1, r+1];

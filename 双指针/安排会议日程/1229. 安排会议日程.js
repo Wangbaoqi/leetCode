@@ -39,11 +39,8 @@ const minAvailableDuration = (slots1, slots2, duration) => {
   slots2.sort((a, b) => a[0] - b[0])
 
   let s1l = slots1.length, s2l = slots2.length;
-
-  
   let i = 0;
   let j = 0;
-
   let ans = []
 
   while(i < s1l && j < s2l) {

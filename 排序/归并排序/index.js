@@ -97,7 +97,7 @@ const mergerSortedArray = (left, mid, right, nums, temp) => {
 
 // test case 
 
-let nums = [4,2,6,3,8,5,9,1,7]
+let nums = [4,2,6,3,8,5,9]
 
 sortArray(nums)
 

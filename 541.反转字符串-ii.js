@@ -17,39 +17,30 @@ var reverseStr = function(s, k) {
 
 
 const reverseStr_d = (s, k) => {
-  
-  let len = s.length;
+  let a = s.split('');
+  let len = a.length;
   let i = 0;
-
-  while (i < len) {
-    const leftLen = len - i - 1;
-
-    let l = i, r = i;
-    // s = a k = 1
-    if (leftLen < 2 * k && leftLen >= k) {
-      l = i;
-      r = i + k;
-  
-    } else if (leftLen < k) {
-      l = i;
-      r = leftLen;
-      
-    } else if (i + 1 === 2 * k) {
-      
-      l = i;
-      r = k;
-      
-      // s = "abcdefg", k = 2, 
-      // s = a, i = 0, leftLen = 6 , 2k = 4
-      // s = ab, i = 1, leftLen = 5, 2k = 4
-    }
+  const reverse = (l, r) => {
     while (l < r) {
-      let t = s[l];
-      s[l] = s[r];
-      s[r] = t;
+      let t = a[l];
+      a[l] = a[r];
+      a[r] = t;
       l++;
       r--;
     }
-    i++
   }
+  while (i < len) {
+    let l = i, r = Math.min(i + k, len) - 1;
+    reverse(l, r)
+    i += 2*k 
+  }
+  return a.join('')
 }
+
+// k = 2 ret bacdfegtuyk bacdefgyutk
+// k = 3 ret cbadeftytguk 
+const test = 'abcdefg' || 'abcdefgtyuk'; 
+
+const ret = reverseStr_d(test, 3)
+
+console.log(ret);

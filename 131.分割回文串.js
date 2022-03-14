@@ -20,6 +20,7 @@ const partition_1 = s => {
 
   let ret = [], ans = [];
 
+
   const dfs = i => {
     if (i === n) {
       ret.push(ans.slice());
@@ -58,16 +59,48 @@ const partition_1 = s => {
 
   const n = s.length;
 
-  // f [[0],[0],[0]]
+  // f [[0, 0, 0],[0, 0, 0],[0, 0, 0]]
   const f = new Array(n).fill(0).map(() => new Array(n).fill(0));
 
   console.log(f, 'ff');
   dfs(0);
   return ret
-
 }
 
 
+const partition_2 = s => {
+
+  const ret = [], ans = [];
+
+  const dfs = i => {
+    if (i == n) {
+      ret.push(ans.slice())
+      return;
+    }
+    for (let j = i; j < n; j++) {
+      if (f[i][j]) {
+        ans.push(s.slice(i, j + 1));
+        dfs(j + 1);
+        ans.pop();
+      }
+    }
+  }
+
+  const n = s.length;
+
+  const f = new Array(n).fill(0).map(() => new Array(n).fill(true));
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = i + 1; j < n; j++) {
+      f[i][j] = s[i] == s[j] && f[i + 1][j - 1];
+    }
+  }
+
+  dfs(0)
+
+  return f
+}
+
 const test = 'aab'
-const res = partition_1(test)
+const res = partition_2(test)
 console.log(res);

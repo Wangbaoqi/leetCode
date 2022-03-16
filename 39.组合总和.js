@@ -51,7 +51,13 @@ const combinationSum2 = (candidates, target) => {
   const ret = [], ans = [];
   const len = candidates.length;
 
-
+  /**
+   * 递归函数
+   * @param {*} s 计算和
+   * @param {*} target 
+   * @param {*} i 
+   * @returns 
+   */
   const backTracking = (s, target, i) => {
     
     // stop condition

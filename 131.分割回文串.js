@@ -15,6 +15,52 @@ var partition = function(s) {
 // @lc code=end
 
 
+// 回溯
+
+const partition_d = s => {
+
+  const ret = [], ans = [];
+  const len = s.length;
+
+
+  const isPalindrome = (s, i, j) => {
+    let l = i, r = j;
+    while (l < r) {
+      if (s[l] != s[r]) return false;
+      l++;
+      r--;
+    }
+    return true;
+  }
+
+  const backTracking = (s, i) => {
+
+    // 结束条件 判断是否是回文串
+    if (i >= len) {
+      ret.push([...ans]);
+      return;
+    }
+
+    for (let j = i; j < s.length; j++) {
+      if (isPalindrome(s, i, j)) {
+        ans.push(s.slice(i, j + 1));
+        backTracking(s, j + 1);
+        ans.pop();
+      } else {
+        continue;
+      }
+    }
+  }
+
+  backTracking(s, 0)
+  return ret;
+}
+
+const test = 'aab'
+const res = partition_d(test)
+console.log(res);
+
+
 
 const partition_1 = s => {
 
@@ -101,6 +147,4 @@ const partition_2 = s => {
   return f
 }
 
-const test = 'aab'
-const res = partition_2(test)
-console.log(res);
+

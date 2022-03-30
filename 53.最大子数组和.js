@@ -23,25 +23,25 @@ var maxSubArray = function(nums) {
 
 
 
-// todo 确定dp数组
+- 确定dp数组
 
 // dp[i] 记录 i 之前最大的子序列和
 
 
-// todo 确定递推公式
+- 确定递推公式
 
 // dp[0] = -2
 // dp[1] = max(dp[i-1] + nums[i], nums[i])
 
-// todo 初始化dp
+- 初始化dp
 
 // dp[0] = nums[0]
 
-// todo 遍历顺序
+- 遍历顺序
 
 // 从 i = 1 开始
 
-// todo 距离推导
+- 距离推导
 
 
 const maxSubArray = nums => {

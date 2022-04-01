@@ -54,44 +54,38 @@ var uniquePathsWithObstacles_d = function(obstacleGrid) {
 
 const uniquePathsWithObstacles = obstacleGrid => {
 
-  const dp = [...obstacleGrid];
+  const m = obstacleGrid[0].length;
+  const n = obstacleGrid.length;
 
-  const m = dp[0].length;
-  const n = dp.length;
+  const dp = new Array(n).fill(0).map(() => {
+    return new Array(m).fill(0)
+  });
 
-
-  for (let i = 0; i < m; i++) {
-    if (dp[0][i] == 1) {
-      dp[0][i] = 0;
-      break
-    }
+  for (let i = 0; i < m && obstacleGrid[0][i] == 0; i++) {
     dp[0][i] = 1
   }
 
-  for (let i = 0; i < n; i++) {
-    if (dp[i][0] == 1 && i != 0) {
-      dp[i][0] = 0;
-      break
-    }
+
+  for (let i = 0; i < n && obstacleGrid[i][0] == 0; i++) {
     dp[i][0] = 1
   }
 
-  console.log(dp);
 
 
-  for (let i = 1; i < m; i++) {
-    for (let j = 1; j < n; j++) {
-      if (dp[i][j] == 1) {
-        dp[i][j] = 0;
+  for (let i = 1; i < n; i++) {
+    for (let j = 1; j < m; j++) {
+      if (obstacleGrid[i][j] == 1) {
+        // dp[i][j] = 0;
         continue;
       }
       dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
     }
   }
 
-  console.log(dp);
+  console.log(dp)
 
-  return dp[m - 1][n - 1];
+
+  return dp[n - 1][m - 1];
 
 }
 

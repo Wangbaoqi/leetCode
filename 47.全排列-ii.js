@@ -15,18 +15,13 @@ var permuteUnique = function(nums) {
 // @lc code=end
 
 const permuteUnique_a = nums => {
-
   const ret = [], ans = [], used = [];
-
   nums.sort((a, b) => a - b);
-
   const backTracking = () => {
-
     if (ans.length == nums.length) {
       ret.push([...ans]);
       return;
     }
-
     for (let j = 0; j < nums.length; j++) {
 
       if (j > 0 && nums[j - 1] == nums[j] && !used[j - 1]) {

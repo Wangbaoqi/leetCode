@@ -6,11 +6,11 @@
 
 // @lc code=start
 /**
- * @param {number[]} candidates
+ * @param {number[]} _candidates
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target) {
+var combinationSum = function(_candidates: any, target: any) {
 
 };
 // @lc code=end

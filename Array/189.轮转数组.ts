@@ -1,56 +1,57 @@
 /*
- * @lc app=leetcode.cn id=189 lang=javascript
+ * @lc app=leetcode.cn id=189 lang=typescript
  *
  * [189] 轮转数组
  */
 
 // @lc code=start
 /**
- * @param {number[]} nums
- * @param {number} k
- * @return {void} Do not return anything, modify nums in-place instead.
+ Do not return anything, modify nums in-place instead.
  */
-var rotate = function(nums, k) {
+function rotate(nums: number[], k: number): void {
+  const len = nums.length;
+  const preArr = nums.slice(len - k, len - 1);
+  const afterArr = nums.slice(0, k + 1);
 
+  nums = [...preArr, ...afterArr]
+  return
 };
 // @lc code=end
 
+// Thinking
 
+// 1. cut and for
 
-const rotate_a = (nums, k) => {
- 
-  while (k > 0) {
-    const el = nums.pop();
-    nums.unshift(el)
-    k--;
+const rotate1 = (nums: number[], k: number): void => {
+  const len = nums.length;
+
+  if(!(k%len) || !k) return;
+
+  const step = len < k ? ~~(k%len) : k;
+  const afterStep = len < k ? len - (~~(k%len)) : len - k;
+
+  const preArr = nums.slice(-step);
+  const afterArr = nums.slice(0, afterStep);
+
+  console.log(preArr, afterArr)
+  const newArr = [...preArr, ...afterArr];
+
+  for (let i = 0; i < len; i++) {
+    nums[i] = newArr[i]
   }
 }
 
-const rotate_b = (nums, k) => {
-  const n = nums.length;
+// 2. cut and concat
 
-  k %= n;
+const rotate2 = (nums: number[], k: number): void => {
+  const len = nums.length;
 
-  const reverse = (nums, s, e) => {
-    let l = s, r = e;
-    while (l < r) {
-      let tmp = nums[l];
-      nums[l] = nums[r];
-      nums[r] = tmp;
-      l++;
-      r--;
-    }
-  }
+  if (!(k % len) || !k) return;
+  
+  k = k % len;
 
-  reverse(nums, 0, n); //[7, 6, 5, 4, 3, 2, 1]
-  reverse(nums, 0, k - 1); //  [5, 6, 7, 4, 3, 2, 1]
-  reverse(nums, k, n); // [ 5, 6, 7, 1,2, 3, 4]
+  const pre = nums.slice(-k);
+  nums.splice(k, len - k);
+  nums.unshift(...pre);
+
 }
-
-
-const nums = [1, 2, 3, 4, 5, 6, 7], k = 3;
-
-rotate_a(nums, k)
-
-
-console.log(nums);

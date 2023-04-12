@@ -9,16 +9,16 @@
  * @param {string} digits
  * @return {string[]}
  */
-var letterCombinations = function(digits) {
+var letterCombinations = function(digits: string) {
 
 };
 // @lc code=end
 
 
 
-const letterCombinations_a = digits => {
+const letterCombinations_a = (digits: string): string[] => {
 
-  const ret = [], ans = [];
+  const ret: string[] = [], ans: string[] = [];
   const map = [
     [],
     [],
@@ -32,7 +32,7 @@ const letterCombinations_a = digits => {
     ['w', 'x', 'y', 'z'],
   ];
 
-  const backTracking = (digits, i) => {
+  const backTracking = (digits: string, i: number) => {
 
     if (i == digits.length) {
       (ans.length) && ret.push(ans.join(''))
@@ -51,5 +51,4 @@ const letterCombinations_a = digits => {
   return ret;
 }
 
-const res = letterCombinations_a('2')
-console.log(res);
+console.log(letterCombinations_a('2'));

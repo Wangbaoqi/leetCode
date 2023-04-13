@@ -1,13 +1,17 @@
 
 # LeetCode 刷题站
 
-致力于每日一题。通过**五毒神掌**的刷题方式，对刷过的题目掌握的更加熟悉，形成肌肉式的记忆。
+致力于不断刷题。
 
-[个人网站](https://wangbaoqi.tech/algorithm)，关于算法，每刷一个专题都会有一篇对应的拙见😄。
+每刷一题，都会写对应的测试用例。
 
-## 专项练习
+[个人网站](https://wangbaoqi.tech/algorithm)，关于算法，每刷一个专题都会有一篇相关的总结。
 
-1. [双指针技巧](./双指针/README.md)
+## 100道高频题
+
+
+[1.轮转数组](./src/Array/rotateArray/)
+[2.有效的括号](./src/String/validParentheses/)
 
 
 

@@ -3,8 +3,7 @@
 import { rotate1, rotate2 } from './189.轮转数组';
 
 
-
-describe('rotate array', () => { 
+describe('rotate array', () => {
 
   it('normal rotate', () => {
     const arr = [1, 2, 3, 4, 5];

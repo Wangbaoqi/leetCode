@@ -20,26 +20,25 @@
 
 **High Frequency Linked List Questions**
 
-[1. reverse LinkList](./src/LinkList/reverseLinkList/)
-[2. Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
+1. [reverse LinkList](./src/LinkList/reverseLinkList/)
+2. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
 
-[3. circle LinkList]()
-[4. Add Two LinkList]()
-[5. reverse LinkListII]()
-[6. Copy List with Random LinkList]()
-[7. Remove nth node From end LinkList]()
-[8. Remove duplicate from sorted LinkList]()
-[9. Rotate LinkList]()
-[10. Partition LinkList]()
-[11. LRU LinkList]()
+3. [circle LinkList]()
+4. [Add Two LinkList]()
+5. [reverse LinkListII]()
+6. [Copy List with Random LinkList]()
+7. [Remove nth node From end LinkList]()
+8. [Remove duplicate from sorted LinkList]()
+9. [Rotate LinkList]()
+10. [Partition LinkList]()
+11. [LRU LinkList]()
 
 
 ## 100道高频题
 
-[1.轮转数组](./src/Array/rotateArray/)
-
-[2.有效的括号](./src/String/validParentheses/)
-[3.用栈实现队列](./src/StackQueue/implementStackUseQueue/)
-[4.反转单链表](./src/LinkList/reverseLinkList/)
+1. [轮转数组](./src/Array/rotateArray/)
+2. [有效的括号](./src/String/validParentheses/)
+3. [用栈实现队列](./src/StackQueue/implementStackUseQueue/)
+4. [反转单链表](./src/LinkList/reverseLinkList/)
 
 

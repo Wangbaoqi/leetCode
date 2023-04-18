@@ -4,7 +4,12 @@
   "description": "致力于每日一题。通过**五毒神掌**的刷题方式，对刷过的题目掌握的更加熟悉，形成肌肉式的记忆。",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:debug": "jest --debug",
+    "test:json": "jest --json",
+    "test:logHeap": "jest --logHeapUsage",
+    "test:verbose": "jest --verbose"
   },
   "author": "",
   "license": "ISC",

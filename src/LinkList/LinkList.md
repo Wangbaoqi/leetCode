@@ -1,7 +1,6 @@
 # LinkList
 
 
-
 链表是一种线性存储结构，元素未存储的在连续的内存块中，而是通过类似指针的方式连接每一个节点。
 
 ![singleList](https://media.wangbaoqi.tech/assets/blog/algorithm/linklist/linkedlist.webp)

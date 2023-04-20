@@ -17,7 +17,7 @@
  * }
  */
 
-class ListNode {
+export class ListNode {
   val: number
   next: ListNode | null
   constructor(val?: number, next?: ListNode | null) {
@@ -26,7 +26,7 @@ class ListNode {
   }
 }
 
-function hasCycle(head: ListNode | null): boolean {
+export function hasCycle(head: ListNode | null): boolean {
   
   if (head === null || head.next === null) return false;
   
@@ -36,12 +36,10 @@ function hasCycle(head: ListNode | null): boolean {
   while (slow !== fast) { 
     if (fast === null || fast.next === null) return false;
     
-    slow = slow.next as ListNode;
-    fast = fast.next.next as ListNode;
+    slow = slow.next!;
+    fast = fast.next.next!;
   }
-
   return true;
-
 };
 // @lc code=end
 

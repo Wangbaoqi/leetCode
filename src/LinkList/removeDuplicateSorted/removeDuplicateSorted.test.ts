@@ -106,7 +106,6 @@ describe('deleteDuplicatesLinkList', () => {
         )
       )
     )
-    console.log(JSON.stringify(deleteDuplicates(head)));
 
     expect(deleteDuplicates(head)).toEqual(expected);
   })

@@ -86,6 +86,27 @@ export function reverseBetween(head: ListNode | null, left: number, right: numbe
 
 export function reverseBetweenII(head: ListNode | null, left: number, right: number): ListNode | null { 
 
-  
+  if (head == null || head.next == null) return head;
 
+  const dummy = new ListNode(-1);
+  dummy.next = head;
+
+  let preNode = dummy;
+
+  for (let i = 0; i < left - 1; i++) { 
+    preNode = preNode.next!;
+  }
+
+  let curNode = preNode.next!;
+
+  for (let i = 0; i < right - left; i++) {
+
+    let nextNode = curNode.next!;
+
+    curNode.next = nextNode.next;
+    nextNode.next = preNode.next;
+    preNode.next = nextNode;
+
+  }
+  return dummy.next;
 }

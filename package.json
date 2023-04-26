@@ -9,7 +9,8 @@
     "test:debug": "jest --debug",
     "test:json": "jest --json",
     "test:logHeap": "jest --logHeapUsage",
-    "test:verbose": "jest --verbose"
+    "test:verbose": "jest --verbose",
+    "test:detect": "jest --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",

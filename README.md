@@ -29,17 +29,17 @@ For each question, the corresponding test case will be written.
 6. [reverse LinkListII](./src/LinkList/reverseLinkListII/)
 7. [Copy List with Random LinkList](./src/LinkList/copyRandomLinkList/)
 8. [Remove nth node From end LinkList](./src/LinkList/removeNthFromEnd/)
-9. [Remove duplicate from sorted LinkList]()
-10. [Rotate LinkList]()
+9. [Remove duplicate from sorted LinkList](./src/LinkList/removeDuplicateSorted/)
+10. [Rotate LinkList](./src/LinkList/rotateLinkList/)
 11. [Partition LinkList]()
 12. [LRU LinkList]()
 
 
 ## 100 High-frequency questions
 
-1. [轮转数组](./src/Array/rotateArray/)
-2. [有效的括号](./src/String/validParentheses/)
-3. [用栈实现队列](./src/StackQueue/implementStackUseQueue/)
-4. [反转单链表](./src/LinkList/reverseLinkList/)
+1. [rotateArray](./src/Array/rotateArray/)
+2. [validParentheses](./src/String/validParentheses/)
+3. [implementStackUseQueue](./src/StackQueue/implementStackUseQueue/)
+4. [reverseLinkList](./src/LinkList/reverseLinkList/)
 
 

@@ -9,7 +9,7 @@
  * @param {string} s
  * @return {string[][]}
  */
-var partition = function(s) {
+var partitions = function(s) {
 
 };
 // @lc code=end

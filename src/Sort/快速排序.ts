@@ -30,7 +30,7 @@ const quick = (nums, left, right) => {
 }
 
 
-const partition = (left, right, nums) => {
+const partition1 = (left, right, nums) => {
 
   // 第一个为基准值
   let p = nums[left];

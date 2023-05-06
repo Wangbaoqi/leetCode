@@ -17,7 +17,7 @@
  * }
  */
 
-class ListNode {
+export class ListNode {
   val: number
   next: ListNode | null
   constructor(val?: number, next?: ListNode | null) {
@@ -50,10 +50,7 @@ export function partition_linkList(head: ListNode | null, x: number): ListNode |
     fast = head.next!;
   }
 
-  console.log(JSON.stringify(dummy.next));
-  
   return dummy.next
-
 };
 // @lc code=end
 

@@ -45,10 +45,7 @@ export function rotateRight(head: ListNode | null, k: number): ListNode | null {
     k--;
   }
 
-  console.log(JSON.stringify(node));
-  
   return node;
-
 };
 
 function reverseLinkList(head: ListNode | null): ListNode | null { 

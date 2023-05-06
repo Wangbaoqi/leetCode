@@ -11,7 +11,6 @@ For each question, the corresponding test case will be written.
 
 [Data Structure And Algorithms RoadMap](https://www.processon.com/view/link/6433ef6e242fb51ae70a62f3)
 
-
 ## Array
 
 ## LinkList
@@ -21,19 +20,19 @@ For each question, the corresponding test case will be written.
 
 **High Frequency Linked List Questions**
 
-1. [reverse LinkList](./src/LinkList/reverseLinkList/)
-2. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
-3. [circle LinkList](./src/LinkList/circleLinkList/)
-4. [circle LinkListII](./src/LinkList/circleLinkListII/)
-5. [Add Two LinkList](./src/LinkList/addTwoNumber/)
-6. [reverse LinkListII](./src/LinkList/reverseLinkListII/)
+1. - [x] [reverse LinkList](./src/LinkList/reverseLinkList/)
+2. [reverse LinkListII](./src/LinkList/reverseLinkListII/)
+3. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
+4. [circle LinkList](./src/LinkList/circleLinkList/)
+5. [circle LinkListII](./src/LinkList/circleLinkListII/)
+6. [Add Two LinkList](./src/LinkList/addTwoNumber/)
 7. [Copy List with Random LinkList](./src/LinkList/copyRandomLinkList/)
 8. [Remove nth node From end LinkList](./src/LinkList/removeNthFromEnd/)
 9. [Remove duplicate from sorted LinkList](./src/LinkList/removeDuplicateSorted/)
-10. [Rotate LinkList](./src/LinkList/rotateLinkList/)
-11. [Partition LinkList]()
-12. [LRU LinkList]()
-
+10. [remove duplicate from sorted LinkListII]()
+11. [Rotate LinkList](./src/LinkList/rotateLinkList/)
+12. [Partition LinkList](./src/LinkList/partitionLInkList/)
+13. [LRU LinkList]()
 
 ## 100 High-frequency questions
 

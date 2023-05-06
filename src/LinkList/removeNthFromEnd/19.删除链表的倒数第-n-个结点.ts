@@ -44,11 +44,8 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
       break;
     }
   }
-
-  console.log(num, dummy.next);
   
   return dummy.next;
-
 };
 // @lc code=end
 

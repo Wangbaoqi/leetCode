@@ -20,7 +20,7 @@ For each question, the corresponding test case will be written.
 
 **High Frequency Linked List Questions**
 
-1. - [x] [reverse LinkList](./src/LinkList/reverseLinkList/)
+1. [reverse LinkList](./src/LinkList/reverseLinkList/)
 2. [reverse LinkListII](./src/LinkList/reverseLinkListII/)
 3. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
 4. [circle LinkList](./src/LinkList/circleLinkList/)

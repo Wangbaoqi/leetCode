@@ -17,7 +17,7 @@
  * }
  */
 
-class ListNode {
+export class ListNode {
   val: number
   next: ListNode | null
   constructor(val?: number, next?: ListNode | null) {
@@ -26,7 +26,7 @@ class ListNode {
   }
 }
 
-function deleteDuplicates(head: ListNode | null): ListNode | null {
+export function deleteDuplicates(head: ListNode | null): ListNode | null {
 
   if (head === null || head.next === null) return head;
 

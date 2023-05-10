@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=160 lang=typescript
+ * @lc app=leetcode.cn id=876 lang=typescript
  *
- * [160] 相交链表
+ * [876] 链表的中间结点
  */
 
 // @lc code=start
@@ -25,19 +25,24 @@ export class ListNode {
       this.next = (next===undefined ? null : next)
   }
 }
-export function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
 
-  if (headA === null || headB === null) return null;
-  
-  let nodeA = headA;
-  let nodeB = headB;
+function middleNode(head: ListNode | null): ListNode | null {
 
-  while (nodeA !== nodeB) {
-    nodeA = nodeA !== null ? nodeA.next! : headB;
-    nodeB = nodeB !== null ? nodeB.next! : headA;
+  if (head === null || head.next === null) return head;
+
+  let count = 0;
+
+  for (let node = head; node !== null; node = node.next!) {
+    count++
   }
-  
-  return nodeA
+
+  let mid = Math.ceil(count / 2);
+
+  for (let node = head, i = 1; node !== null && i <= mid; node = node.next!, i++) { 
+    if (i === mid) return node;
+  }
+
+  return null;
 };
 // @lc code=end
 

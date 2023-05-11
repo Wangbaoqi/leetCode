@@ -26,7 +26,7 @@ export class ListNode {
   }
 }
 
-function middleNode(head: ListNode | null): ListNode | null {
+export function middleNode(head: ListNode | null): ListNode | null {
 
   if (head === null || head.next === null) return head;
 
@@ -36,7 +36,7 @@ function middleNode(head: ListNode | null): ListNode | null {
     count++
   }
 
-  let mid = Math.ceil(count / 2);
+  let mid = count >> 1;
 
   for (let node = head, i = 1; node !== null && i <= mid; node = node.next!, i++) { 
     if (i === mid) return node;
@@ -46,3 +46,16 @@ function middleNode(head: ListNode | null): ListNode | null {
 };
 // @lc code=end
 
+export function middleNodeI(head: ListNode | null): ListNode | null { 
+
+  if (head === null) return head;
+  
+  let slow = head; 
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow.next!;
+    fast = fast.next.next!;
+  }
+  return slow;
+}

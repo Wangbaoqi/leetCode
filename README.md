@@ -33,7 +33,7 @@ For each question, the corresponding test case will be written.
 11. [Rotate LinkList](./src/LinkList/rotateLinkList/)
 12. [Partition LinkList](./src/LinkList/partitionLInkList/)
 13. [LRU LinkList]()
-14. [More LinkList Question]('./src/LinkList/)
+14. [More LinkList Question...](./src/LinkList/README.md)
 
 ## 100 High-frequency questions
 

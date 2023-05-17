@@ -17,7 +17,16 @@
  * }
  */
 
-function palindromeLink(head: ListNode | null): boolean {
+export class ListNode {
+  val: number
+  next: ListNode | null
+  constructor(val?: number, next?: ListNode | null) {
+      this.val = (val===undefined ? 0 : val)
+      this.next = (next===undefined ? null : next)
+  }
+}
+
+export function palindromeLink(head: ListNode | null): boolean {
 
   if (head == null || head.next === null) return true;
 
@@ -27,6 +36,7 @@ function palindromeLink(head: ListNode | null): boolean {
   let node1 = head;
   let node2 = secondHalfLink;
   let result = true;
+
   while (node1 !== null && node2 !== null) { 
     if (node1.val !== node2.val) result = false;
     node1 = node1.next!;
@@ -67,7 +77,8 @@ function getMiddleNode(head: ListNode | null): ListNode | null {
   let slow = head;
   let fast = head;
 
-  while (fast && fast.next) {
+  // 这里获取中间的节点的左边界值
+  while (fast && fast.next && fast.next.next) {
     slow = slow.next!;
     fast = fast.next.next!;
   }

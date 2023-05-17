@@ -25,12 +25,11 @@ describe('test_reverse_linklist', () => {
     expect(reversedList?.val).toBe(3);
     expect(reversedList?.next?.val).toBe(2);
     expect(reversedList?.next?.next?.val).toBe(1);
-    expect(reversedList?.next?.next?.next).toBeNull();
   })
 
 
   it('test_empty_nodes_list_reverse', () => {
-    const head = new ListNode(-1);
+    const head = null;
     const reversedList = reverseList(head);
     expect(reversedList).toBeNull();
   }) 

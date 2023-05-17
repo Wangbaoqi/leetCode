@@ -53,6 +53,11 @@ export function middleNodeI(head: ListNode | null): ListNode | null {
   let slow = head; 
   let fast = head;
 
+  // # 注意 是要获取中间的边界值
+  // [1,2] 是 1 还是 2
+  // (fast && fast.next) 获取2
+  // (fast && fast.next && fast.next.next) 获取1
+
   while (fast && fast.next) {
     slow = slow.next!;
     fast = fast.next.next!;

@@ -29,7 +29,7 @@ export class ListNode {
 export function reverseList(head: ListNode | null): ListNode | null {
 
   const dummy = new ListNode(-1, head);
-  let forward = dummy?.next;
+  let forward = head;
   let curNode = forward?.next;
 
   while (curNode && forward && dummy) {

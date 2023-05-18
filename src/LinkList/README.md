@@ -5,4 +5,4 @@
 3. [reverse print LinkList](./reversePrintLinkList/)
 4. [delete LinkList node](./deleteNodeLinkList/)
 5. [is Palindrome LinkList](./palindromeLinkList/)
-6. [remove duplicate unSortable links]()
+6. [remove duplicate unSortable linkList]()

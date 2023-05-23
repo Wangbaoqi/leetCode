@@ -14,12 +14,9 @@
 10. [Remove nth node From end LinkList](./src/LinkList/removeNthFromEnd/)
 11. [Remove duplicate from sorted LinkList](./src/LinkList/removeDuplicateSorted/)
 12. [remove duplicate unSortable linkList](./removeDuplicateUnSorted/)
-13. [kth node from end of LinkList]()
-14. [kth node from end of LinkListII]()
-15. [delete middle node of LinkList]()
-16. [biNode]()
-17. [design Hash Map use LinkList]()
-18. [design Hash Set use LinkList]()
-19. [convert binary linkList to integer]()
-20. 
-
+13. [kth node from end of LinkList](./kthNodeLinkList/)
+14. [delete middle node of LinkList](./deleteMiddleNode/)
+15. [biNode]()
+16. [design Hash Map use LinkList]()
+17. [design Hash Set use LinkList]()
+18. [convert binary linkList to integer](./getDecimalValue/)

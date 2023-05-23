@@ -14,9 +14,9 @@ describe('test deleteNode', () => {
     node.next = node1;
 
     const expected = head;
-    expected.next = node;
+    expected.next = node1;
 
-    // expect(deleteNode(head)).toEqual(head);
+    expect(deleteNode(head)).toEqual(expected);
 
   })
 })

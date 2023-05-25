@@ -1,45 +1,41 @@
+# Website
 
-# LeetCode cn site
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
-Committed to constantly brushing questions.
+### Installation
 
-For each question, the corresponding test case will be written.
+```
+$ yarn
+```
 
-[personal site](https://wangbaoqi.tech/algorithm)，Regarding the algorithm, there will be a relevant summary for each topic.
+### Local Development
 
-## Data Structure And Algorithms RoadMap
+```
+$ yarn start
+```
 
-[Data Structure And Algorithms RoadMap](https://www.processon.com/view/link/6433ef6e242fb51ae70a62f3)
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-## Array
+### Build
 
-## LinkList
+```
+$ yarn build
+```
 
-[LinkList Overview](./src/LinkList/LinkList.md)
-[LinkList circle Algorithm]()
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
-**High Frequency Linked List Questions**
+### Deployment
 
-1. [Reverse LinkList](./src/LinkList/reverseLinkList/)
-2. [Reverse LinkListII](./src/LinkList/reverseLinkListII/)
-3. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
-4. [Cycle LinkList](./src/LinkList/circleLinkList/)
-5. [Cycle LinkListII](./src/LinkList/circleLinkListII/)
-6. [Add Two LinkList](./src/LinkList/addTwoNumber/)
-7. [Copy List with Random LinkList](./src/LinkList/copyRandomLinkList/)
-8. [Remove nth node From end LinkList](./src/LinkList/removeNthFromEnd/)
-9. [Remove duplicate from sorted LinkList](./src/LinkList/removeDuplicateSorted/)
-10. [Remove duplicate from sorted LinkListII](./src/LinkList/removeDuplicateSortedII/)
-11. [Rotate LinkList](./src/LinkList/rotateLinkList/)
-12. [Partition LinkList](./src/LinkList/partitionLInkList/)
-13. [LRU LinkList]()
-14. [More LinkList Question...](./src/LinkList/README.md)
+Using SSH:
 
-## 100 High-frequency questions
+```
+$ USE_SSH=true yarn deploy
+```
 
-1. [rotateArray](./src/Array/rotateArray/)
-2. [validParentheses](./src/String/validParentheses/)
-3. [implementStackUseQueue](./src/StackQueue/implementStackUseQueue/)
-4. [reverseLinkList](./src/LinkList/reverseLinkList/)
+Not using SSH:
 
+```
+$ GIT_USER=<Your GitHub username> yarn deploy
+```
 
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.

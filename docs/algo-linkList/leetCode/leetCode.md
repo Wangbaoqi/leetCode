@@ -1,8 +1,12 @@
-# Linked List Questions Of LeetCode
+---
+sidebar_position: 1
+---
 
-[✅ EASY]
+# 总览
 
-1. [intersection LinkList](./intersectionLinkList/)
+✅ EASY
+
+<!-- 1. [intersection LinkList](./intersectionLinkList/)
 2. [Reverse LinkList](./src/LinkList/reverseLinkList/) 
 3. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
 4. [Cycle LinkList](./src/LinkList/circleLinkList/)
@@ -19,4 +23,4 @@
 15. [biNode]()
 16. [design Hash Map use LinkList]()
 17. [design Hash Set use LinkList]()
-18. [convert binary linkList to integer](./getDecimalValue/)
+18. [convert binary linkList to integer](./getDecimalValue/) -->

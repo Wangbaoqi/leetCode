@@ -2,18 +2,20 @@
 sidebar_position: 5
 ---
 
-import { addTwoNumbers } from './2.两数相加.ts'
+import { addTwoNumbers } from './index.tar.ts'
+// import { data } from './index.ts'
 
 # add two
 
 
-```tsx live
+```tsx
 
 function Clock(props) {
   const [date, setDate] = useState(new Date());
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
 
+    // addTwoNumbers();
     return function cleanup() {
       clearInterval(timerID);
     };

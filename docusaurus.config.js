@@ -139,9 +139,9 @@ const config = {
       prism: {
         defaultLanguage: 'typescript',
         additionalLanguages: ['javascript', 'jsx', 'tsx'],
-        theme: require('./core/PrismTheme')
-        // theme: lightCodeTheme,
-        // darkTheme: darkCodeTheme,
+        // theme: require('./core/PrismTheme')
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
       },
     }),
 };

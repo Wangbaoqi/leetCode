@@ -1,5 +1,5 @@
 
-import { ListNode, addTwoNumbers } from './2.两数相加';
+import { ListNode, addTwoNumbers } from './index.tar';
 
 
 describe('test addTwoNumbers for LinkList', () => { 

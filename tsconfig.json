@@ -2,8 +2,11 @@
   // This file is not used in compilation. It is here just for a nice editor experience.
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
+    "module": "esnext",
+    "target": "ESNext",
+    // "module": "commonjs",
     "baseUrl": ".",
-    "types": ["node", "@docusaurus/module-type-aliases", "@docusaurus/theme-classic", "jest"],
+    "types": ["node", "@docusaurus/module-type-aliases", "@docusaurus/theme-classic", "jest", "prettier"],
   },
   "include": [
     "src/**/*",

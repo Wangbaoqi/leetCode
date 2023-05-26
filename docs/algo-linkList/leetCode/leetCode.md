@@ -6,8 +6,8 @@ sidebar_position: 1
 
 ✅ EASY
 
-1. [相交链表](./intersectionLinkList/index.mdx)
-2. [反转链表](./reverseSingleList/index.mdx)
+<!-- 1. [相交链表](./intersectionLinkList/index.mdx)
+2. [反转链表](./reverseLinkList/index.mdx) -->
 
 
 <!-- 1. [intersection LinkList](./intersectionLinkList/)
@@ -32,4 +32,4 @@ sidebar_position: 1
 
 ✅ medium
 
-1. [两数相加](./addTwoNumber/index.mdx)
+<!-- 1. [两数相加](./addTwoNumber/index.mdx) -->

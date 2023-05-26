@@ -582,7 +582,7 @@ const isPalindrome = (head) => {
 
 ### **链表进行插入排序**
 
-关于插入排序，可以到[排序算法](/posts/algorithm/break/sort#插入排序)
+关于插入排序，可以到 排序算法
 
 下图展示了链表插入排序的图示
 

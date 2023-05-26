@@ -1,6 +1,5 @@
 
-import { ListNode, getIntersectionNode } from './160.相交链表';
-
+import { ListNode, getIntersectionNode } from './index';
 
 describe('test intersection LinkList', () => { 
 

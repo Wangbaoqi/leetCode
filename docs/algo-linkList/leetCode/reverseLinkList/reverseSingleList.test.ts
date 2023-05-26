@@ -1,15 +1,8 @@
-import { ListNode, reverseList } from './206.反转链表';
-
-import { LinkList } from '../singleList/index'
-
-// const headNode = new ListNode(-1);
-
-// const linkList = new LinkList();
+import { ListNode, reverseList } from '.';
 
 describe('test_reverse_linklist', () => {
 
   it('test_multiple_nodes_list_reverses_correctly', () => {
-
     const head = new ListNode(-1);
     // Arrange
     const node1 = new ListNode(1);
@@ -25,13 +18,12 @@ describe('test_reverse_linklist', () => {
     expect(reversedList?.val).toBe(3);
     expect(reversedList?.next?.val).toBe(2);
     expect(reversedList?.next?.next?.val).toBe(1);
-  })
-
+  });
 
   it('test_empty_nodes_list_reverse', () => {
     const head = null;
     const reversedList = reverseList(head);
     expect(reversedList).toBeNull();
-  }) 
+  });
 
 })

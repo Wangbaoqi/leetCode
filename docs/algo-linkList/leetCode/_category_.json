@@ -1,6 +1,7 @@
 {
   "label": "链表算法题",
   "position": 5,
+  "collapsed": true,
   "link": {
     "type": "generated-index"
   }

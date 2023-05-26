@@ -90,7 +90,7 @@ function HeroBanner() {
           />
         </Heading>
         <div className={styles.indexCtas}>
-          <Link className="button button--primary" to="/">
+          <Link className="button button--primary" to="/docs/algo-linkList/LinkList">
             <Translate>Get Started</Translate>
           </Link>
           <Link className="button button--info" to="https://wangbaoqi.tech">

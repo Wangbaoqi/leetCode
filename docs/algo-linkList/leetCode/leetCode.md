@@ -6,21 +6,30 @@ sidebar_position: 1
 
 ✅ EASY
 
+1. [相交链表](./intersectionLinkList/index.mdx)
+2. [反转链表](./reverseSingleList/index.mdx)
+
+
 <!-- 1. [intersection LinkList](./intersectionLinkList/)
-2. [Reverse LinkList](./src/LinkList/reverseLinkList/) 
-3. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
-4. [Cycle LinkList](./src/LinkList/circleLinkList/)
-5. [middle of LinkList](./middleLinkList/)
-6. [reverse print LinkList](./reversePrintLinkList/)
-7. [delete LinkList node](./deleteNodeLinkList/)
-8. [Partition LinkList](./src/LinkList/partitionLInkList/)
-9. [is Palindrome LinkList](./palindromeLinkList/)
-10. [Remove nth node From end LinkList](./src/LinkList/removeNthFromEnd/)
-11. [Remove duplicate from sorted LinkList](./src/LinkList/removeDuplicateSorted/)
-12. [remove duplicate unSortable linkList](./removeDuplicateUnSorted/)
-13. [kth node from end of LinkList](./kthNodeLinkList/)
-14. [delete middle node of LinkList](./deleteMiddleNode/)
-15. [biNode]()
-16. [design Hash Map use LinkList]()
-17. [design Hash Set use LinkList]()
-18. [convert binary linkList to integer](./getDecimalValue/) -->
+1. [Reverse LinkList](./src/LinkList/reverseLinkList/) 
+2. [Merge Two LinkList](./src/LinkList/mergeTwoLinkList/)
+3. [Cycle LinkList](./src/LinkList/circleLinkList/)
+4. [middle of LinkList](./middleLinkList/)
+5. [reverse print LinkList](./reversePrintLinkList/)
+6. [delete LinkList node](./deleteNodeLinkList/)
+7. [Partition LinkList](./src/LinkList/partitionLInkList/)
+8. [is Palindrome LinkList](./palindromeLinkList/)
+9.  [Remove nth node From end LinkList](./src/LinkList/removeNthFromEnd/)
+10. [Remove duplicate from sorted LinkList](./src/LinkList/removeDuplicateSorted/)
+11. [remove duplicate unSortable linkList](./removeDuplicateUnSorted/)
+12. [kth node from end of LinkList](./kthNodeLinkList/)
+13. [delete middle node of LinkList](./deleteMiddleNode/)
+14. [biNode]()
+15. [design Hash Map use LinkList]()
+16. [design Hash Set use LinkList]()
+17. [convert binary linkList to integer](./getDecimalValue/) -->
+
+
+✅ medium
+
+1. [两数相加](./addTwoNumber/index.mdx)

@@ -1,9 +1,7 @@
 
-import { ListNode, addTwoNumbers } from './index.tar';
-
+import { ListNode, addTwoNumbers } from './index';
 
 describe('test addTwoNumbers for LinkList', () => { 
-
   it('test_two_link_list_same_sum_less_then_9', () => {
     const l1 = new ListNode(
       1,
@@ -254,9 +252,6 @@ describe('test addTwoNumbers for LinkList', () => {
         )
       )
     );
-
     expect(addTwoNumbers(l1, l2)).toEqual(expected);
   });
-
-
 })

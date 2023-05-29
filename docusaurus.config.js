@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://algo.wangbaoqi.tech',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -84,7 +84,7 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/wangbaoqi/nateTech',
+            href: 'https://github.com/wangbaoqi/leetCode',
             'aria-label': 'GitHub repository',
             className: 'navbar-github-link',
             position: 'right',
@@ -129,7 +129,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/wangbaoqi/leetcode',
               },
             ],
           },
@@ -139,9 +139,9 @@ const config = {
       prism: {
         defaultLanguage: 'typescript',
         additionalLanguages: ['javascript', 'jsx', 'tsx'],
-        // theme: require('./core/PrismTheme')
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: require('./core/PrismTheme')
+        // theme: lightCodeTheme,
+        // darkTheme: darkCodeTheme,
       },
     }),
 };

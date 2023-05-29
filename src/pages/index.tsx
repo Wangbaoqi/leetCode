@@ -4,30 +4,10 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import useBaseUrl, {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Translate, {translate} from '@docusaurus/Translate';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
-
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function TopBanner() {
   
@@ -111,40 +91,14 @@ function HeroBanner() {
   );
 }
 
-function LanguageContent() {
-  return (
-    <section>
-      <div className={styles.langContainer}>
-        <h2 style={{fontSize: '2rem'}}>Languages and Tools 💻</h2>
-        <img className={styles.langImg} src="/img/logo/HTML5_logo_and_wordmark.svg" alt="HTML5"/>
-        <img className={styles.langImg} src="/img/logo/CSS3_logo_and_wordmark.svg" alt="CSS3"/>
-        <img className={styles.langImg} src="/img/logo/JavaScript_logo.svg" alt="JavaScript"/>
-        <img className={styles.langImg} src="/img/logo/Typescript_logo.svg" alt="TypeScript"/>
-        <img className={styles.langImg} src="/img/logo/Vue.js_Logo_2.svg" alt="Vue.js"/>
-        <img className={styles.langImg} src="/img/logo/React_logo.svg" alt="React"/>
-        <img className={styles.langImg} src="/img/logo/nextjs_logo.svg" alt="nextJs"/>
-        <img className={styles.langImg} src="/img/logo/redux.svg" alt="redux"/>
-        <img className={styles.langImg} src="/img/logo/React-Router.svg" alt="react-router"/>
-        <img className={styles.langImg} src="/img/logo/Angular_logo.svg" alt="Angular"/>
-        <img className={styles.langImg} src="/img/logo/tailwindcss.svg" alt="tailwindcss" />
-        <img className={styles.langImg} src="/img/logo/Node.js_logo.svg" alt="Nodejs"/>
-        <img className={styles.langImg} src="/img/logo/LESS_Logo.svg" alt="Less"/>
-        <img className={styles.langImg} src="/img/logo/Sass_Logo_Color.svg" alt="Sass" />
-        <img className={styles.langImg} src="/img/logo/ESLint_logo.svg" alt="ESLint"/>
-        <img className={styles.langImg} src="/img/logo/Git-logo.svg" alt="git" />
-        <img className={styles.langImg} src="/img/logo/Visual_Studio_Code_logo.svg" alt="VScode"/>
-        <img className={styles.langImg} src="/img/logo/Npm-logo.svg" alt="Npm"/>
-        <img className={styles.langImg} src="/img/logo/webpack_logo.svg" alt="webpack"/>
-        <img className={styles.langImg} src="/img/logo/babel_logo.svg" alt="babel"/>
-        <img className={styles.langImg} src="/img/logo/vite_logo.svg" alt="vite"/>
-        <img className={styles.langImg} src="/img/logo/esbuild_logo.svg" alt="esbuild"/>
-      </div>
-    </section>
-)
-}
+async function getUser() {
 
+  
+}
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
+  getUser();
+ 
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}

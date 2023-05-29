@@ -1,41 +1,41 @@
-# Website
+# Nate Algorithms
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+每日一题，怒刷算法
 
-### Installation
+本仓库主要使用`TS` + `Jest`来编写算法题目。
 
-```
-$ yarn
-```
+使用下面脚本来进行单元测试
 
-### Local Development
-
-```
-$ yarn start
+```bash
+$ npm run test  // or yarn test
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+可以随时添加测试用例，仓库中已有的的算法题都已经通过了**LeetCode**的测试用例。
 
-### Build
+### 刷题顺序
 
-```
-$ yarn build
-```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+**数据结构系列**
 
-### Deployment
+– [ ] 链表
+– [ ] 栈/队列
+– [ ] 哈希表
+– [ ] 二叉树
+– [ ] 图
+– [ ] 堆
 
-Using SSH:
 
-```
-$ USE_SSH=true yarn deploy
-```
+**算法系列**
 
-Not using SSH:
+– [ ] 排序算法
+– [ ] 搜索算法
+– [ ] 字符串搜索算法
+– [ ] 缓存算法
+– [ ] 树算法(递归)
+– [ ] 回溯算法
+– [ ] 回溯算法
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+
+

@@ -54,6 +54,7 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
         },
+        
       }),
     ],
   ],
@@ -134,14 +135,43 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} NateAlgo, Inc. Built with Docusaurus.`,
       },
       prism: {
-        defaultLanguage: 'typescript',
+        defaultLanguage: 'javascript',
         additionalLanguages: ['javascript', 'jsx', 'tsx'],
         theme: require('./core/PrismTheme')
         // theme: lightCodeTheme,
         // darkTheme: darkCodeTheme,
+      },
+      algolia: {
+        // The application ID provided by Algolia
+        appId: 'NUF6YERY6G',
+  
+        // Public API key: it is safe to commit it
+        apiKey: '2c595aa3284085c549126aca2a61ea4e',
+  
+        indexName: 'algo-wangbaoqi',
+  
+        // Optional: see doc section below
+        contextualSearch: true,
+  
+        // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+        // externalUrlRegex: 'external\\.com|domain\\.com',
+  
+        // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
+        // replaceSearchResultPathname: {
+        //   from: '/docs/', // or as RegExp: /\/docs\//
+        //   to: '/',
+        // },
+  
+        // Optional: Algolia search parameters
+        // searchParameters: {},
+  
+        // Optional: path for search page that enabled by default (`false` to disable it)
+        // searchPagePath: 'search',
+  
+        //... other Algolia params
       },
     }),
 };

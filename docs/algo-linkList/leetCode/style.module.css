@@ -1,0 +1,27 @@
+.hard {
+  color: red !important;
+}
+.hard[aria-selected='true'] {
+  border-bottom-color: red;
+}
+
+.medium {
+  color: orange !important;
+}
+.medium[aria-selected='true'] {
+  border-bottom-color: orange;
+}
+
+.easy {
+  color: green !important;
+}
+.easy[aria-selected='true'] {
+  border-bottom-color: green;
+}
+
+.design {
+  color: blue !important;
+}
+.design[aria-selected='true'] {
+  border-bottom-color: blue;
+}

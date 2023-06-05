@@ -7,7 +7,10 @@ import useBaseUrl, {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
 import Translate, {translate} from '@docusaurus/Translate';
 import Heading from '@theme/Heading';
 
+import CodeSandpack, {CodeSandpack1} from '@site/src/components/CodeSandpack';
+
 import styles from './index.module.css';
+import 'tippy.js/dist/tippy.css';
 
 function TopBanner() {
   
@@ -108,6 +111,9 @@ export default function Home(): JSX.Element {
       <main>
         {/* <HomepageFeatures /> */}
         {/* <LanguageContent /> */}
+
+        <CodeSandpack preset='react'/>
+
       </main>
     </Layout>
   );

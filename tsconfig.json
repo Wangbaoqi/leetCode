@@ -3,10 +3,17 @@
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
-    "target": "ESNext",
-    // "module": "commonjs",
+    "target": "ES5",
     "baseUrl": ".",
-    "types": ["node", "@docusaurus/module-type-aliases", "@docusaurus/theme-classic", "jest", "prettier"],
+    "jsx":"react-jsx",
+    "types": [
+      "node",
+      "@docusaurus/module-type-aliases", 
+      "@docusaurus/theme-classic", 
+      "jest", 
+      "prettier",
+      "@codesandbox/sandpack-react"
+    ],
   },
   "include": [
     "src/**/*",

@@ -79,6 +79,14 @@
 	--ifm-navbar-sidebar-width: 100%;
 	--ifm-hr-border-color: var(--docusaurus-collapse-button-bg-hover);
 
+	--font-weight-bold: 600;
+	--font-weight-medium: 500;
+	--font-weight-light: 400;
+	--font-family: 'Wotfard','Wotfard-fallback',sans-serif;
+	--font-family-mono: 'League Mono','Fira Mono',monospace;
+	--font-family-spicy: 'Sriracha','Wotfard',Futura,-apple-system,sans-serif;
+	--reach-dialog: 1;
+
 	@media (min-width: 340px) {
 		--ifm-navbar-sidebar-width: 340px;
 	}
@@ -139,6 +147,54 @@ html[data-theme='dark'] {
 }
 
 /* Font */
+
+@font-face {
+  font-family: 'wotfard';
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+  src: url(/fonts/wotfard/wotfard-semibold-webfont.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'wotfard';
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url(/fonts/wotfard/wotfard-medium-webfont.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'wotfard';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url(/fonts/wotfard/wotfard-regular-webfont.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'League Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+  src: url(/fonts/LeagueMono/LeagueMono-Bold.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'League Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url(/fonts/LeagueMono/LeagueMono-SemiBold.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'League Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url(/fonts/LeagueMono/LeagueMono-Regular.woff2) format('woff2');
+}
 
 @font-face {
 	font-family: 'Optimistic Display';

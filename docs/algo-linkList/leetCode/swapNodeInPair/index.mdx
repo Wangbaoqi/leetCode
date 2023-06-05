@@ -10,6 +10,8 @@ import TestCode from '!!raw-loader!./swapNodeInPair.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
 
 [leetCode](https://leetcode.cn/problems/swap-nodes-in-pairs/description/)
 
@@ -21,6 +23,16 @@ import TabItem from '@theme/TabItem';
 输出：[2,1,4,3]
 
 ```
+
+<CodeSandpack
+  id={'20'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/addTwoNumber.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/addTwoNumber.test.ts': TestCode
+  }}
+/>
 
 <Tabs>
 <TabItem value="js" label="index.ts">

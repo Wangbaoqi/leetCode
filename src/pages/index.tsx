@@ -112,8 +112,6 @@ export default function Home(): JSX.Element {
         {/* <HomepageFeatures /> */}
         {/* <LanguageContent /> */}
 
-        <CodeSandpack preset='react'/>
-
       </main>
     </Layout>
   );

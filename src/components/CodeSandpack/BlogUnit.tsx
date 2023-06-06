@@ -45,9 +45,6 @@ function BlogUnit({
     maxEditorHeight
   );
 
-  console.log(editorWrapperHeight, 'editorWrapperHeight');
-  
-
   const wrapperRef = React.useRef();
 
   const isOnscreen = useIsOnscreen(wrapperRef);

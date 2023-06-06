@@ -47,8 +47,6 @@ const SandboxProvider = ({
     }
   });
 
-  console.log(template, trimmedFiles, 'template');
-
   // useDuplicateIdWarning(id);
 
   return (

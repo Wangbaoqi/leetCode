@@ -97,8 +97,6 @@ export function usePrettier({ showLineNumbers, editorWrapperRef }) {
 
       const language = getLanguageFromFilePath(activeFile);
 
-      console.log(language, 'language');
-      
       let result;
       try {
         if (language === 'javascript') {
@@ -258,7 +256,7 @@ export function useCodeMirror(editorKey) {
 }
 
 function getLanguageFromFilePath(filePath) {
-  if (filePath.match(/\.jsx*/i)) {
+  if (filePath.match(/\.jsx|ts|tsx*/i)) {
     return 'javascript';
   } else if (filePath.match(/\.css/i)) {
     return 'css';

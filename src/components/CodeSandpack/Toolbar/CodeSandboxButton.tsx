@@ -35,9 +35,6 @@ const CodeSandboxButton = () => {
 const Wrapper = styled(ActionButton)`
   transform-origin: center center;
   transition: opacity 250ms;
-  display: inline-flex !important;
-  width: 32px !important;
-  height: 32px !important;
   background-color: transparent !important;
   border: 0 !important;
 `;

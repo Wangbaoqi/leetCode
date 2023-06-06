@@ -14,7 +14,7 @@ export function CodeEditorProvider({
   children,
 }) {
   const [logs, clearLogs] = useLogs();
-  const editorWrapperRef = React.useRef();
+  const editorWrapperRef = React.useRef(null);
 
   const handleFormat = usePrettier({
     id,

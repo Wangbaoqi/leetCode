@@ -39,6 +39,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          sidebarCollapsed: false,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
@@ -83,7 +84,8 @@ const config = {
             position: 'left',
             label: '链表',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/playground', label: 'Playground', position: 'left' },
+          { to: 'https://wangbaoqi.tech', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/wangbaoqi/leetCode',
             'aria-label': 'GitHub repository',

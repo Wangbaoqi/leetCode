@@ -285,91 +285,85 @@ const tsAlgo = {
   files: {
     '/index.ts': {
       code: `/*
-      * @lc app=leetcode.cn lang=typescript
-      *
-      * [141] 环形链表
-      */
-     
-     // @lc code=start
-     /**
-      * Definition for singly-linked list.
-      * class ListNode {
-      *     val: number
-      *     next: ListNode | null
-      *     constructor(val?: number, next?: ListNode | null) {
-      *         this.val = (val===undefined ? 0 : val)
-      *         this.next = (next===undefined ? null : next)
-      *     }
-      * }
-      */
-      export function hasCycle(head: ListNode | null): boolean {
-    
-        if (head === null || head.next === null) return false;
-        
-        let slow = head;
-        let fast = head.next;
-      
-        while (slow !== fast) { 
-          if (fast === null || fast.next === null) return false;
-          
-          slow = slow.next!;
-          fast = fast.next.next!;
-        }
-        return true;
-      };
+* @lc app=leetcode.cn lang=typescript
+*
+* [141] 环形链表
+*/
 
-     // @lc code=end
+// @lc code=start
+export class ListNode {
+  val: number
+  next: ListNode | null
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+  }
+}
+export function hasCycle(head: ListNode | null): boolean {
+  if (head === null || head.next === null) return false;
+  
+  let slow = head;
+  let fast = head.next;
+
+  while (slow !== fast) { 
+    if (fast === null || fast.next === null) return false;
+    slow = slow.next!;
+    fast = fast.next.next!;
+  }
+  return true;
+};
+
+// @lc code=end
      `
     },
     'index.test.ts': {
       code: `
-        import { hasCycle, ListNode } from ".";
+import { hasCycle, ListNode } from './index.ts';
 
-        describe('listLink hasCycle', () => { 
+describe('listLink hasCycle', () => {
+  it('test_normal_linkList', () => {
+    const head = new ListNode(-1);
+    const node1 = new ListNode(0);
+    const node2 = new ListNode(1);
+    const node3 = new ListNode(2);
+    const node4 = new ListNode(3);
 
-          it('test_normal_linkList', () => { 
-            const head = new ListNode(-1);
-            const node1 = new ListNode(0);
-            const node2 = new ListNode(1);
-            const node3 = new ListNode(2);
-            const node4 = new ListNode(3);
+    head.next = node1;
+    node1.next = node2;
+    node2.next = node3;
+    node3.next = node4;
+    node4.next = node2;
 
-            head.next = node1;
-            node1.next = node2;
-            node2.next = node3;
-            node3.next = node4;
-            node4.next = node2;
+    expect(hasCycle(head)).toBeTruthy();
+  });
 
-            expect(hasCycle(head)).toBeTruthy();
-          })
+  it('test_un_normal_linkList', () => {
+    const head = new ListNode(-1);
+    const node1 = new ListNode(0);
+    const node2 = new ListNode(1);
+    const node3 = new ListNode(2);
+    const node4 = new ListNode(3);
 
-          it('test_un_normal_linkList', () => { 
-            const head = new ListNode(-1);
-            const node1 = new ListNode(0);
-            const node2 = new ListNode(1);
-            const node3 = new ListNode(2);
-            const node4 = new ListNode(3);
+    head.next = node1;
+    node1.next = node2;
+    node2.next = node3;
+    node3.next = node4;
+    expect(hasCycle(head)).toBeFalsy();
+  });
 
-            head.next = node1;
-            node1.next = node2;
-            node2.next = node3;
-            node3.next = node4;
-            expect(hasCycle(head)).toBeFalsy();
-          })
+  it('test_one_linkList', () => {
+    const node1 = new ListNode(0);
+    expect(hasCycle(node1)).toBeFalsy();
+  });
 
-          it('test_one_linkList', () => {
-            const node1 = new ListNode(0);
-            expect(hasCycle(node1)).toBeFalsy();
-          })
-
-          it('test_two_lists_normal_linkList', () => { 
-            const head = new ListNode(-1);
-            const node1 = new ListNode(0);
-            head.next = node1;
-            node1.next = head;
-            expect(hasCycle(head)).toBeTruthy();
-          })
-        })
+  it('test_two_lists_normal_linkList', () => {
+    const head = new ListNode(-1);
+    const node1 = new ListNode(0);
+    head.next = node1;
+    node1.next = head;
+    expect(hasCycle(head)).toBeTruthy();
+  });
+});
       `
     }
   },

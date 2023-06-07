@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SandpackCodeEditor, SandpackFileExplorer } from '@codesandbox/sandpack-react';
 import { autocompletion, completionKeymap } from "@codemirror/autocomplete";
-
+import { oneDarkTheme } from '@codemirror/theme-one-dark'
 import useBrowser from './hooks/useBrowser';
 
 import CodeEditorContext from './CodeEditorContext';
@@ -11,10 +11,12 @@ import { InlineWrapper } from './CodeWrapper';
 
 function CodeEditor({ showLineNumbers }) {
   const browser = useBrowser();
-
   const { codeMirrorGrabberRef, editorWrapperRef } = React.useContext(
     CodeEditorContext
   );
+  const autoConfig = {
+    // to
+  }
 
   return (
     <Wrapper
@@ -30,7 +32,7 @@ function CodeEditor({ showLineNumbers }) {
         ref={codeMirrorGrabberRef}
         wrapContent
         showLineNumbers={showLineNumbers}
-        extensions={[autocompletion()]}
+        extensions={[autocompletion(), ]}
         extensionsKeymap={[completionKeymap]}
       />
     </Wrapper>

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import {
   useActiveCode,
   SandpackPreview,
-  SandpackTests
+  SandpackTests,
+  SandpackFileExplorer
 } from '@codesandbox/sandpack-react';
 
 import { clamp } from '@site/src/utils';
@@ -34,6 +35,7 @@ function BlogUnit({
   minEditorHeight = 190,
   maxEditorHeight = 625,
   isLazy,
+  showplayground,
 }) {
   const [isRenderingPreview, setIsRenderingPreview] = React.useState(
     !isLazy
@@ -81,65 +83,85 @@ function BlogUnit({
           handleToggleFullscreen={toggleFullscreen}
           setEditorKey={setEditorKey}
         />
-        <CodeEditorWrapper style={{ height: editorWrapperHeight }}>
-          <CodeEditor
-            key={editorKey}
-            showLineNumbers={showLineNumbers}
-          />
-        </CodeEditorWrapper>
-        <ResultOuterWrapper>
-          <ResultHeader
-            tabs={resultTabs}
-            activeTab={activeResultTab}
-            handleSelectTab={handleSelectResultTab}
-          />
-          <ResultWrapper
-            style={{
-              '--height':
-                typeof minPreviewHeight === 'number'
-                  ? minPreviewHeight + 'px'
-                  : minPreviewHeight,
-            }}
-          >
-            <RoundedCorners>
+        <CodeLayoutWrapper showplayground={showplayground}>
+          {
+            showplayground ? 
+            <SandpackFileExplorer /> : null
+          }
+          
 
-              {
-                preset === 'testTs' && (
-                  <SandpackTests />
-                )
-              }
+          <CodeEditorWrapper style={{
+            height: editorWrapperHeight,
+            minHeight: showplayground ? 'calc(100vh - 5.75rem)' : '',
+            flex: showplayground ? `1`: '0',
+            borderLeft: showplayground ? `1px solid var(--color-gray-100)`: '0',
+            borderRight: showplayground ? `1px solid var(--color-gray-100)`: '0'
+          }}>
+            <CodeEditor
+              key={editorKey}
+              showLineNumbers={showLineNumbers}
+            />
+          </CodeEditorWrapper>
+          <ResultOuterWrapper>
+            <ResultHeader
+              tabs={resultTabs}
+              activeTab={activeResultTab}
+              handleSelectTab={handleSelectResultTab}
+            />
+            <ResultWrapper
+              style={{
+                '--height':
+                  showplayground ? 'calc(100vh - 8rem)' :
+                    typeof minPreviewHeight === 'number'
+                      ? minPreviewHeight + 'px'
+                      : minPreviewHeight,
+              }}
+            >
+              <RoundedCorners>
+                {
+                  (
+                    preset === 'testTs' || 
+                    preset === 'tsAlgo'
+                  ) && (
+                    <SandpackTests />
+                  )
+                }
 
-              {isRenderingPreview && (
-                <SandpackPreview
-                  showNavigator={false}
-                  showOpenInCodeSandbox={false}
-                  showRefreshButton={false}
-                />
-              )}
+                {isRenderingPreview && (
+                  <SandpackPreview
+                    showNavigator={false}
+                    showOpenInCodeSandbox={false}
+                    showRefreshButton={false}
+                  />
+                )}
 
-              <ConsoleWrapper
-                style={{
-                  '--pointer-events':
-                    activeResultTab === 'console' ? 'auto' : 'none',
-                  '--opacity': activeResultTab === 'console' ? 1 : 0,
-                  '--transition-delay':
-                    activeResultTab === 'console' ? '0ms' : '100ms',
-                  '--child-delay':
-                    activeResultTab === 'console' ? '200ms' : '0ms',
-                }}
-              >
-                <Console />
-              </ConsoleWrapper>
+                <ConsoleWrapper
+                  style={{
+                    '--pointer-events':
+                      activeResultTab === 'console' ? 'auto' : 'none',
+                    '--opacity': activeResultTab === 'console' ? 1 : 0,
+                    '--transition-delay':
+                      activeResultTab === 'console' ? '0ms' : '100ms',
+                    '--child-delay':
+                      activeResultTab === 'console' ? '200ms' : '0ms',
+                  }}
+                >
+                  <Console />
+                </ConsoleWrapper>
 
-              
+                
 
-            </RoundedCorners>
-          </ResultWrapper>
-        </ResultOuterWrapper>
+              </RoundedCorners>
+            </ResultWrapper>
+          </ResultOuterWrapper>
+        </CodeLayoutWrapper>
+        
       </InnerWrapper>
     </CodeEditorProvider>
   );
 }
+
+
 
 const InnerWrapper = React.forwardRef(function InnerWrapper(
   { children },
@@ -194,6 +216,14 @@ function useEditorWrapperHeight(minHeight, maxHeight) {
   // Turn pixels into rems:
   return height / 16 + 'rem';
 }
+
+const CodeLayoutWrapper = styled.div`
+  display: ${p => p.showplayground ? 'flex' : ''};
+  justify-content: ${p => p.showplayground ? 'space-between' : ''};
+  .sp-file-explorer {
+    max-width: 250px;
+  }
+`
 
 const StyledInnerWrapper = styled(Space)`
   --syntax-bg: ${COLORS.syntax.dark.bg};

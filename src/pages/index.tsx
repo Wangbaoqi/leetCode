@@ -46,6 +46,40 @@ function TopBanner() {
   );
 }
 
+function CodeBanner() {
+  
+  return (
+    <div className={styles.topBanner}>
+      <div className={styles.topBannerTitle}>
+        {'🎉\xa0'}
+        <div className={styles.topBannerTitleText}>
+          <Translate id="homepage.banner.launch.2.0">
+            {'Code Playground\xa0 is\xa0living!️'}
+          </Translate>
+        </div>
+        {'\xa0🥳'}
+      </div>
+      <div style={{display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
+        <div style={{flex: 1, whiteSpace: 'nowrap'}}>
+          <div className={styles.topBannerDescription}>
+            online to {' '}
+            <b>
+              <Link to="">
+                typescript
+              </Link>{' '}
+              and{' '}
+              <Link to="">
+                jest
+              </Link>{' '}
+              compile!
+            </b>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HeroBanner() {
   return (
     <div className={styles.hero} data-theme="dark">
@@ -108,9 +142,14 @@ export default function Home(): JSX.Element {
       description="Description will go into a meta tag in <head />">
       <TopBanner />
       <HeroBanner />
-      <main>
-        {/* <HomepageFeatures /> */}
-        {/* <LanguageContent /> */}
+      <main className={styles.main}>
+        <section className={styles.heroInner}>
+          <CodeBanner />
+          <CodeSandpack
+            preset='tsAlgo' id={0}
+            activePath='/index.ts'
+            visibleFiles={["/index.ts", "/index.test.ts"]}/>
+        </section>
 
       </main>
     </Layout>

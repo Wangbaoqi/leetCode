@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sandpack } from "@codesandbox/sandpack-react";
+import { Sandpack, SandpackFileExplorer } from "@codesandbox/sandpack-react";
 import { useFullscreen } from './helpers';
 import SandboxProvider from './SandboxProvider';
 import CodeWrapper from './CodeWrapper';
@@ -14,7 +14,7 @@ return <h1>Hello Sandpack</h1>
   }
   return <Sandpack files={files} />
 }
-
+4.
 const CodeSandpack = ({
   id,
   title,
@@ -33,6 +33,7 @@ const CodeSandpack = ({
   initialTabIndex = 0,
   dependencies = {},
   splitConsole,
+  showplayground,
   ...restProps
 }) => { 
   const [activeResultTab, setActiveResultTab] = React.useState(
@@ -55,7 +56,6 @@ const CodeSandpack = ({
       fullBleed={fullBleed}
       dependencies={dependencies}
     >
-
       <CodeWrapper
         id={id}
         stacked={''}
@@ -74,6 +74,7 @@ const CodeSandpack = ({
           handleSelectResultTab={setActiveResultTab}
           minPreviewHeight={minPreviewHeight}
           isLazy={true}
+          showplayground={showplayground}
           {...restProps}
         />
       </CodeWrapper>

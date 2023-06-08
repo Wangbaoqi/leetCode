@@ -12,41 +12,69 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeSandpack from '@site/src/components/CodeSandpack';
 
+import { exampleCallback } from './index.ts';
+
 
 [leetCode](https://leetcode.cn/problems/swap-nodes-in-pairs/description/)
 
+
+:::info
 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
 
 ```
 输入：
 输入：head = [1,2,3,4]
 输出：[2,1,4,3]
+```
+
+如下图:
+
+```mermaid
+flowchart TB;
+  
+  subgraph after
+  direction LR
+  
+  B1(NodeB) --> A1(NodeA)
+  A1(NodeA) --> D1(NodeD)
+  D1(NodeD) --> C1(NodeC)
+
+  style B1 fill:#f9f,color:#fff
+  style D1 fill:#f9f,color:#fff
+  end
+
+  subgraph before
+  direction LR
+
+  A(NodeA) --> B(NodeB)
+  B(NodeB) --> C(NodeC)
+  C(NodeC) --> D(NodeD)
+
+  end
+
+  style B fill:#f9f,color:#fff
+  style D fill:#f9f,color:#fff
+
+  before ---> after
+
+  
 
 ```
+
+:::
+
+
 
 <CodeSandpack
   id={'20'}
   activePath='/index.ts'
-  visibleFiles={["/index.ts", "/addTwoNumber.test.ts"]}
+  visibleFiles={["/index.ts", "/swapNodeInPair.test.ts"]}
   files={{
     '/index.ts': SourceCode,
-    '/addTwoNumber.test.ts': TestCode
+    '/swapNodeInPair.test.ts': TestCode
   }}
 />
 
-<Tabs>
-<TabItem value="js" label="index.ts">
-
-<CodeBlock language="ts" showLineNumbers>{SourceCode}</CodeBlock>
-
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
-
-<CodeBlock language="js">{TestCode}</CodeBlock>
-
-</TabItem>
-
-</Tabs>
 
 
 

@@ -32,6 +32,10 @@ const config = {
     locales: ['en'],
   },
 
+  markdown: {
+    mermaid: true,
+  },
+
   presets: [
     [
       'classic',
@@ -64,7 +68,10 @@ const config = {
     'docusaurus-plugin-sass'
   ],
 
-  themes: ['@docusaurus/theme-live-codeblock'],
+  themes: [
+    '@docusaurus/theme-live-codeblock',
+    '@docusaurus/theme-mermaid'
+  ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -175,6 +182,14 @@ const config = {
   
         //... other Algolia params
       },
+      mermaid: {
+        // theme: {light: 'forest', dark: 'neutral'},
+        options: {
+          // maxTextSize: 10,
+          startOnLoad: true,
+          securityLevel: 'loose'
+        },
+      }
     }),
 };
 

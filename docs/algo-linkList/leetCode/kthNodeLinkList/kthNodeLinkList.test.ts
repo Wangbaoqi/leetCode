@@ -1,11 +1,7 @@
+import { ListNode, getKthFromEnd } from './index';
 
-import { ListNode, getKthFromEnd } from ".";
-
-
-describe('test getKthFromEnd', () => { 
-
-  it('test_normal_kthFromEnd', () => { 
-
+describe('test getKthFromEnd', () => {
+  it('test_normal_kthFromEnd', () => {
     const head = new ListNode(1);
     const node = new ListNode(2);
     const node1 = new ListNode(3);
@@ -16,5 +12,5 @@ describe('test getKthFromEnd', () => {
     expected.next = node;
 
     expect(getKthFromEnd(head, 3)).toEqual(head);
-  })
-})
+  });
+});

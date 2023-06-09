@@ -8,23 +8,33 @@
 /**
  * Definition for singly-linked list.
  */
-class ListNode {
-  val: number
-  next: ListNode | null
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
-  }
+export class ListNode {
+	val: number;
+	next: ListNode | null;
+	constructor(val?: number, next?: ListNode | null) {
+		this.val = val === undefined ? 0 : val;
+		this.next = next === undefined ? null : next;
+	}
 }
 
 export function swapPairs(head: ListNode | null): ListNode | null {
+	if (head === null || head.next === null) return head;
 
-};
-// @lc code=end
+	const dummy = new ListNode(-1, head);
+	let preNode = dummy;
+	let node = head;
 
+	while (node && node.next !== null) {
+		const nextNode = node.next;
 
+		node.next = nextNode.next;
+		nextNode.next = preNode.next;
+		preNode.next = nextNode;
 
-export function exampleCallback() {
-  console.log('exampleCallback');
-  
+		preNode = node;
+		node = node.next;
+	}
+
+	return dummy.next;
 }
+// @lc code=end

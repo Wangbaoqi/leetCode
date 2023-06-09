@@ -7,28 +7,19 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
 export function deleteDuplicates(head: ListNode | null): ListNode | null {
-
   if (head === null) return null;
-  
+
   if (head.next === null) return head;
 
   const dummy = head;
@@ -37,9 +28,7 @@ export function deleteDuplicates(head: ListNode | null): ListNode | null {
   let fast = dummy.next;
 
   while (fast !== null) {
-
     if (slow.val === fast.val) {
-
       fast = fast.next;
       continue;
     }
@@ -49,9 +38,8 @@ export function deleteDuplicates(head: ListNode | null): ListNode | null {
     fast = fast.next;
   }
 
-  slow.next = fast
+  slow.next = fast;
 
   return dummy;
-};
+}
 // @lc code=end
-

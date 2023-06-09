@@ -1,9 +1,7 @@
+import { ListNode, detectCycle, detectCycleI } from './index';
 
-import { ListNode, detectCycle, detectCycleI } from "."; 
-
-describe("test_detect_Cycle_ListNode", () => { 
-
-  it('test_normal_cycle_list_node', () => { 
+describe('test_detect_Cycle_ListNode', () => {
+  it('test_normal_cycle_list_node', () => {
     const node = new ListNode(1);
     const node1 = new ListNode(2);
     const node2 = new ListNode(3);
@@ -18,7 +16,7 @@ describe("test_detect_Cycle_ListNode", () => {
 
     expect(detectCycle(node)).toEqual(node2);
     expect(detectCycleI(node)).toEqual(node2);
-  })
+  });
 
   it('test_un_normal_circle_linkList', () => {
     const node = new ListNode(1);
@@ -34,13 +32,13 @@ describe("test_detect_Cycle_ListNode", () => {
 
     expect(detectCycle(node)).toBeNull();
     expect(detectCycleI(node)).toBeNull();
-  })
+  });
 
-  it('test_one_un_circle_linkList', () => { 
+  it('test_one_un_circle_linkList', () => {
     const node = new ListNode(1);
     expect(detectCycle(node)).toBeNull();
     expect(detectCycleI(node)).toBeNull();
-  })
+  });
 
   it('test_two_node_circle_linklist', () => {
     const node = new ListNode(1);
@@ -49,6 +47,5 @@ describe("test_detect_Cycle_ListNode", () => {
     node1.next = node;
     expect(detectCycle(node)).toEqual(node);
     expect(detectCycleI(node)).toEqual(node);
-
-  })
-})
+  });
+});

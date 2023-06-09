@@ -10,19 +10,46 @@ import TestCode from '!!raw-loader!./reverseLinkListII.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
 
 [leetCode](https://leetcode.cn/problems/reverse-linked-list-ii/)
 
-<Tabs>
-<TabItem value="js" label="index.ts">
 
-<CodeBlock language="jsx" showLineNumbers metastring="2">{SourceCode}</CodeBlock>
+:::info
+给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
 
-</TabItem>
-<TabItem value="js1" label="reverseSingleList.test">
+```mermaid
+flowchart TB;
+  
+  subgraph before
+  direction LR
+  a(1) --> b(2) --> c(3) --> d(4) --> e(5) 
+  style b fill:#f9f,color:#fff
+  style c fill:#f9f,color:#fff
+  style d fill:#f9f,color:#fff
 
-<CodeBlock language="jsx">{TestCode}</CodeBlock>
+  end
 
-</TabItem>
+  subgraph after
+  direction LR
+  a1(1) --> b1(4) --> c1(3) --> d1(2) --> e1(5)
+  style b1 fill:#f9f,color:#fff
+  style c1 fill:#f9f,color:#fff
+  style d1 fill:#f9f,color:#fff
+  end
 
-</Tabs>
+  before ---> after
+  
+```
+:::
+
+
+<CodeSandpack
+  id={'20'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/reverseLinkListII.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/reverseLinkListII.test.ts': TestCode
+  }}
+/>

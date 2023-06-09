@@ -7,32 +7,23 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
 export function rotateRight(head: ListNode | null, k: number): ListNode | null {
-
   if (k === 0) return head;
-  
+
   let sum = 0;
 
-  for (let node = head; node !== null; node = node.next) { 
+  for (let node = head; node !== null; node = node.next) {
     sum++;
   }
 
@@ -46,12 +37,11 @@ export function rotateRight(head: ListNode | null, k: number): ListNode | null {
   }
 
   return node;
-};
+}
 
-function reverseLinkList(head: ListNode | null): ListNode | null { 
+function reverseLinkList(head: ListNode | null): ListNode | null {
+  if (head === null || head.next === null) return head;
 
-  if(head === null || head.next === null) return head;
-  
   const dummy = new ListNode(-1, head);
 
   let slow = head;
@@ -67,7 +57,5 @@ function reverseLinkList(head: ListNode | null): ListNode | null {
   dummy.next = fast;
 
   return dummy.next;
-
 }
 // @lc code=end
-

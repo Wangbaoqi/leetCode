@@ -7,26 +7,20 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
-export function deleteNode(head: ListNode | null, val: number): ListNode | null {
-  
+export function deleteNode(
+  head: ListNode | null,
+  val: number
+): ListNode | null {
   if (head === null || head.next === null) return head;
 
   const dummy = new ListNode(-1, head);
@@ -35,8 +29,7 @@ export function deleteNode(head: ListNode | null, val: number): ListNode | null 
   let fast = slow.next;
 
   while (fast !== null) {
-    
-    if (fast.val === val) { 
+    if (fast.val === val) {
       slow.next = fast.next;
       break;
     }
@@ -45,4 +38,4 @@ export function deleteNode(head: ListNode | null, val: number): ListNode | null 
   }
 
   return dummy.next;
-};
+}

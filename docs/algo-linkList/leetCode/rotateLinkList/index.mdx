@@ -10,20 +10,34 @@ import TestCode from '!!raw-loader!./rotateLinkList.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
 
 [leetCode](https://leetcode.cn/problems/rotate-list/)
 
 
-<Tabs>
-<TabItem value="js" label="index.ts">
+:::info
+给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
 
-<CodeBlock language="jsx" showLineNumbers metastring="2">{SourceCode}</CodeBlock>
 
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
+```mermaid
+flowchart LR;
+  
+  a(1) --> b(2) --> c(3) --> d(4)
 
-<CodeBlock language="jsx">{TestCode}</CodeBlock>
+  a1(4) --> b1(1) --> c1(2) --> d1(3)
 
-</TabItem>
+  a2(3) --> b2(4) --> c2(1) --> d2(2)
 
-</Tabs>
+```
+:::
+
+
+<CodeSandpack
+  id={'20'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/rotateLinkList.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/rotateLinkList.test.ts': TestCode
+  }}
+/>

@@ -1,7 +1,6 @@
-import { MyHashSet } from '.';
+import { MyHashSet } from './index';
 
-describe('test MyHashSet', () => { 
-
+describe('test MyHashSet', () => {
   it('test_hashSet_operator_add_container', () => {
     const hashSet = new MyHashSet();
     hashSet.add(1);
@@ -9,7 +8,6 @@ describe('test MyHashSet', () => {
 
     hashSet.add(2);
     expect(hashSet.contains(2)).toBeTruthy();
-
   });
 
   it('test_hashSet_operator_add_remove', () => {
@@ -20,6 +18,4 @@ describe('test MyHashSet', () => {
     hashSet.remove(1);
     expect(hashSet.contains(1)).toBeFalsy();
   });
-
-})
-
+});

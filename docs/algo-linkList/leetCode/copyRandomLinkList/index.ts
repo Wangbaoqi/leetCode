@@ -7,37 +7,26 @@
 // @lc code=start
 /**
  * Definition for Node.
- * class Node {
- *     val: number
- *     next: Node | null
- *     random: Node | null
- *     constructor(val?: number, next?: Node, random?: Node) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *         this.random = (random===undefined ? null : random)
- *     }
- * }
  */
 export class ListNode {
-  val: number
-  next: ListNode | null
-  random: ListNode | null
+  val: number;
+  next: ListNode | null;
+  random: ListNode | null;
   constructor(val?: number, next?: ListNode, random?: ListNode) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
-    this.random = (random===undefined ? null : random)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+    this.random = random === undefined ? null : random;
   }
 }
 
 export function copyRandomList(head: ListNode | null): ListNode | null {
-
   if (head === null) return null;
 
   // console.log(head);
-  
+
   // first step
-  // copy the copy each node 
-  for (let node = head; node !== null; node = node.next!.next!) { 
+  // copy the copy each node
+  for (let node = head; node !== null; node = node.next!.next!) {
     node.next = new ListNode(node.val, node.next!);
   }
 
@@ -45,7 +34,8 @@ export function copyRandomList(head: ListNode | null): ListNode | null {
   // copy the random node
   for (let node = head; node !== null; node = node.next!.next!) {
     const nodeNew = node.next;
-    if (nodeNew) nodeNew.random = node.random !== null ? node.random.next : null;
+    if (nodeNew)
+      nodeNew.random = node.random !== null ? node.random.next : null;
   }
 
   // third step
@@ -56,12 +46,11 @@ export function copyRandomList(head: ListNode | null): ListNode | null {
     const nodeNew = node.next;
     node.next = node.next !== null ? node.next.next : null;
     if (nodeNew) {
-      nodeNew.next = nodeNew.next !== null ?  nodeNew.next!.next! : null;
+      nodeNew.next = nodeNew.next !== null ? nodeNew.next!.next! : null;
     }
   }
   // console.log(headNew);
-  
-  return headNew
-};
-// @lc code=end
 
+  return headNew;
+}
+// @lc code=end

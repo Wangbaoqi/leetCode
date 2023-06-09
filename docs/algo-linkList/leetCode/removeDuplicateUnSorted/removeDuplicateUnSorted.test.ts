@@ -1,21 +1,17 @@
+import { ListNode, removeDuplicateNodes } from './index';
 
-import { ListNode, removeDuplicateNodes } from '.'
-
-
-describe('test removeDuplicateNodes unSortable', () => { 
-
+describe('test removeDuplicateNodes unSortable', () => {
   it('test_duplicate_nodes', () => {
-
     const head = new ListNode(1);
     const node = new ListNode(2);
     const node1 = new ListNode(3);
     const node2 = new ListNode(2);
     const node3 = new ListNode(1);
-    
+
     head.next = node;
     node.next = node1;
     node1.next = node2;
-    node2.next = node3
+    node2.next = node3;
 
     const expected = head;
     expected.next = node;
@@ -31,11 +27,11 @@ describe('test removeDuplicateNodes unSortable', () => {
     const node1 = new ListNode(1);
     const node2 = new ListNode(1);
     const node3 = new ListNode(2);
-    
+
     head.next = node;
     node.next = node1;
     node1.next = node2;
-    node2.next = node3
+    node2.next = node3;
 
     const expected = head;
     expected.next = node3;
@@ -43,5 +39,4 @@ describe('test removeDuplicateNodes unSortable', () => {
 
     expect(removeDuplicateNodes(head)).toEqual(expected);
   });
-
-})
+});

@@ -7,28 +7,22 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-      this.val = (val===undefined ? 0 : val)
-      this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
-export function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
-
+export function getIntersectionNode(
+  headA: ListNode | null,
+  headB: ListNode | null
+): ListNode | null {
   if (headA === null || headB === null) return null;
-  
+
   let nodeA = headA;
   let nodeB = headB;
 
@@ -36,8 +30,7 @@ export function getIntersectionNode(headA: ListNode | null, headB: ListNode | nu
     nodeA = nodeA !== null ? nodeA.next! : headB;
     nodeB = nodeB !== null ? nodeB.next! : headA;
   }
-  
-  return nodeA
-};
-// @lc code=end
 
+  return nodeA;
+}
+// @lc code=end

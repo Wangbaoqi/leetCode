@@ -10,20 +10,42 @@ import TestCode from '!!raw-loader!./removeDuplicateSorted.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
 
 [leetCode](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/)
 
+:::info
+给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
 
-<Tabs>
-<TabItem value="js" label="index.ts">
+```mermaid
+flowchart TB;
+  
+  subgraph input
+  direction LR
+  
+  B1(1) --> A1(1) --> D1(2)
+  end
 
-<CodeBlock language="jsx" showLineNumbers metastring="2">{SourceCode}</CodeBlock>
+  subgraph result
+  direction LR
 
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
+  A(1) --> B(2)
+  end
 
-<CodeBlock language="jsx">{TestCode}</CodeBlock>
+  input ---> result
+  
+```
+:::
 
-</TabItem>
 
-</Tabs>
+<CodeSandpack
+  id={'20'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/removeDuplicateSorted.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/removeDuplicateSorted.test.ts': TestCode
+  }}
+/>
+

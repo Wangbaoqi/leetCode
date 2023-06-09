@@ -57,4 +57,3 @@ export class MyHashSet {
  * var param_3 = obj.contains(key)
  */
 // @lc code=end
-

@@ -7,27 +7,18 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
 export function deleteDuplicates(head: ListNode | null): ListNode | null {
-
   if (head === null || head.next === null) return head;
 
   const dummy = new ListNode(-1, head);
@@ -36,13 +27,11 @@ export function deleteDuplicates(head: ListNode | null): ListNode | null {
   let fastNode = head.next;
 
   while (fastNode !== null) {
-    
     if (slowNode.val !== fastNode.val) {
       fastNode = fastNode.next!;
       slowNode = slowNode.next!;
       preNode = preNode.next!;
     } else {
-      
       while (fastNode && slowNode.val === fastNode.val) {
         fastNode = fastNode.next!;
       }
@@ -53,7 +42,6 @@ export function deleteDuplicates(head: ListNode | null): ListNode | null {
     }
   }
 
-  return dummy.next
-};
+  return dummy.next;
+}
 // @lc code=end
-

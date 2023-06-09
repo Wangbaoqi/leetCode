@@ -7,27 +7,18 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
 export function detectCycle(head: ListNode | null): ListNode | null {
-
   if (head === null || head.next === null) return null;
 
   let slow = head;
@@ -35,7 +26,7 @@ export function detectCycle(head: ListNode | null): ListNode | null {
 
   while (fast !== null) {
     if (fast.next === null) return null;
-    
+
     slow = slow.next!;
     fast = fast.next.next!;
 
@@ -45,23 +36,21 @@ export function detectCycle(head: ListNode | null): ListNode | null {
         slow = slow.next!;
         curNode = curNode.next!;
       }
-      return slow
+      return slow;
     }
   }
 
   return null;
-};
+}
 // @lc code=end
 
-
 export const detectCycleI = (head: ListNode | null): ListNode | null => {
-
   if (head == null || head.next === null) return null;
 
   let slow = head;
   let fast = head;
 
-  while (true) { 
+  while (true) {
     if (fast == null || fast.next === null) return null;
 
     slow = slow.next!;
@@ -78,5 +67,4 @@ export const detectCycleI = (head: ListNode | null): ListNode | null => {
   }
 
   return slow;
-
-}
+};

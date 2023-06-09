@@ -7,27 +7,18 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-      this.val = (val===undefined ? 0 : val)
-      this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
 export function palindromeLink(head: ListNode | null): boolean {
-
   if (head == null || head.next === null) return true;
 
   const firstHalfLink = getMiddleNode(head)!;
@@ -37,7 +28,7 @@ export function palindromeLink(head: ListNode | null): boolean {
   let node2 = secondHalfLink;
   let result = true;
 
-  while (node1 !== null && node2 !== null) { 
+  while (node1 !== null && node2 !== null) {
     if (node1.val !== node2.val) result = false;
     node1 = node1.next!;
     node2 = node2.next!;
@@ -45,10 +36,8 @@ export function palindromeLink(head: ListNode | null): boolean {
 
   firstHalfLink.next = reverseLink(secondHalfLink);
   return result;
-
-};
+}
 // @lc code=end
-
 
 function reverseLink(head: ListNode | null): ListNode | null {
   if (head == null || head.next === null) return head;
@@ -59,7 +48,6 @@ function reverseLink(head: ListNode | null): ListNode | null {
   let fast = head.next;
 
   while (fast !== null) {
-
     slow.next = fast.next;
     fast.next = dummy.next;
     dummy.next = fast;
@@ -69,9 +57,7 @@ function reverseLink(head: ListNode | null): ListNode | null {
   return dummy && dummy.next;
 }
 
-
-function getMiddleNode(head: ListNode | null): ListNode | null { 
-
+function getMiddleNode(head: ListNode | null): ListNode | null {
   if (head == null || head.next === null) return head;
 
   let slow = head;

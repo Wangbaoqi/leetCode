@@ -10,20 +10,37 @@ import TestCode from '!!raw-loader!./middleLinkList.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
 
 [leetCode](https://leetcode.cn/problems/middle-of-the-linked-list/)
 
+:::info
+给你单链表的头结点 head ，请你找出并返回链表的中间结点。
 
-<Tabs>
-<TabItem value="js" label="index.ts">
+如果有两个中间结点，则返回第二个中间结点。
 
-<CodeBlock language="jsx" showLineNumbers>{SourceCode}</CodeBlock>
+```mermaid
+flowchart LR;
 
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
+  subgraph case1
+  direction LR
+  A(1) --> B(2) --> C(middle) --> D(5)
+  end
 
-<CodeBlock language="jsx">{TestCode}</CodeBlock>
+  subgraph case2
+  direction LR
+  A1(1) --> B1(2) --> C1(middle) --> D1(5) --> E1(6)
+  end
+```
+:::
 
-</TabItem>
 
-</Tabs>
+<CodeSandpack
+  id={'2'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/middleLinkList.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/middleLinkList.test.ts': TestCode
+  }}
+/>

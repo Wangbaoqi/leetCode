@@ -14,6 +14,44 @@ import CodeSandpack from '@site/src/components/CodeSandpack';
 
 [leetCode](https://leetcode.cn/problems/add-two-numbers/)
 
+:::info
+给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+
+请你将两个数相加，并以相同形式返回一个表示和的链表。
+
+你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+```mermaid
+flowchart TB;
+  
+  subgraph one
+  direction LR
+  
+  B1(2) --> A1(4)
+  A1(4) --> D1(3)
+
+  end
+
+  subgraph two
+  direction LR
+  
+  B(5) --> A(6)
+  A(6) --> D(4)
+
+  end
+
+  subgraph three
+  direction RL
+
+  A2(7) --> B2(0)
+  B2(0) --> C2(8)
+
+  end
+
+  one---|+|two--->three
+```
+:::
+
 
 <CodeSandpack
   id={'2'}

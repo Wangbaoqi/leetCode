@@ -1,11 +1,7 @@
+import { ListNode, deleteNode } from './index';
 
-import { ListNode, deleteNode } from ".";
-
-
-describe('test deleteNode', () => { 
-
-  it('test_normal_deleteNode', () => { 
-
+describe('test deleteNode', () => {
+  it('test_normal_deleteNode', () => {
     const head = new ListNode(1);
     const node = new ListNode(2);
     const node1 = new ListNode(3);
@@ -17,6 +13,5 @@ describe('test deleteNode', () => {
     expected.next = node1;
 
     expect(deleteNode(head)).toEqual(expected);
-
-  })
-})
+  });
+});

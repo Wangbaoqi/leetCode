@@ -1,10 +1,7 @@
-
 import { ListNode, getIntersectionNode } from './index';
 
-describe('test intersection LinkList', () => { 
-
+describe('test intersection LinkList', () => {
   it('test_has_intersection_node', () => {
-
     const head = new ListNode(1);
     const head1 = new ListNode(9);
 
@@ -17,18 +14,18 @@ describe('test intersection LinkList', () => {
     head.next = node;
     node.next = node1;
     node1.next = node2;
-    node2.next = node3
+    node2.next = node3;
 
     head1.next = node4;
     node4.next = node;
     node.next = node1;
     node1.next = node2;
-    node2.next = node3
+    node2.next = node3;
 
     expect(getIntersectionNode(head, head1)).toEqual(node);
   });
 
-  it('test_has_no_intersection', () => { 
+  it('test_has_no_intersection', () => {
     const head = new ListNode(1);
     const head1 = new ListNode(9);
 
@@ -41,9 +38,9 @@ describe('test intersection LinkList', () => {
     head.next = node;
     node.next = node1;
     node1.next = node2;
-    node2.next = node3
+    node2.next = node3;
 
     head1.next = node4;
     expect(getIntersectionNode(head, head1)).toEqual(null);
-  })
-})
+  });
+});

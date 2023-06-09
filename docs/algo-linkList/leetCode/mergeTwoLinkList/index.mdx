@@ -10,21 +10,44 @@ import TestCode from '!!raw-loader!./mergeTwoLinkList.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
 
 [leetCode](https://leetcode.cn/problems/merge-two-sorted-lists/)
 
 
-<Tabs>
-<TabItem value="js" label="index.ts">
+:::info
 
-<CodeBlock language="jsx" showLineNumbers metastring="2">{SourceCode}</CodeBlock>
+将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
 
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
+```mermaid
+flowchart LR;
 
-<CodeBlock language="jsx">{TestCode}</CodeBlock>
+  subgraph node1
+  direction LR
+  A(1) --> B(2) --> C(4) 
+  end
 
-</TabItem>
+  subgraph node2
+  direction LR
+  A1(1) --> B1(3) --> C1(4) 
+  end
 
-</Tabs>
+  subgraph node3
+  direction LR
+  A2(1) --> A3(1) --> B2(2) --> C2(3) --> C3(4)  --> C4(4)
+  end
 
+  node1-- merge ---node2 ---> node3
+  
+```
+:::
+
+<CodeSandpack
+  id={'2'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/mergeTwoLinkList.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/mergeTwoLinkList.test.ts': TestCode
+  }}
+/>

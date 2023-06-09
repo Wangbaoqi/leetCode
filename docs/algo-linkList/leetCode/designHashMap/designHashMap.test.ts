@@ -1,7 +1,6 @@
-import { MyHashMap } from '.';
+import { MyHashMap } from './index';
 
-describe('test MyHashSet', () => { 
-
+describe('test MyHashSet', () => {
   it('test_hashSet_operator_add_container', () => {
     const hashSet = new MyHashMap();
     hashSet.put(1, 1);
@@ -11,7 +10,6 @@ describe('test MyHashSet', () => {
     hashSet.put(1, 3);
     expect(hashSet.get(2)).toBe(1);
     expect(hashSet.get(1)).toBe(3);
-
   });
 
   it('test_hashSet_operator_put_remove', () => {
@@ -23,8 +21,5 @@ describe('test MyHashSet', () => {
     expect(hashSet.get(1)).toBe(3);
     hashSet.remove(1);
     expect(hashSet.get(1)).toBe(-1);
-
   });
-
-})
-
+});

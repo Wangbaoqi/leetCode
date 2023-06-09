@@ -7,52 +7,47 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
-export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
-
+export function removeNthFromEnd(
+  head: ListNode | null,
+  n: number
+): ListNode | null {
   const dummy = new ListNode(-1);
   dummy.next = head;
 
   let num = 0;
 
-  for (let node = head; node !== null; node = node.next) { 
+  for (let node = head; node !== null; node = node.next) {
     num++;
   }
 
-  for (let i = 0, node = dummy; node !== null; node = node.next!, i++) { 
-
+  for (let i = 0, node = dummy; node !== null; node = node.next!, i++) {
     if (num - n == i) {
       node.next = node.next !== null ? node.next.next : null;
       break;
     }
   }
-  
+
   return dummy.next;
-};
+}
 // @lc code=end
 
 // Traversal once
 
-export const removeNthFromEndII = (head: ListNode | null, n: number): ListNode | null => { 
-
+export const removeNthFromEndII = (
+  head: ListNode | null,
+  n: number
+): ListNode | null => {
   const dummy = new ListNode(-1, head);
 
   let slow = dummy;
@@ -63,7 +58,7 @@ export const removeNthFromEndII = (head: ListNode | null, n: number): ListNode |
     n--;
   }
 
-  while (fast !== null) { 
+  while (fast !== null) {
     slow = slow.next!;
     fast = fast.next!;
   }
@@ -71,5 +66,4 @@ export const removeNthFromEndII = (head: ListNode | null, n: number): ListNode |
   slow.next = slow.next !== null ? slow.next.next : null;
 
   return dummy.next;
-}
-
+};

@@ -1,8 +1,6 @@
+import { ListNode, middleNode, middleNodeI } from './index';
 
-import { ListNode, middleNode, middleNodeI } from '.';
-
-describe('test middleNode', () => { 
-
+describe('test middleNode', () => {
   it('test_odd_node_linkList', () => {
     const head = new ListNode(1);
     const node = new ListNode(2);
@@ -34,8 +32,8 @@ describe('test middleNode', () => {
     expect(middleNodeI(head)).toEqual(node2);
   });
 
-  it('test_one_node_linkList', () => { 
+  it('test_one_node_linkList', () => {
     const head = new ListNode(1);
     expect(middleNodeI(head)).toEqual(head);
-  })
-})
+  });
+});

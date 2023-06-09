@@ -1,10 +1,6 @@
+import { ListNode, copyRandomList } from './index';
 
-import { ListNode, copyRandomList } from '.';
-
-
-
-describe('test_copyRandomList', () => { 
-
+describe('test_copyRandomList', () => {
   it('test_copy_random_list_all_random_null', () => {
     const head = new ListNode(1);
     const node1 = new ListNode(2);
@@ -16,7 +12,7 @@ describe('test_copyRandomList', () => {
     expect(copyRandomList(head)).toEqual(head);
   });
 
-  it('test_copy_random_list_has_random', () => { 
+  it('test_copy_random_list_has_random', () => {
     const head = new ListNode(1);
     const node1 = new ListNode(2);
     const node2 = new ListNode(3);
@@ -26,6 +22,5 @@ describe('test_copyRandomList', () => {
     node1.next = node2;
     node1.random = head;
     expect(copyRandomList(head)).toEqual(head);
-
-  })
-})
+  });
+});

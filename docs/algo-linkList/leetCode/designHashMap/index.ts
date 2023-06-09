@@ -13,8 +13,8 @@ export class MyHashMap {
     this.data = new Array(this.BASE).fill(0).map(() => new Array());
   }
 
-  hash(key: number): number { 
-    return key % this.BASE
+  hash(key: number): number {
+    return key % this.BASE;
   }
 
   put(key: number, value: number): void {
@@ -43,7 +43,7 @@ export class MyHashMap {
     for (const el of it) {
       const id = it.indexOf(el);
       if (el[0] === key) {
-        it.splice(id, 1)
+        it.splice(id, 1);
         return;
       }
     }

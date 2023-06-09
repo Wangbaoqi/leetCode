@@ -7,22 +7,14 @@
 // @lc code=start
 /**
  * Definition for singly-linked list.
- * class ListNode {
- *     val: number
- *     next: ListNode | null
- *     constructor(val?: number, next?: ListNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.next = (next===undefined ? null : next)
- *     }
- * }
  */
 
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-      this.val = (val===undefined ? 0 : val)
-      this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 export function getDecimalValue(head: ListNode | null): number {
@@ -30,10 +22,9 @@ export function getDecimalValue(head: ListNode | null): number {
 
   let ans = 0;
   while (node) {
-    ans = ans * 2 + node.val
-    node = node.next
+    ans = ans * 2 + node.val;
+    node = node.next;
   }
   return ans;
-};
+}
 // @lc code=end
-

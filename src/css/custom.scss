@@ -325,15 +325,14 @@ hr {
 		margin: 20px 0;
 		width: 100%;
 
-		thead tr {
-			background-color: var(--divider);
-			border: 0;
-		}
+		// thead tr {
+		// 	background-color: var(--divider);
+		// 	border: 0;
+		// }
 
 		tr th {
 			text-transform: uppercase;
-			padding: 6px 10px;
-			font-size: 0.7rem;
+			font-size: 0.9rem;
 			text-align: left;
 		}
 

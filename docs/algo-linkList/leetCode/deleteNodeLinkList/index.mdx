@@ -10,22 +10,41 @@ import TestCode from '!!raw-loader!./deleteNodeLinkList.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
 
 [leetCode](https://leetcode.cn/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
 
 类似的题 [移除链表元素](https://leetcode.cn/problems/remove-linked-list-elements/description/)
 
+:::info
 
-<Tabs>
-<TabItem value="js" label="index.ts">
+给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
 
-<CodeBlock language="jsx" showLineNumbers metastring="2">{SourceCode}</CodeBlock>
+```mermaid
+flowchart TB;
 
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
+  subgraph before
+  direction LR
+  A(1) --> B(2) --> C(6) --> D(3) --> E(4) --> F(5) --> G(6)
+  end
 
-<CodeBlock language="jsx">{TestCode}</CodeBlock>
+  subgraph after
+  direction LR
+  A1(1) --> B1(2) --> C1(3) --> D1(4) --> E1(5)
+  end
 
-</TabItem>
+  before --> after
 
-</Tabs>
+```
+:::
+
+<CodeSandpack
+  id={'2'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/deleteNodeLinkList.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/deleteNodeLinkList.test.ts': TestCode
+  }}
+/>

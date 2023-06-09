@@ -10,8 +10,12 @@ import TestCode from '!!raw-loader!./designHashMap.test';
 import SourceCode from '!!raw-loader!./index.ts';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
 
 [leetCode](https://leetcode.cn/problems/design-hashmap/)
+
+:::info
 
 不使用任何内建的哈希表库设计一个哈希映射（HashMap）。
 
@@ -40,20 +44,15 @@ myHashMap.get(2);    // 返回 1 ，myHashMap 现在为 [[1,1], [2,1]]
 myHashMap.remove(2); // 删除键为 2 的数据，myHashMap 现在为 [[1,1]]
 myHashMap.get(2);    // 返回 -1（未找到），myHashMap 现在为 [[1,1]]
 ```
-
-<Tabs>
-<TabItem value="js" label="index.ts">
-
-<CodeBlock language="ts" showLineNumbers>{SourceCode}</CodeBlock>
-
-</TabItem>
-<TabItem value="js1" label="addTwoNumber.test">
-
-<CodeBlock language="js">{TestCode}</CodeBlock>
-
-</TabItem>
-
-</Tabs>
+:::
 
 
-
+<CodeSandpack
+  id={'2'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/designHashMap.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/designHashMap.test.ts': TestCode
+  }}
+/>

@@ -1,0 +1,137 @@
+---
+sidebar_position: 21
+---
+
+
+# 排序链表
+
+import CodeBlock from '@theme/CodeBlock';
+import TestCode from '!!raw-loader!./sortLinkList.test';
+import SourceCode from '!!raw-loader!./index.ts';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
+
+[leetCode](https://leetcode.cn/problems/sort-list/)
+
+
+:::info
+给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+
+```
+输入：
+输入：head = [1,2,3,4]
+输出：[2,1,4,3]
+```
+
+如下图:
+
+```mermaid
+flowchart TB;
+  
+  subgraph before
+  direction LR
+  A(4) --> B(2) --> C(1) --> D(3)
+  end
+
+  subgraph after
+  direction LR
+  A1(1) --> B1(2) --> C1(3) --> D1(4)
+  end
+
+  before ---> after
+  
+```
+
+:::
+
+## 自顶向下归并排序
+
+**排序过程：**
+
+1. 找到链表的中间节点，拆分成两个子链表。拆分方法可见[链表的中间节点](/docs/algo-linkList/leetCode/middleLinkList/)
+2. 对两个子链表分别排序
+3. 排序后的链表进行合并。合并方法可见[合并两个有序的链表](docs/algo-linkList/leetCode/mergeTwoLinkList/)
+
+**递归的图示：**
+
+```mermaid
+flowchart TB;
+  
+  subgraph all
+  direction LR:
+  as(1) --> bs(5) --> cs(3) --> ds(4) --> es(0)
+  end
+
+  subgraph left
+  direction LR:
+  as1(1) --> bs1(5) --> cs1(3) 
+  end
+
+  subgraph right
+  direction LR
+  ds1(4) --> es1(0)
+  end
+
+  all ---> left
+  all ---> right
+
+  subgraph left11
+  direction LR:
+  as11(1) --> bs11(5)
+  end
+  
+  subgraph left12
+  direction LR:
+  cs11(3) 
+  end
+
+  left ---> left11
+  left ---> left12
+
+  subgraph left111
+  direction LR:
+  as111(1)
+  end
+
+  subgraph right111
+  direction LR:
+  as112(5)
+  end
+
+  left11 ---> left111
+  left11 ---> right111
+
+  subgraph right11
+  direction LR
+  ds12(4) 
+  end
+  
+  subgraph right12
+  direction LR
+  es12(0)
+  end
+
+  right ---> right11
+  right ---> right12
+ 
+```
+
+上图展示了*递*的过程，而在*归*的过程则是合并链表
+
+
+<CodeSandpack
+  id={'20'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/sortLinkList.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/sortLinkList.test.ts': TestCode
+  }}
+/>
+
+
+
+
+

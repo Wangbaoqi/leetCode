@@ -1,4 +1,6 @@
 import { ListNode, sortList } from './index';
+import { sortListII } from './second';
+
 
 const printLink = (head: ListNode | null): number[] => {
   const res: number[] = [];

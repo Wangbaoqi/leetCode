@@ -17,12 +17,11 @@ class ListNode {
   }
 }
 export function sortListII(head: ListNode | null): ListNode | null {
-
   if (head === null) return head;
 
   let length = 0;
   let node = head;
-  while (node !== null) { 
+  while (node !== null) {
     length++;
     node = node.next;
   }
@@ -30,13 +29,13 @@ export function sortListII(head: ListNode | null): ListNode | null {
   const dummy = new ListNode(-1, head);
 
   for (let sub = 1; sub < length; sub <<= 1) {
-    
     let prev = dummy;
     let curr = dummy.next;
 
-    while (curr !== null) { 
+    while (curr !== null) {
       let head1 = curr;
 
+      // handle h1 linkList
       for (let i = 1; i < sub && curr.next; i++) {
         curr = curr.next;
       }
@@ -45,7 +44,7 @@ export function sortListII(head: ListNode | null): ListNode | null {
       curr.next = null;
       curr = head2;
       for (let i = 1; i < sub && curr != null && curr.next != null; i++) {
-        curr = curr.next        
+        curr = curr.next;
       }
 
       let next = null;
@@ -56,17 +55,14 @@ export function sortListII(head: ListNode | null): ListNode | null {
       let merged = mergeList(head1, head2);
       prev.next = merged;
       while (prev.next != null) {
-        prev = prev.next
+        prev = prev.next;
       }
-      curr = next
+      curr = next;
     }
   }
 
-  return dummy.next
-
+  return dummy.next;
 }
-
-
 
 const mergeList = (left: ListNode | null, right: ListNode | null) => {
   const dummy = new ListNode(-1);

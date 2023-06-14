@@ -125,9 +125,10 @@ flowchart TB;
 <CodeSandpack
   id={'20'}
   activePath='/index.ts'
-  visibleFiles={["/index.ts", "/sortLinkList.test.ts"]}
+  visibleFiles={["/index.ts", "/second.ts", "/sortLinkList.test.ts"]}
   files={{
     '/index.ts': SourceCode,
+    '/second.ts': SourceCodeI,
     '/sortLinkList.test.ts': TestCode
   }}
 />
@@ -164,7 +165,7 @@ flowchart TB;
     a2(1) --> b2(3) --> c2(4) --> d2(5) ---|sort| e2(0)
   end
 
-  subgraph D [subLength = 4]
+  subgraph D [subLength = 8]
     a3(0) --> b3(1) --> c3(3) --> d3(4) --> e3(5)
   end
 
@@ -173,8 +174,9 @@ flowchart TB;
 <CodeSandpack
   id={'20'}
   activePath='/second.ts'
-  visibleFiles={["/second.ts", "/sortLinkList.test.ts"]}
+  visibleFiles={["/second.ts", "/index.ts", "/sortLinkList.test.ts"]}
   files={{
+    '/index.ts': SourceCode,
     '/second.ts': SourceCodeI,
     '/sortLinkList.test.ts': TestCode
   }}

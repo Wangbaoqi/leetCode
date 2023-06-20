@@ -94,7 +94,7 @@ function bSearch(arr, low, high, target) {
 }
 ```
 
-模板一也是最基本的二分法查找方式，这里有几个重点，查找区间`[low, high] `闭区间 和 循环条件 `while(low <= high)`以及 `mid + 1 `或者 `mid - 1`。
+模板一也是最基本的二分法查找方式，这里有几个重点，查找区间`[low, high]`闭区间 和 循环条件 `while(low <= high)`以及 `mid + 1 `或者 `mid - 1`。
 
 1.  查找区间为闭区间，也就是`arr.length - 1`
 2.  循环条件为 `low <= high`，如果条件为 `low < high`，其结束循环条件为`low = high`，那么如果当`low =   mid + 1 `或者 `high = mid - 1`的值等于 `low == high`，则就找不到正确的结果
@@ -102,11 +102,11 @@ function bSearch(arr, low, high, target) {
 
 ### 基本框架的题目
 
-* [35. 搜索插入位置](/posts/algorithm/day/bianarysearch/searchInsert)
-* [69. x 的平方根](/posts/algorithm/day/bianarysearch/sqrtx)
-* [287. 寻找重复数](/posts/algorithm/day/bianarysearch/findDuplicate)
-* [374. 猜数字大小](/posts/algorithm/day/bianarysearch/guessNumber)
-* [33. 搜索旋转排序数组](/posts/algorithm/day/bianarysearch/searchRotate)
+* 35. 搜索插入位置
+* 69. x 的平方根
+* 287. 寻找重复数
+* 374. 猜数字大小
+* 33. 搜索旋转排序数组
 
 ## 高级查询方法
 

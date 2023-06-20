@@ -91,6 +91,23 @@ const config = {
             position: 'left',
             label: '链表',
           },
+          {
+            type: 'docSidebar',
+            sidebarId: 'arraySidebar',
+            position: 'left',
+            label: '数组',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'stackSidebar',
+            position: 'left',
+            label: '栈/队列',
+          },{
+            type: 'docSidebar',
+            sidebarId: 'treeSidebar',
+            position: 'left',
+            label: '树',
+          },
           { to: '/playground', label: 'Playground', position: 'left' },
           { to: 'https://wangbaoqi.tech', label: 'Blog', position: 'left' },
           {

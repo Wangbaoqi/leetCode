@@ -1,0 +1,319 @@
+---
+sidebar_position: 2
+---
+
+# 双指针技巧
+
+常见的双指针模式有 **左右指针** 和 **快慢指针**
+
+## 双指针 - 左右指针
+
+左右指针最典型的应用就是[**二分查找**](/posts/algorithm/break/search)了，初次之外，[滑动窗口](/posts/algorithm/break/slideWindow)是左右指针的进阶版。
+
+
+左右指针主要是在数组（字符串）的两端进行移动的，这样做的目的旨在节省时间，更高效的进行查找或者处理元素。
+
+1. [125. 验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
+2. [345. 反转字符串中的元音字母](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/)
+3. [11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+
+上面图是比较简单的左右指针（**反转字符串**）移动的动态图。接下来看下代码
+
+```md
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
+
+输入：["h","e","l","l","o"]
+输出：["o","l","l","e","h"]
+```
+
+题目要求使用`O(1)`的时间复杂度，和**原地修改**，则就说明只能循环一次和不能用额外的空间。
+
+```javascript
+const reverseString = (arr) => {
+  let left = 0, right = arr.length - 1;
+  while(left <= right) {
+    let tmp = arr[left]
+    arr[left] = arr[right]
+    arr[right] = tmp
+    left++;
+    right--;
+  }
+}
+```
+
+**两数之和 也可以使用双指针来解决**
+
+```javascript
+输入：numbers = [2,7,11,15], target = 9
+输出：[1,2]
+解释：2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+```
+
+解法可以使用暴力破解或者哈希解决，但是这两种在时间和空间复杂度都有一定的损耗，最优的可以使用左右双指针模式
+
+```javascript
+const numberSum = (arr, target) => {
+  let left = 0, right = arr.length - 1;
+  while(left <= right) {
+    const curSum = arr[left] + arr[right]
+    if(curSum == target) {
+      return [left+1, right+1]
+    }else if(curSum < target) {
+      left++
+    }else {
+      right--
+    }
+  }
+  return []
+}
+```
+
+### 验证回文串
+
+验证回文串是对撞指针比较典型的应用了，也是比较简单的一种，前后指针同时移动，直到两者相遇。
+
+![palindrome](https://media.wangbaoqi.tech/assets/blog/algorithm/array/palindrome.webp)
+
+算法实现起来也很简单
+
+```javascript
+const isPalindrome = (s) => {
+  s = s.replace(/[^0-9A-Za-z]/g, '').toLowerCase();
+  let len = s.length;
+  let start = 0;
+  let end = len - 1;
+  while(start < end) {
+    if(s[start] != s[end]) return false;
+    start++;
+    end--;
+  }
+  return true;
+}
+```
+
+### 反转字符串中的元音字母
+
+```javascript
+输入："hello"
+输出："holle"
+```
+
+不难看到，该题也可以用对撞指针解决，但是前后指针在每次循环中不能同时移动，这也是对撞指针的另一种使用场景，如下图，展示反转元音字母的图示
+
+![reverseVowels](https://media.wangbaoqi.tech/assets/blog/algorithm/array/reverseVowels.webp)
+
+
+可以看到start 和 end 分别判断是否是元音字母（`a , e, i, o, u`）,如果`end` 不是元音字母，end向前移动，进入下个循环，知道是原因字母；`start` 也是同理，当 `start` 和 `end` 都是元音字母时，交换位置，两者指针分别移动一位，以此类推，直到`start` 和 `end` 相遇。
+
+```javascript
+const reverseVowels = function(s) {
+  s = s.split('')
+  let len = s.length;
+  let start = 0;
+  let end = len - 1;
+  let vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+  
+  while(start < end) {
+    while(start < end && !vowels.includes(s[start])) {
+      start++;
+    }
+    
+    while(start < end && !vowels.includes(s[end])) {
+      end--;
+    }
+    
+    if(vowels.includes(s[start]) && vowels.includes(s[end])) {
+      let tmp = s[start];
+      s[start] = s[end];
+      s[end] = tmp;
+    }
+    start++;
+    end--;
+  }
+  s.join('')
+}
+```
+
+### 盛最多水的容器
+
+```javascript
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49 
+解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，
+容器能够容纳水（表示为蓝色部分）的最大值为 49。
+```
+
+如果使用暴力破解法，时间复杂度就很高了，没有必要。这里也可以使用对撞指针的，只遍历一次，在时间复杂度和空间复杂度都是最优的。
+
+![maxArea](https://media.wangbaoqi.tech/assets/blog/algorithm/array/maxArea.webp)
+
+
+上图展示了指针的移动方向，这里如何判断前后指针的移动才能保证整个区域的面积最大？
+
+$$
+A(s,e) = Math.min(s,e) * (e - s)
+$$
+
+当移动短板（数值较小的）的时候 $$Math.min(s,e)$$ 可能变大，其面积可能变大
+
+当移动长板（数值较大的）的时候 $$Math.min(s,e)$$ 可能变小或者不变
+
+因此，当start 和 end 指针指向的值
+
+* `start < end` ` start++`
+* `start > end`  `end--`
+
+每次循环记录最大的值，循环结束，最大的就得到了最大的容器
+
+```javascript
+const maxArea = function(height) {
+  let len = height.length;
+  let start = 0;
+  let end = len - 1;
+  let maxArea = 0;
+  
+  while(start < end) {
+    let area = Math.min(height[start], height[end]) * (end - start);
+    
+    if(height[start] < height[end]) {
+      start++
+    }else {
+      end--
+    }
+    
+    maxArea = Math.max(maxArea, area);
+  }
+  
+  return maxArea;
+}
+```
+
+## 双指针 - 快慢指针
+
+1. [283. 移动零](https://leetcode-cn.com/problems/move-zeroes/)
+2. [27. 移除元素](https://leetcode-cn.com/problems/remove-element/)
+3. [26. 删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+4. [80. 删除有序数组中的重复项 II](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/)
+5. [75. 颜色分类](https://leetcode-cn.com/problems/sort-colors/)
+
+### 移动零
+
+```javascript
+题目：给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+```
+
+![removeZero](https://media.wangbaoqi.tech/assets/blog/algorithm/array/removeZero.webp)
+
+
+上图描述了使用快慢指针移动零的步骤，是简单的双指针应用
+
+```javascript
+const moveZero = (arr) => {
+  let f = 0;
+  let s = 0;
+  let len = arr.length;
+
+  while(f < len) {
+    if(arr[f] != 0) {
+      let tmp = arr[f];
+      arr[f] = arr[s];
+      arr[s]= tmp;
+      s++
+    }
+    f++
+  }
+}
+```
+
+### **移除元素**
+
+**移除元素题目**也是类似的算法题目。
+
+```javascript
+输入：nums = [3,2,2,3], val = 3
+输出：2, nums = [2,2]
+解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。
+你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，
+而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。
+```
+
+解法跟移除零类似，将需要移除的元素移动到数组的末端
+
+```javascript
+const removeElement = (arr, val) => {
+  let f = 0;
+  let s = 0;
+  let len = arr.length;
+  
+  while(f < len) {
+    if(arr[f] != val) {
+      let tmp = arr[f];
+      arr[f] = arr[s];
+      arr[s] = tmp;
+      s++
+    }
+    f++
+  }
+  return s 
+}
+```
+
+### 删除排序数组中的重复项
+
+```javascript
+给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，
+返回删除后数组的新长度。不要使用额外的数组空间，
+你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+```
+![deleteDuplicate](https://media.wangbaoqi.tech/assets/blog/algorithm/array/deleteDuplicate.webp)
+
+上图使用双指针图示了完整的流程，其中有个技巧就是当 `slow` 和 `fast` 指针对应的值不等时， `arr[slow + 1] = arr[fast]`  ，最终`slow+1` 就是移除重复元素后的数组的长度。
+
+```javascript
+const removeDuplicates = (arr) => {
+  let len = arr.length;
+  if(len < 2) return len;
+  
+  let f = 1;
+  let s = 0;
+  while(f < length) {
+    if(arr[f] != arr[s]) {
+      arr[s + 1] = arr[f]
+      s++
+    }
+    f++
+  }
+  return s + 1
+}
+```
+
+### **删除有序数组中的重复项 II**
+
+```javascript
+输入：nums = [1,1,1,2,2,3]
+输出：5, nums = [1,1,2,2,3]
+解释：函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。 
+不需要考虑数组中超出新长度后面的元素。
+```
+
+该题是上者的变形题，只需改变指针的位置即可
+
+```javascript
+const removeDuplicatesII = (arr) => {
+  let len = arr.length;
+  if(len < 2) return len;
+  let s = 2;
+  let f = 2;
+  
+  while(f < len) {
+    if(arr[s - 2] != arr[f]) {
+      arr[s] = arr[f]
+      s++
+    }
+    f++
+  }
+  return s
+} 
+```

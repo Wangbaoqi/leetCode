@@ -1,10 +1,14 @@
 /*
- * @lc app=leetcode.cn id=2 lang=typescript
+ * @lc app=leetcode.cn id=445 lang=typescript
  *
- * [2] 两数相加
+ * [445] 两数相加 II
  */
 
 // @lc code=start
+/**
+ * Definition for singly-linked list.
+ */
+
 
 export class ListNode {
   val: number
@@ -15,12 +19,29 @@ export class ListNode {
   }
 }
 
-export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+function reverseList(head: ListNode | null): ListNode | null { 
 
-  // 9 9 9 9 9 9 9
-  // 9 9 9 9
-  // 8 9 9 9 0 0 0 1
-  // 1 1 1 1 1 1 1
+  if (head === null || head.next === null) return head;
+
+  const dummy = new ListNode(-1, head);
+  let forward = head;
+  let curNode = forward.next;
+
+  while (curNode) {
+    forward.next = curNode.next;
+    curNode.next = dummy.next;
+    dummy.next = curNode
+
+    curNode = forward.next;
+  }
+  return dummy.next;
+}
+
+export function addTwoNumbersII(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+
+  l1 = reverseList(l1);
+  l2 = reverseList(l2);
+
   if (l1 == null) return l2;
   if (l2 == null) return l1;
 
@@ -51,7 +72,8 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
     node.next = new ListNode(digit)
   }
 
-  return dummy.next;
+  return reverseList(dummy.next);
+
 };
 // @lc code=end
 

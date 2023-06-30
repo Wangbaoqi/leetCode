@@ -1,0 +1,38 @@
+---
+sidebar_position: 26
+---
+
+
+# 两数相加-ii
+
+import CodeBlock from '@theme/CodeBlock';
+import TestCode from '!!raw-loader!./addTwoNumberII.test';
+import SourceCode from '!!raw-loader!./index.ts';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
+[leetCode](https://leetcode.cn/problems/add-two-numbers-ii/)
+
+
+:::info
+给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。
+
+你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+:::
+
+
+## 链表反转
+
+反转之后的链表则跟 [两数相加](/docs/algo-linkList/leetCode/addTwoNumber/) 使用相同的解法。
+
+
+<CodeSandpack
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/addTwoNumberII.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/addTwoNumberII.test.ts': TestCode
+  }}
+/>
+

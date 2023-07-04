@@ -1,0 +1,75 @@
+---
+sidebar_position: 28
+---
+
+
+# 合并两个链表
+
+import CodeBlock from '@theme/CodeBlock';
+import TestCode from '!!raw-loader!./mergeBetweenLinkList.test';
+import SourceCode from '!!raw-loader!./index.ts';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
+[leetCode](https://leetcode.cn/problems/merge-in-between-linked-lists/)
+
+
+:::info
+给你两个链表 list1 和 list2 ，它们包含的元素分别为 n 个和 m 个。
+
+请你将 list1 中下标从 a 到 b 的全部节点都删除，并将list2 接在被删除节点的位置。
+
+
+list1为`[0, 1, 2, 3, 4, 5]`
+
+list2为`[100,200]`
+
+下图中展示了操作后的结果：
+
+```mermaid
+flowchart TB;
+
+  subgraph before
+    direction LR
+    subgraph sub1
+      C1((3)) --> E1((4))
+    end
+
+    subgraph sub2
+      F1((5))
+    end
+
+    subgraph sub3
+    direction LR
+
+    B1((0)) --> A1((1)) --> D1((2))
+
+    end
+
+    D1 ---> C1
+    E1 ---> F1
+  end
+
+  subgraph after
+  direction LR
+
+  B((0)) --> A((1)) --> D((2)) --> C((100)) --> E((200)) --> F((5))
+
+  end
+
+
+  before ---> after
+
+```
+:::
+
+
+<CodeSandpack
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/mergeBetweenLinkList.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/mergeBetweenLinkList.test.ts': TestCode
+  }}
+/>

@@ -1,6 +1,6 @@
 import { ListNode, swapNodes } from './index';
 
-const printLink = (head: ListNode | null): number[] => {
+export const printLink = (head: ListNode | null): number[] => {
   const res: number[] = [];
   for (let node = head; node != null; node = node.next) {
     res.push(node.val);

@@ -27,7 +27,7 @@ const SandboxProvider = ({
     preset
   ];
 
-  
+
   const allFiles = {
     ...presetFiles,
     ...files,
@@ -71,12 +71,12 @@ const SandboxProvider = ({
         {children}
       </SandpackProvider>
     </Wrapper>
-    
+
   );
 };
 
 const Wrapper = styled.section`
-  margin: 0 16px
+  margin: 32px 16px
 `
 
 export default SandboxProvider;

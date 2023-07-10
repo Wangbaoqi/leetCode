@@ -1,0 +1,57 @@
+---
+sidebar_position: 32
+---
+
+
+# 反转偶数长度组的节点
+
+
+import CodeBlock from '@theme/CodeBlock';
+import TestCode from '!!raw-loader!./reverseEvenNode.test';
+import SourceCode from '!!raw-loader!./index.ts';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
+[leetCode](https://leetcode.cn/problems/reverse-nodes-in-even-length-groups/description/)
+
+:::info
+给你一个链表的头节点 head 。
+
+链表中的节点 按顺序 划分成若干 非空 组，这些非空组的长度构成一个自然数序列（1, 2, 3, 4, ...）。一个组的 长度 就是组中分配到的节点数目。换句话说：
+
+节点 1 分配给第一组
+节点 2 和 3 分配给第二组
+节点 4、5 和 6 分配给第三组，以此类推
+注意，最后一组的长度可能小于或者等于 1 + 倒数第二组的长度 。
+
+反转 每个 偶数 长度组中的节点，并返回修改后链表的头节点 head 。
+
+:::
+
+示例1:
+
+![](https://assets.leetcode.com/uploads/2021/10/25/eg1.png)
+
+```
+输入：head = [5,2,6,3,9,1,7,3,8,4]
+输出：[5,6,2,3,9,1,4,8,3,7]
+解释：
+- 第一组长度为 1 ，奇数，没有发生反转。
+- 第二组长度为 2 ，偶数，节点反转。
+- 第三组长度为 3 ，奇数，没有发生反转。
+- 最后一组长度为 4 ，偶数，节点反转。
+```
+
+该题在[反转链表](/docs/algo-linkList/leetCode/reverseLinkList/)和[反转链表II](/docs/algo-linkList/leetCode/reverseLinkListII/)
+的基础上增加了一些判断条件
+
+
+<CodeSandpack
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/reverseEvenNode.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/reverseEvenNode.test.ts': TestCode
+  }}
+/>

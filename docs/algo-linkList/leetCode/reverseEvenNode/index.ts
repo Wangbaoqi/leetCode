@@ -18,38 +18,36 @@ export class ListNode {
   }
 }
 
-export function reverseEvenLengthGroups(head: ListNode | null): ListNode | null {
-
+export function reverseEvenLengthGroups(
+  head: ListNode | null
+): ListNode | null {
   // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
   // len = 1, node = [1, 2, 3, 4, 5, 6, 7, 8, 9], curr = [2, 3, 4, 5, 6, 7, 8, 9], idx = 1, prev = node
   // len = 2, node = [2, 3, 4, 5, 6, 7, 8, 9], curr = [3, 4, 5, 6, 7, 8, 9], idx = 2,
 
-
   let node = head;
   let len = 0;
   let prev = null;
 
-
-  while(node !== null) {
+  while (node !== null) {
     ++len;
 
     let idx = 0;
     let curr = node;
-    while(idx < len && curr !== null) {
+    while (idx < len && curr !== null) {
       idx++;
       curr = curr.next;
     }
 
     // odd continue next loop
-    if(idx % 2){
-
-      for(let id = 1; id <= idx; id++){
+    // update next node and prev node
+    if (idx & 1) {
+      for (let id = 1; id <= idx; id++) {
         prev = node;
         node = node.next;
       }
-
-    }else {
+    } else {
       // even reverse groups
       for (let id = 1; id < idx; id++) {
         let nextNode = node.next;
@@ -58,13 +56,11 @@ export function reverseEvenLengthGroups(head: ListNode | null): ListNode | null 
         prev.next = nextNode;
       }
 
-      //
+      // update prev node and next node
       prev = node;
       node = node.next;
     }
-
   }
   return head;
-
 }
 // @lc code=end

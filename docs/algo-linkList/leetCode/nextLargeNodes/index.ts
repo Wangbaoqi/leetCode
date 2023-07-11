@@ -36,21 +36,17 @@ export function nextLargerNodes(head: ListNode | null): number[] {
   let node = head;
 
   let idx = 0;
-  while(node !== null) {
-
+  while (node !== null) {
     ans.push(0);
 
-    while(stack.length && stack[stack.length - 1][0] < node.val) {
+    while (stack.length && stack[stack.length - 1][0] < node.val) {
       ans[stack.pop()[1]] = node.val;
     }
 
-    stack.push([node.val, idx++])
+    stack.push([node.val, idx++]);
 
     node = node.next;
   }
-
-  console.log(stack, 'stack');
-  console.log(ans, 'ans');
 
   return ans;
 }

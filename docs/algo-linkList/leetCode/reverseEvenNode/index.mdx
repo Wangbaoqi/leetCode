@@ -46,6 +46,10 @@ import CodeSandpack from '@site/src/components/CodeSandpack';
 该题在[反转链表](/docs/algo-linkList/leetCode/reverseLinkList/)和[反转链表II](/docs/algo-linkList/leetCode/reverseLinkListII/)
 的基础上增加了一些判断条件
 
+这里要注意有以下几点：
+- 奇数组不需要反转，则需要更新`node`和`prev`
+- 偶数组的时候需要反转，反转完成也要更新`node`和`prev`，不过要注意更新的值的位置
+
 
 <CodeSandpack
   activePath='/index.ts'

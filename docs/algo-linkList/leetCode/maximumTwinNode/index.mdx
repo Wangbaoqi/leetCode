@@ -1,0 +1,57 @@
+---
+sidebar_position: 34
+---
+
+# 链表最大孪生和
+
+import CodeBlock from '@theme/CodeBlock';
+import TestCode from '!!raw-loader!./problem.test';
+import SourceCode from '!!raw-loader!./index.ts';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeSandpack from '@site/src/components/CodeSandpack';
+
+[leetCode](https://leetcode.cn/problems/maximum-twin-sum-of-a-linked-list/description/)
+
+:::info
+在一个大小为 n 且 n 为 偶数 的链表中，对于 `0 <= i <= (n / 2) - 1` 的 `i` ，第 i 个节点（下标从 0 开始）的孪生节点为第 `(n-1-i)` 个节点 。
+
+比方说, `n = 4` 那么节点 0 是节点 3 的孪生节点，节点 1 是节点 2 的孪生节点。这是长度为 n = 4 的链表中所有的孪生节点。
+孪生和 定义为一个节点和它孪生节点两者值之和。
+
+给你一个长度为偶数的链表的头节点 head ，请你返回链表的 最大孪生和 。
+:::
+
+示例1:
+
+![](https://assets.leetcode.com/uploads/2021/12/03/eg1drawio.png)
+
+```
+输入：head = [5,4,2,1]
+输出：6
+解释：
+节点 0 和节点 1 分别是节点 3 和 2 的孪生节点。孪生和都为 6 。
+链表中没有其他孪生节点。
+所以，链表的最大孪生和是 6 。
+```
+
+**利用栈解决**
+
+首先获取链表的长度以及存储链表的值到栈中，接着遍历栈，计算孪生节点的最大和。
+
+这种方法虽然时间复杂度为**O(n)**, 但是空间复杂度也是**O(n)**。
+
+**利用反转链表解决**
+
+首先获取链表的**中间节点**，反转后半段链表，这样就得到了前后两段链表，两段链表的节点
+的顺序都是对应的孪生节点，因此遍历后半段链表，计算最大的孪生节点的和。
+
+
+<CodeSandpack
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/problem.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/problem.test.ts': TestCode
+  }}
+/>

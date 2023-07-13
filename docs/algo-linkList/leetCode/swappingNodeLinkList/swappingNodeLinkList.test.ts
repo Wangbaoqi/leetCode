@@ -1,4 +1,4 @@
-import { ListNode, swapNodes } from './index';
+import { ListNode, swapNodes } from "./index";
 
 export const printLink = (head: ListNode | null): number[] => {
   const res: number[] = [];
@@ -8,8 +8,8 @@ export const printLink = (head: ListNode | null): number[] => {
   return res;
 };
 
-describe('ListNode swap node test', () => {
-  it('test_node_not_adjacent', () => {
+describe("ListNode swap node test", () => {
+  it("test_node_not_adjacent", () => {
     const head = new ListNode(
       1,
       new ListNode(
@@ -24,7 +24,7 @@ describe('ListNode swap node test', () => {
     expect(printLink(result)).toEqual([1, 6, 3, 4, 5, 2, 7]);
   });
 
-  it('test_node_adjacent', () => {
+  it("test_node_adjacent", () => {
     const head = new ListNode(
       1,
       new ListNode(
@@ -39,7 +39,7 @@ describe('ListNode swap node test', () => {
     expect(printLink(result)).toEqual([1, 2, 3, 4, 5, 6, 7]);
   });
 
-  it('test_node_equal_adjacent', () => {
+  it("test_node_equal_adjacent", () => {
     const head = new ListNode(
       1,
       new ListNode(
@@ -51,7 +51,7 @@ describe('ListNode swap node test', () => {
     expect(printLink(result)).toEqual([1, 2, 4, 3, 5, 6]);
   });
 
-  it('test_less_node_adjacent', () => {
+  it("test_less_node_adjacent", () => {
     const head = new ListNode(1, new ListNode(2));
     const result = swapNodes(head, 1);
     expect(printLink(result)).toEqual([2, 1]);

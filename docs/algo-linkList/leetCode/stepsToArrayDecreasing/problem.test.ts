@@ -1,0 +1,1 @@
+import { totalSteps } from './index';

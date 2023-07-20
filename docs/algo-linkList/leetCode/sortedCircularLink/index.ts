@@ -19,35 +19,36 @@ export class ListNode {
   }
 }
 
-export function insert(head: ListNode | null, insertVal: number): ListNode | null {
-
+export function insert(
+  head: ListNode | null,
+  insertVal: number
+): ListNode | null {
   const node = new ListNode(insertVal);
 
   // head == null
-  if(head === null) {
+  if (head === null) {
     node.next = node;
     return node;
   }
 
   // head only one
-  if(head.next === head) {
+  if (head.next === head) {
     head.next = node;
     node.next = head;
-    return head
+    return head;
   }
 
   let slow = head;
   let fast = head.next;
 
-  while(fast !== head ) {
-
-    if(slow.val <= insertVal && fast.val >= insertVal) {
+  while (fast !== head) {
+    if (slow.val <= insertVal && fast.val >= insertVal) {
       break;
     }
 
     // 1 2 3 4
-    if(slow.val > fast.val) {
-      if(insertVal > slow.val || insertVal < fast.val) break
+    if (slow.val > fast.val) {
+      if (insertVal > slow.val || insertVal < fast.val) break;
     }
 
     slow = slow.next;

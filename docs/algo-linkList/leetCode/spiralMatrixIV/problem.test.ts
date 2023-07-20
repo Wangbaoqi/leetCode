@@ -27,13 +27,13 @@ describe('test spiral matrix', () => {
 
   it('test_normal_2_3', () => {
     const head = generateLink([3,0,2,6,8,1,7,9,4,2,5,5,0]);
-    const result = spiralMatrix(3, 2, head);
+    const result = spiralMatrix(3, 5, head);
     expect(result).toEqual([[3,0,2,6,8],[5,0,-1,-1,1],[5,2,4,9,7]])
   });
 
   it('test_normal_1_4', () => {
     const head = generateLink([0,1,2]);
-    const result = spiralMatrix(3, 2, head);
+    const result = spiralMatrix(1, 4, head);
     expect(result).toEqual([[0,1,2,-1]]);
   });
 

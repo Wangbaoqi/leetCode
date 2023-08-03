@@ -1,25 +1,20 @@
 {
-  // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
-  "compilerOptions": {
-    // "module": "esnext",
-    "target": "ES5",
-    "baseUrl": ".",
-    "jsx":"react-jsx",
-    "types": [
-      "node",
-      "@docusaurus/module-type-aliases", 
-      "@docusaurus/theme-classic", 
-      "jest", 
-      "prettier",
-      "@codesandbox/sandpack-react"
-    ],
-  },
-  "include": [
-    "src/**/*",
-    "docs/**/*",
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	// This file is not used in compilation. It is here just for a nice editor experience.
+	"extends": "@tsconfig/docusaurus/tsconfig.json",
+	"compilerOptions": {
+		// "module": "esnext",
+		"target": "ESNext",
+		"baseUrl": ".",
+		"jsx": "react-jsx",
+		"types": [
+			"node",
+			"@docusaurus/module-type-aliases",
+			"@docusaurus/theme-classic",
+			"jest",
+			"prettier",
+			"@codesandbox/sandpack-react"
+		]
+	},
+	"include": ["src/**/*", "docs/**/*"],
+	"exclude": ["node_modules"]
 }

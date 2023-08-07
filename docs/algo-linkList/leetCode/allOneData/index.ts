@@ -1,3 +1,4 @@
+import { DoubleList } from './../LRUCache/index';
 /*
  * @lc app=leetcode.cn id=432 lang=typescript
  *
@@ -8,12 +9,13 @@
 
 class ListNode {
 	count?: number = 0;
-	keys: Set<string> = new Set();
+	keys: Set<string>;
 	prev: ListNode | null;
 	next: ListNode | null;
 	constructor(count?: number, key?: string) {
 		this.count = count || 0;
-		key ? this.keys.add(key) : this.keys.add(null);
+		this.keys = new Set();
+		// key ? this.keys.add(key) : this.keys.add('');
 	}
 
 	insert(node: ListNode): ListNode | null {
@@ -24,87 +26,85 @@ class ListNode {
 		return node;
 	}
 
-	remove() {
-		this.prev.next = this.next;
-		this.next.prev = this.prev;
+	removeNode(): void {
+		const node = this;
+		if (node.keys.size == 0) {
+			node.next.prev = node.prev;
+			node.prev.next = node.next;
+		}
 	}
 }
 
 class AllOne {
-	root: ListNode;
-	nodes: Map<string, ListNode>;
+	head: ListNode;
+	tail: ListNode;
+	map: Map<string, ListNode>;
 	constructor() {
-		this.root = new ListNode();
-		this.root.prev = this.root;
-		this.root.next = this.root;
-		this.nodes = new Map();
+		this.head = new ListNode();
+		this.tail = new ListNode();
+		this.head.next = this.tail;
+		this.tail.prev = this.head;
+		this.map = new Map<string, ListNode>();
 	}
 
 	inc(key: string): void {
-		if (this.nodes.has(key)) {
-			const cur = this.nodes.get(key);
-			const next = cur.next;
-			if (next === this.root || next.count > cur.count + 1) {
-				this.nodes.set(key, cur.insert(new ListNode(cur.count + 1, key)));
-			} else {
-				next.keys.add(key);
-				this.nodes.set(key, next);
+		let { head, map } = this;
+		let curNode: ListNode;
+
+		if (!map.has(key)) {
+			if (head.next.count !== 1) {
+				const newNode = new ListNode(1);
+				head.insert(newNode);
 			}
-			cur.keys.delete(key);
-			if (cur.keys.size === 0) {
-				cur.remove();
-			}
+			curNode = head.next;
 		} else {
-			if (this.root.next === this.root || this.root.next.count > 1) {
-				this.nodes.set(key, this.root.insert(new ListNode(1, key)));
-			} else {
-				this.root.next.keys.add(key);
-				this.nodes.set(key, this.root.next);
+			const cur = map.get(key);
+			if (cur.next.count !== cur.count + 1) {
+				const node = new ListNode(cur.count + 1);
+				cur.insert(node);
 			}
+			curNode = cur.next;
+			cur.keys.delete(key);
+			cur.removeNode();
 		}
+		curNode.keys.add(key);
+		map.set(key, curNode);
 	}
 
 	dec(key: string): void {
-		const cur = this.nodes.get(key);
-		if (cur.count === 1) {
-			this.nodes.delete(key);
+		const { map } = this;
+		const curNode = map.get(key);
+
+		curNode.keys.delete(key);
+
+		if (curNode.count == 1) {
+			map.delete(key);
 		} else {
-			const pre = cur.prev;
-			if (pre === this.root || pre.count < cur.count - 1) {
-				this.nodes.set(key, cur.prev.insert(new ListNode(cur.count - 1, key)));
-			} else {
-				pre.keys.add(key);
-				this.nodes.set(key, pre);
+			if (curNode.prev.count !== curNode.count - 1) {
+				const node = new ListNode(curNode.count - 1);
+				curNode.prev.insert(node);
 			}
+			const target = curNode.next;
+			target.keys.add(key);
+			map.set(key, target);
 		}
-		cur.keys.delete(key);
-		if (cur.keys.size === 0) {
-			cur.remove();
-		}
+		curNode.removeNode();
 	}
 
 	getMaxKey(): string {
-		if (!this.root.prev) {
-			return '';
+		const node = this.tail.prev;
+		for (const key of node.keys) {
+			return key;
 		}
-		let maxKey = '';
-		for (const key of this.root.prev.keys) {
-			maxKey = key;
-			break;
-		}
-		return maxKey;
+		return '';
 	}
 
 	getMinKey(): string {
-		if (!this.root.next) {
-			return '';
+		const node = this.head.next;
+		for (const key of node.keys) {
+			return key;
 		}
-		let minKey = '';
-		for (const key of this.root.next.keys) {
-			minKey = key;
-			break;
-		}
-		return minKey;
+		return '';
 	}
 }
 

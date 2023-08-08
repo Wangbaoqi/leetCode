@@ -26,3 +26,25 @@ import CodeSandpack from '@site/src/components/CodeSandpack';
   注意：每个函数都应当满足 O(1) 平均时间复杂度。
 
 :::
+
+要实现 AllOne 结构并且满足函数的平均时间复杂度为 O(1), 则考虑使用 **双链表 + Map**结构
+
+双链表中的节点的 key 出现的次数`count`必须是按照升序进行排序的，这样才能满足获取 key 的时候可以达到`O(1)`
+
+除此之外，还要初始化哈希 Map，在获取 key 的链表节点的时候也可以可以达到`O(1)`。
+
+另外，如果出现每个节点的`count`都是 **1**的情况，则需要在节点新增一个哈希 Set,来存储`count=1`的 key。
+
+如下图：
+
+![allOnedata](https://media.wangbaoqi.tech/assets/blog/algorithm/linklist/allOnedata.png)
+
+<CodeSandpack
+  id={'20'}
+  activePath='/index.ts'
+  visibleFiles={['/index.ts', '/problem.test.ts']}
+  files={{
+    '/index.ts': SourceCode,
+    '/problem.test.ts': TestCode
+  }}
+/>

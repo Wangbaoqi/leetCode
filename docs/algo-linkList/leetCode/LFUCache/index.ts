@@ -5,9 +5,9 @@
  */
 
 class ListNode {
-  key: number = 0;
+  key: number = -1;
   count: number = 0;
-  val: number = 0;
+  val: number = -1;
   prev: ListNode | null;
   next: ListNode | null;
   constructor(key?: number, val?: number, count?: number) {
@@ -20,6 +20,7 @@ class ListNode {
 }
 
 class DoubleList {
+  size: number = 0;
   head: ListNode | null;
   tail: ListNode | null;
   constructor() {
@@ -27,6 +28,7 @@ class DoubleList {
     this.tail = new ListNode();
     this.head.next = this.tail;
     this.tail.prev = this.head;
+    this.size = 0;
   }
 
   addHead(node: ListNode): void {
@@ -34,6 +36,21 @@ class DoubleList {
     node.next.prev = node;
     this.head.next = node;
     node.prev = this.head;
+    this.size++;
+  }
+
+  removeNode(node: ListNode): void {
+    node.prev.next = node.next;
+    node.next.prev = node.prev;
+    this.size--;
+  }
+
+  getHead(): ListNode {
+    return this.head.next;
+  }
+
+  getTail(): ListNode {
+    return this.tail.prev;
   }
 
   addTail(node: ListNode): void {
@@ -48,11 +65,6 @@ class DoubleList {
     this.addHead(node);
   }
 
-  removeNode(node: ListNode): void {
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
-  }
-
   removeTailNode() {
     const node = this.tail.prev;
     this.removeNode(node);
@@ -62,48 +74,83 @@ class DoubleList {
 
 // @lc code=start
 class LFUCache {
-  size: number = 0;
   capacity: number;
+  minFreq: number;
   linkList: DoubleList;
-  map: Map<number, ListNode>;
+  keyMap: Map<number, ListNode>;
+  freqMap: Map<number, DoubleList>;
   constructor(capacity: number) {
     this.capacity = capacity;
-    this.size = 0;
     this.linkList = new DoubleList();
-    this.map = new Map();
+    this.keyMap = new Map();
+    this.freqMap = new Map();
   }
 
   get(key: number): number {
-    const curNode = this.map.get(key);
-    if (!curNode) return -1;
+    if (this.capacity == 0) return;
 
-    curNode.count++;
-    this.linkList.moveToHead(curNode);
-    return curNode.val;
+    if (!this.keyMap.get(key)) return -1;
+
+    const node = this.keyMap.get(key);
+    const { count: freq, val } = node;
+    this.freqMap.get(freq).removeNode(node);
+
+    if (this.freqMap.get(key).size === 0) {
+      this.freqMap.delete(key);
+      if (this.minFreq == freq) {
+        this.minFreq += 1;
+      }
+    }
+
+    const curList = this.freqMap.get(freq + 1);
+    const list = curList ?? new DoubleList();
+    list.addHead(new ListNode(key, val, freq + 1));
+
+    this.freqMap.set(freq + 1, list);
+    this.keyMap.set(key, this.freqMap.get(freq + 1).getHead());
+
+    return val;
   }
 
   put(key: number, value: number): void {
-    const curNode = this.map.get(key);
-    if (curNode) {
-      curNode.val = value;
-      curNode.count++;
+    if (this.capacity == 0) return;
 
-      // TODO
-      this.linkList.moveToHead(curNode);
-    } else {
-      const node = new ListNode(key, value, 1);
-
-      this.map.set(key, node);
-      this.size++;
-
-      // TODO
-      this.linkList.addTail(node);
-
-      if (this.size > this.capacity) {
-        const node = this.linkList.removeTailNode();
-        this.map.delete(node.key);
-        this.size--;
+    if (!this.keyMap.has(key)) {
+      // size is full
+      if (this.keyMap.size >= this.capacity) {
       }
+      // put new key
+      // look freqMap has key 1
+      const curList = this.freqMap.get(1);
+      const list = curList ?? new DoubleList();
+      list.addHead(new ListNode(key, value, 1));
+
+      this.freqMap.set(1, list);
+      this.keyMap.set(key, this.freqMap.get(1).getHead());
+      this.minFreq = 1;
+    } else {
+      // update key value and freq
+      const node = this.keyMap.get(key);
+      const curFreq = node.count;
+
+      this.freqMap.get(curFreq).removeNode(node);
+
+      // cur freq has not node
+      // update minFreq
+      if (this.freqMap.get(curFreq).size == 0) {
+        this.freqMap.delete(curFreq);
+        if (this.minFreq == curFreq) {
+          this.minFreq += 1;
+        }
+      }
+
+      // find new freq list
+      const curList = this.freqMap.get(curFreq + 1);
+      const list = curList ?? new DoubleList();
+      list.addHead(new ListNode(key, value, curFreq + 1));
+
+      this.freqMap.set(curFreq + 1, list);
+      this.keyMap.set(key, this.freqMap.get(curFreq + 1).getHead());
     }
   }
 }

@@ -73,7 +73,7 @@ class DoubleList {
 }
 
 // @lc code=start
-class LFUCache {
+export class LFUCache {
   capacity: number;
   minFreq: number;
   linkList: DoubleList;
@@ -84,6 +84,7 @@ class LFUCache {
     this.linkList = new DoubleList();
     this.keyMap = new Map();
     this.freqMap = new Map();
+    this.minFreq = 0;
   }
 
   get(key: number): number {
@@ -95,8 +96,8 @@ class LFUCache {
     const { count: freq, val } = node;
     this.freqMap.get(freq).removeNode(node);
 
-    if (this.freqMap.get(key).size === 0) {
-      this.freqMap.delete(key);
+    if (this.freqMap.get(this.minFreq).size === 0) {
+      this.freqMap.delete(this.minFreq);
       if (this.minFreq == freq) {
         this.minFreq += 1;
       }
@@ -118,6 +119,14 @@ class LFUCache {
     if (!this.keyMap.has(key)) {
       // size is full
       if (this.keyMap.size >= this.capacity) {
+        // delete operation
+        // first get the minFreq tailNode
+        const node = this.freqMap.get(this.minFreq).getTail();
+        this.keyMap.delete(node.key);
+        this.freqMap.get(this.minFreq).removeNode(node);
+        if (this.freqMap.get(this.minFreq).size == 0) {
+          this.freqMap.delete(this.minFreq);
+        }
       }
       // put new key
       // look freqMap has key 1

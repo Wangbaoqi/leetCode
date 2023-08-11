@@ -21,7 +21,8 @@ import CodeSandpack from '@site/src/components/CodeSandpack';
 
 LFUCache(int capacity) - 用数据结构的容量 capacity 初始化对象
 int get(int key) - 如果键 key 存在于缓存中，则获取键的值，否则返回 -1 。
-void put(int key, int value) - 如果键 key 已存在，则变更其值；如果键不存在，请插入键值对。当缓存达到其容量 capacity 时，则应该在插入新项之前，移除最不经常使用的项。在此问题中，当存在平局（即两个或更多个键具有相同使用频率）时，应该去除 最近最久未使用 的键。
+void put(int key, int value) - 如果键 key 已存在，则变更其值；如果键不存在，请插入键值对。当缓存达到其容量 capacity 时，则应该在插入新项之前，移除最不经常使用的项。
+在此问题中，当存在平局（即两个或更多个键具有相同使用频率）时，应该去除 最近最久未使用 的键。
 为了确定最不常使用的键，可以为缓存中的每个键维护一个 使用计数器 。使用计数最小的键是最久未使用的键。
 
 当一个键首次插入到缓存中时，它的使用计数器被设置为 1 (由于 put 操作)。对缓存中的键执行 get 或 put 操作，使用计数器的值将会递增。
@@ -31,6 +32,54 @@ void put(int key, int value) - 如果键 key 已存在，则变更其值；如�
 :::
 
 **双哈希表 + 双链表**
+
+此题解法类似于[LRUCache](/docs/algo-linkList/leetCode/LRUCache/)
+
+不同的地方在于需要在 get 和 put 操作的时候要计算每个节点被操作的次数(freq)，如果而被操作的节点的次数都一致，
+则将这些节点形成一个双链表，用 freqMap 来缓存，key 值是都相同的 freq。
+
+如下图：
+
+![](https://media.wangbaoqi.tech/assets/blog/algorithm/linklist/LFUCache.png)
+
+定义双链表：
+
+- 初始化
+  - size: 节点的个数
+  - head: 哨兵头节点
+  - tail: 哨兵尾节点
+- addHead 向头节点添加节点，表示最近使用的节点
+- removeNode 移除节点，当 size 满了
+- getHead 获取链表头结点
+- getTail 获取链表尾结点
+
+定义 LFUCache:
+
+- minFreq: 代表最近最不常使用的 flag
+- put
+  - keyMap 没有 key
+    - size 没有满, 则加入到 freq=1 的链表头部，重新初始化 minFreq = 1
+    - size 满了, 则根据 minFreq 删除对应链表的尾结点
+      - 判断当前 minFreq 对应链表是否有节点
+      - 没有, 则从 freqMap 中删除
+  - keyMap 有 key
+    - 删除当前节点 freq 对应链表中的 node
+    - 判断当前 minFreq 对应链表是否有节点
+      - 没有, 则从 freqMap 中删除
+      - 如果当前 node 的 freq == minFreq, 则 minFreq += 1
+    - 更新当前节点的 freq + 1，获取 freg + 1 的链表
+    - 存在链表，则添加到其头部，不存在，则新建对应 freg + 1 的链表
+    - 更新 keyMap 和 fregMap 的值
+- get
+  - keyMap 没有 key, 返回 -1
+  - 删除当前节点 freq 对应链表中的 node
+    - 判断当前 minFreq 对应链表是否有节点
+      - 没有, 则从 freqMap 中删除
+      - 如果当前 node 的 freq == minFreq, 则 minFreq += 1
+    - 更新当前节点的 freq + 1，获取 freg + 1 的链表
+    - 存在链表，则添加到其头部，不存在，则新建对应 freg + 1 的链表
+    - 更新 keyMap 和 fregMap 的值
+  - 返回其值
 
 <CodeSandpack
   id={'20'}

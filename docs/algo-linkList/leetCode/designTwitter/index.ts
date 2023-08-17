@@ -6,6 +6,23 @@
 
 // @lc code=start
 
+class PriorityQueue {
+  capacity: number;
+  comparator: () => void;
+  constructor(initialCapacity: number, comparator) {
+    this.capacity = initialCapacity;
+    this.comparator = comparator;
+  }
+
+  add(item: any) {}
+
+  isEmpty(): boolean {
+    return false;
+  }
+
+  poll() {}
+}
+
 class User {
   id: number;
   followed: Set<number>;
@@ -20,7 +37,9 @@ class User {
     this.followed.add(userId);
   }
   unfollow(userId: number) {
-    this.followed.delete(userId);
+    if (userId !== this.id) {
+      this.followed.delete(userId);
+    }
   }
   post(tweetId: number) {
     const timestamp = +new Date();
@@ -69,6 +88,34 @@ export class Twitter {
     );
 
     // TODO: merge K sort list
+
+    // use PriorityQueue
+    // sort tweets by time
+    const pq = new PriorityQueue(
+      users.size,
+      (a, b) => b.tweetTime - a.tweetTime
+    );
+
+    // join in pq that head node of every linkList
+    for (const id in users) {
+      const tweet = users[id].head;
+      if (!tweet) continue;
+      pq.add(tweet);
+    }
+
+    while (!pq.isEmpty()) {
+      if (result.length == this.recentMax) break;
+
+      // popUp the max tweet
+      const twt: Tweet = pq.poll();
+      result.push(twt.tweetId);
+
+      if (twt.next) {
+        pq.add(twt.next);
+      }
+    }
+
+    return result;
   }
 
   follow(followerId: number, followeeId: number): void {

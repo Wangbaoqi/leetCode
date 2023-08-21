@@ -6,21 +6,102 @@
 
 // @lc code=start
 
-class PriorityQueue {
+class PriorityQueue<T> {
+  comparator: (a: T, b: T) => number;
+  data: T[] = [];
   capacity: number;
-  comparator: () => void;
-  constructor(initialCapacity: number, comparator) {
-    this.capacity = initialCapacity;
+  constructor(initialCapacity: number, comparator = (a, b) => a - b) {
     this.comparator = comparator;
+    this.capacity = initialCapacity;
+    this.heapify();
   }
 
-  add(item: any) {}
+  heapify() {
+    if (this.size() < 2) return;
+
+    for (let i = Math.floor(this.size() / 2) - 1; i >= 0; i--) {
+      this.bubbleDown(i);
+    }
+  }
+
+  offer(value: T) {
+    this.data.push(value);
+    this.bubbleUp(this.size() - 1);
+  }
+
+  peek() {
+    if (this.size() === 0) return null;
+    return this.data[0];
+  }
+
+  bubbleUp(index: number) {
+    while (index > 0) {
+      const parentIndex = (index - 1) >> 1;
+      if (this.comparator(this.data[index], this.data[parentIndex]) < 0) {
+        this.swap(index, parentIndex);
+        index = parentIndex;
+      } else {
+        break;
+      }
+    }
+  }
+
+  bubbleDown(index: number) {
+    const lastIndex = this.size() - 1;
+    while (true) {
+      const leftIndex = index * 2 + 1;
+      const rightIndex = index * 2 + 2;
+      let findIndex = index;
+      if (
+        leftIndex <= lastIndex &&
+        this.comparator(this.data[leftIndex], this.data[findIndex]) < 0
+      ) {
+        findIndex = leftIndex;
+      }
+      if (
+        rightIndex <= lastIndex &&
+        this.comparator(this.data[rightIndex], this.data[findIndex]) < 0
+      ) {
+        findIndex = rightIndex;
+      }
+      if (index !== findIndex) {
+        this.swap(findIndex, index);
+        index = findIndex;
+      } else {
+        break;
+      }
+    }
+  }
+
+  swap(index1: number, index2: number) {
+    [this.data[index1], this.data[index2]] = [
+      this.data[index2],
+      this.data[index1]
+    ];
+  }
+
+  poll(): T {
+    if (this.size() === 0) return null;
+    const result = this.data[0];
+    const last = this.data.pop();
+    if (this.size() !== 0) {
+      this.data[0] = last;
+      this.bubbleDown(0);
+    }
+    return result;
+  }
+
+  size() {
+    return this.data.length;
+  }
+
+  clear() {
+    this.data = [];
+  }
 
   isEmpty(): boolean {
     return false;
   }
-
-  poll() {}
 }
 
 class User {
@@ -82,16 +163,11 @@ export class Twitter {
     // userIds
     const users = this.userMap.get(userId).followed;
 
-    // tweets
-    const tweets = [...users.values()].map(
-      (userId) => this.userMap.get(userId).head
-    );
-
     // TODO: merge K sort list
 
     // use PriorityQueue
     // sort tweets by time
-    const pq = new PriorityQueue(
+    const pq = new PriorityQueue<Tweet>(
       users.size,
       (a, b) => b.tweetTime - a.tweetTime
     );
@@ -100,7 +176,7 @@ export class Twitter {
     for (const id in users) {
       const tweet = users[id].head;
       if (!tweet) continue;
-      pq.add(tweet);
+      pq.offer(tweet);
     }
 
     while (!pq.isEmpty()) {
@@ -111,7 +187,7 @@ export class Twitter {
       result.push(twt.tweetId);
 
       if (twt.next) {
-        pq.add(twt.next);
+        pq.offer(twt.next);
       }
     }
 

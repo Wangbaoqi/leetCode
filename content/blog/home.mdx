@@ -1,0 +1,135 @@
+---
+title: Home
+date: 2021-12-24
+type: Post
+---
+
+
+
+## Intro
+
+<Intro>
+
+测试自定义React组件 Intro 组件
+
+
+### Intro section
+
+
+</Intro>
+
+## ConsoleBlock
+
+<ConsoleBlock level="error">
+
+ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
+
+</ConsoleBlock>
+
+## Note
+
+<Note>
+
+There is no one-to-one replacement for the old render callback API — it depends on your use case. See the working group post for [Replacing render with createRoot](https://github.com/reactwg/react-18/discussions/5) for more information.
+
+</Note>
+
+## Deprecated
+
+<Deprecated>
+
+This API will be removed in a future major version of React. [Use `createRef` instead.](/reference/react/createRef)
+
+</Deprecated>
+
+## Pitfall
+
+<Pitfall>
+
+This API will be removed in a future major version of React. [Use `createRef` instead.](/reference/react/createRef)
+
+</Pitfall>
+
+## Wip
+
+<Wip>
+
+This API will be removed in a future major version of React. [Use `createRef` instead.](/reference/react/createRef)
+
+</Wip>
+
+
+## TerminalBlock
+
+<TerminalBlock>
+npm help
+</TerminalBlock>
+
+## CodeStep
+
+<CodeStep step={1}>codeStep1</CodeStep>
+<CodeStep step={2}>codeStep2</CodeStep>
+<CodeStep step={3}>codeStep3</CodeStep>
+<CodeStep step={4}>codeStep4</CodeStep>
+
+## CodeBlock
+
+```jsx showLineNumber {1,4-6,11}
+export default function MyApp () {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    <div>
+      <h1>Counters that update together</h1>
+      <MyButton count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+    </div>
+  );
+}
+```
+
+```md
+.
+├─ docs
+│  ├─ .vitepress
+│  │  └─ config.js
+│  ├─ api-examples.md
+│  ├─ markdown-examples.md
+│  └─ index.md
+└─ package.json
+
+```
+
+## blockquote
+
+> Blockquote
+>
+> `useId` is **not** for generating  Keys should be generated from your data.
+
+## Hr
+
+---
+
+## Img
+
+![JS执行顺序](https://media.wangbaoqi.tech/assets/blog/browser/event_1.webp)
+
+
+## Link
+
+externalLink - [keys in a list](https://github.com/)
+
+innerLink - [button component](/components/button)
+
+你好 测试
+
+
+| Tables        |      Are      |  Cool |  Cool |
+| ------------- | :-----------: | ----: | ----: |
+| col 3 is      | right-aligned | $1600 | $1600 |
+| col 2 is      |   centered    |   $12 |   $12 |
+| zebra stripes |   are neat    |    $1 |   $12 |

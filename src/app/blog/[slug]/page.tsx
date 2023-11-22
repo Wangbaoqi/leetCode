@@ -19,8 +19,6 @@ export default function Page({ params }: { params: { slug: string } }) {
     (post) => post._raw.flattenedPath === `blog/${params.slug}`
   );
 
-  // console.log(post, 'post');
-
   if (!post) notFound();
 
   const MDXContent = useMDXComponent(post.body.code);

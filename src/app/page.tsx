@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { allPosts, Post, allAlgos, Algo } from 'contentlayer/generated';
 import { compareDesc, format, parseISO } from 'date-fns';
-
+import { Button } from '@nextui-org/button';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import Link from 'next/link';
 import { MDXComponents } from '@/components/mdx';
-
+import { ThemeSwitcher } from '@/components/ThemeSwitch';
+import { NavBar } from '@/components/layout';
 function PostCard(post: Post | Algo) {
   const MDXContent = useMDXComponent(post.body.code);
 
@@ -31,21 +32,13 @@ function PostCard(post: Post | Algo) {
 }
 
 export default function Home() {
-  console.log([...allPosts, ...allAlgos], 'allPosts');
   const posts = allPosts.sort((a: Post, b: Post) =>
     compareDesc(new Date(a.date), new Date(b.date))
   );
   return (
-    <div className='max-w-xl py-8 mx-auto'>
-      <h1 className='mb-8 text-3xl font-bold text-center'>Next.js Example</h1>
-
-      {posts.map((post: Post, idx: number) => (
-        <PostCard key={idx} {...post} />
-      ))}
-
-      {allAlgos.map((post: Algo, idx: number) => (
-        <PostCard key={idx} {...post} />
-      ))}
+    <div className=''>
+      <NavBar />
+      {/* <ThemeSwitcher /> */}
     </div>
   );
 }

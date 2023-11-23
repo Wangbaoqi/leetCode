@@ -6,7 +6,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import Link from 'next/link';
 import { MDXComponents } from '@/components/mdx';
 import { ThemeSwitcher } from '@/components/ThemeSwitch';
-import { NavBar } from '@/components/layout';
+import { NavBar, PostWrapper } from '@/components/blogLayout';
 function PostCard(post: Post | Algo) {
   const MDXContent = useMDXComponent(post.body.code);
 
@@ -36,9 +36,11 @@ export default function Home() {
     compareDesc(new Date(a.date), new Date(b.date))
   );
   return (
-    <div className=''>
+    <div className='relative flex flex-col'>
       <NavBar />
-      {/* <ThemeSwitcher /> */}
+      <div className='container mx-auto max-w-5xl px-6 flex-grow'>
+        <PostWrapper />
+      </div>
     </div>
   );
 }

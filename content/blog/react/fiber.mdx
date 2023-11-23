@@ -1,0 +1,346 @@
+---
+title: 从源码角度了解 React Fiber
+excerpt: 'React Fiber 是一套调度机制，能够暂停工作、恢复工作，并且能够为每一个工作分配优先级，恢复工作之后能够复用之前的状态'
+type: Post
+coverImage: 'https://media.wangbaoqi.tech/assets/blog/react/cover/fiber.webp'
+date: '2021-07-10'
+author: NateWang
+authorIcon: 'https://media.wangbaoqi.tech/assets/authors/logo.png'
+category: React
+tags:
+  - React
+---
+
+
+
+**React Fiber**是一套调度机制，能够**暂停工作**、**恢复工作**，并且能够为每一个工作**分配优先级**，恢复工作之后**能够复用之前的状态**。
+
+
+## react 15 架构
+
+- Reconciler协调器
+- Render 渲染器
+
+**Reconciler协调器**
+
+主要通过`Diff`算法得到需要更新的组件
+
+**Render 渲染器**
+
+获取要更新的组件 **同步** 进行渲染。
+
+React 中的渲染器主要有：
+
+- React DOM
+- React Native
+- React Test
+
+### React 15 渲染方式
+
+**react15** 是**同步递归**更新组件的，协调器得到差异更新，同步给到渲染器进行**DOM更新**。
+
+由于递归更新，一旦开始，就无法停止，当组件层级很深时，递归的时间会超过`16.6ms`，此时交互就会卡顿。
+
+如果在递归更新中加入**可中断的异步更新**，可想而知，当更新一部分UI之后，突然中断更新，那么后面的UI更新则不会更新。
+
+因此，这种**同步递归**的更新方式显然不适合**可中断的异步更新**，从而**FIber架构**由此而生了。
+
+## React 16 架构
+
+- 架构层级
+- 渲染方式
+
+### React 16 组成部分
+
+新的架构分为三层
+
+- Scheduler 调度器 **react16版本新增**
+- Reconciler 协调器
+- Render 渲染器
+
+**Scheduler调度器**
+
+调度任务的优先级，优先级较高的任务首先进入协调器。
+
+调度器主要包含两个功能：
+
+- 时间切片
+- 任务优先级
+
+**时间切片**主要模拟的`requestIdleCallback`，询问每一帧是否还有空余的时间来被调度的。后面详细阐述。
+
+**任务优先级**就是当有更新触发时，调度器会给每一个更新打上`更新的tag`，优先级比较高的任务先进入协调器。后面详细阐述。
+
+**Reconciler协调器**
+
+`React 15`的协调器是**递归同步**处理虚拟DOM的，而新的架构则使用循环的方式处理虚拟DOM，通过`shouldYield()`来判断是否需要**中断更新**，也就是当前帧是否有剩余的时间需要被调度。
+
+如果**中断更新**，那页面是如何解决更新不完全的问题呢？
+
+新架构中**Scheduler**和**Reconciler**是在内存中运行的，而当所有的组件**协调**完成之后，就会把所有有副作用的组件一次性交给**Render**进而同步渲染。
+
+在这种前提之下，就会把**调度**和**协调**的处理分为一段一段的执行，也就**时间切片**，当所有的时间切片完成之后，渲染器会一次性渲染页面。
+
+**Render渲染器**
+
+当获取到所有的带有更新标记的组件之后，渲染器就会依次执行这次副作用，同步更新UI界面。
+
+### React 16 渲染方式
+
+在理念中说到，`Fiber`架构是**异步可中断的更新**，下一章**Fiber架构**详解
+
+
+
+
+从以下两个方面来深入探索Fiber 架构
+
+- Fiber 实现原理
+- Fiber 工作原理
+
+## Fiber 实现原理
+
+- 为什么选择Fiber
+- Fiber 的含义
+- Fiber 的结构
+- Fiber与Generator
+
+在说明 **Fiber**之前，看下**进程（Process）**、**线程（Thread）**和 **协程（Coroutine）**之间的关系。
+
+**进程**相当于是一个应用程序，它是CPU资源分配的最小单位。在浏览器相当于**打开一个Tab，就开启了一个进程，而操作系统会给当前的Tab页分配内存，CPU等资源**。
+
+**线程**相当于是这个应用程序中**单个任务的执行**，在浏览器中比如**请求线程、渲染线程**等等。所以一个**进程**中会存在多个**线程**，这些线程会共享**进程**中资源。
+
+**协程**是一种轻量级的**线程**，而这种**线程**一般都会由**用户来控制（也就是开发者）**；**协程**都会有属于自己的**寄存器上下文和栈（独立的上下文执行栈）**，而对于**栈的调度都是由开发者控制的**，这样就可以实现**中断代码执行**以及**何时恢复代码的执行**，并且**恢复执行时可以获取上次中断时状态**
+
+看到**协程**，是不是想到了`Generator`，对的，`Generator`是协程的一种实现。
+
+**纤程** 也是一种轻量级的**线程**，（有时**称为堆栈式协程或用户模式协作调度的线程**）和无堆栈协程（编译器合成状态机）代表了两种不同的编程工具，具有巨大的性能和功能差异。
+
+**纤程**也是**协程**，主要由**开发者**主动的操作**堆栈**，从而达到我们想要的性能优化。
+
+### 为什么选择Fiber
+
+我们知道，屏幕流畅（浏览器浏览）的刷新率是`60HZ`，也就是每一秒刷新**60次**，而刷新一次需要`16.66ms`，也就是每一帧流畅的执行需要`16.66ms`，在这一帧里执行了什么操作呢？
+
+![all-frame](https://media.wangbaoqi.tech/assets/blog/browser/all-frame.webp)
+
+1. 首先，处理用户输入事件，尽快给用户反馈。
+2. 其次，检查定时器，看是否已经到了预定的时间，同时进行相应的回调，然后执行`JS代码`。
+3. 查看Begin Frame（每一帧的事件），包括`window.resize`、滚动、媒体查询变化等。
+4. 执行`requestAnimationFrame (rAF)`. 在绘制之前，会执行 rAF 回调。
+5. 执行布局操作，包括布局计算和更新，即元素在页面上的样式和显示方式。
+6. 执行Paint操作。获取树中每个节点的大小和位置，每个元素的内容由浏览器填充。
+7. 现在，浏览器进入空闲期。执行中注册的任务`requestIdleCallback`
+
+`React15`版本使用**同步递归渲染**的方式，而这种方式在**DOM**层级很深的时候，执行的耗时会逐渐增加，从而导致用户交互变的卡顿。
+
+而`React16`版本为了解决这些问题引入`Fiber`将任务分成多个子任务，**均衡**的在每一帧中执行，在这个过程中，需要去**中断任务**，并且为每一个任务分配优先级，优先级高的任务先进行`协调`，在下次**恢复任务**的时候能够**复用**之前的状态。
+
+引入`Fiber`之后，`React`和浏览器渲染线程之间交互如下图
+
+![all-frame](https://media.wangbaoqi.tech/assets/blog/react/fiber/react-frame.webp)
+
+首先，`React`会向浏览器发起调度请求，查看**当前帧**是否还有剩余时间，如果有剩余时间，`React`就获得了主线程的控制权，按照子任务的优先级去执行单个子任务，当子任务执行结束之后，`React`会再次发起调度，查看当前帧是否还有剩余时间，如果有，继续执行下个任务，如果没有，则将主线程的控制权交还给浏览器。
+
+循环往复，直到所有`React`的**更新任务**执行完成，浏览器直接一次性同步渲染这些更改。
+
+在这个调度的过程中，用户是完全感知不到浏览器的卡顿的，因为每一帧的执行时间会严格的控制在`16.66ms`。
+
+这种将任务分为多个子任务在每一帧执行的方式也被称之为`时间切片`。
+
+### Fiber 的含义
+
+主要体现在三个方面：
+
+- 架构层面：`React 15`版本**协调器**主要是使用**同步递归的方式渲染**，被称为`stack reconiler`；而`React 16`版本的**协调器**使用**可中断的异步渲染**，基于`Fiber`节点实现，称之为`Fiber reconciler`。
+- 静态结构层面：`Fiber`就是一个`JS对象`，每个`Fiber 节点`对应一个`react element`（保存了组件/DOM节点的所有信息）
+- 动态结构层面：每个`Fiber`节点保存需要去执行的工作（是否需要更新/删除）以及新老状态等。
+
+### Fiber的结构
+
+`Fiber`结构的定义是在`react-reconciler`单独的包中，详细解释可以看[这里](https://github.com/facebook/react/blob/main/packages/react-reconciler/src/ReactFiber.old.js#L119)
+
+```tsx
+function FiberNode(
+  tag: WorkTag,
+  pendingProps: mixed,
+  key: null | string,
+  mode: TypeOfMode,
+) {
+  // Instance 静态结构
+  this.tag = tag;
+  this.key = key;
+  this.elementType = null;
+  this.type = null;
+  this.stateNode = null;
+
+  // Fiber 链表结构 产生Fiber树
+  this.return = null;
+  this.child = null;
+  this.sibling = null;
+  this.index = 0;
+
+  this.ref = null;
+
+  // Fiber 节点的状态保存
+  this.pendingProps = pendingProps; // 当前需要更新的状态
+  this.memoizedProps = null; // 上次老的状态
+  this.updateQueue = null;
+  this.memoizedState = null;
+  this.dependencies = null;
+
+  this.mode = mode;
+
+  // Effects 副作用 需要去更新的
+  this.flags = NoFlags;
+  this.nextEffect = null;
+  this.firstEffect = null;
+  this.lastEffect = null;
+
+  // 优先级
+  this.lanes = NoLanes;
+  this.childLanes = NoLanes;
+
+  // Fiber 双缓存指针
+  this.alternate = null;
+}
+```
+
+#### Fiber 架构层面
+
+每个`Fiber`节点都有对应的`React element`，对于整个`React`应用来讲，就相当于是`Fiber`树。
+
+```js
+// 指向父级Fiber节点
+this.return = null;
+// 指向子级Fiber节点
+this.child = null;
+// 指向兄弟Fiber节点
+this.sibling = null;
+```
+
+上述这三个属性将整个`React`应用构建成了一颗`Fiber树`，如下图：
+
+![react-fiber-tree](https://media.wangbaoqi.tech/assets/blog/react/fiber/react-fiber-tree.webp)
+
+#### Fiber 的静态结构层面
+
+在`React16`中，`react element`和`dom 节点`都可以是`Fiber节点`，而这些`Fiber节点`会保存相关信息，比如该节点是什么类型，以及其真实`DOM节点`
+
+```js
+this.tag = tag; // 组件的类型 比如 classComponent functionComponent
+this.key = key; // key属性 用来做diff对比
+this.elementType = null; // 组件如果被memo包裹的话，跟type
+this.type = null; // 如果是function，则是函数名，如果是DOM节点，则是标签名称
+this.stateNode = null; // 真实DOM节点
+```
+
+`tag`为组件的类型，目前总共有**24种类型**，[类型详细](https://github.com/Wangbaoqi/react/blob/main/packages/react-reconciler/src/ReactWorkTags.js#L10)
+
+`type`为整个组件本身，如是`class`则为对应类名，函数则为函数本身，元素的的话，则是标签名称。主要作用在协调的过程中，根据不同的类型走不同的逻辑场景。
+
+#### Fiber的动态就结构层面
+
+在整个的协调过程中，会生成一颗`Fiber`树，而其中的`Fiber `节点的新老状态如何保存，以及最终产生具有副作用的`Fiber`节点的链表。
+
+```js
+// Fiber 节点的状态保存
+this.pendingProps = pendingProps;
+this.memoizedProps = null;
+this.updateQueue = null;
+this.memoizedState = null;
+this.dependencies = null;
+
+// Effects 每个Fiber节点的需要去更新的副作用
+this.flags = NoFlags;
+this.nextEffect = null;
+this.firstEffect = null;
+this.lastEffect = null;
+```
+
+### Fiber（纤程）与 Generator
+
+在设计理念中提出，新版本要将**同步渲染**改为**可中断的异步更新**。
+
+而纤程的实现刚好满足这种场景，可以通过**开发者**来主动的控制**中断**、**恢复**代码的执行。
+
+上面提到，在JS中，`Generator`支持这种实现，但是为什么放弃了它？
+
+主要有两个原因：
+
+- `Generator`是具有语法传染性的。使用`*`语法必须将上下文中的函数都用`*`语法包裹住，增加了语法开销。
+- 最重要的一点，`Generator`是有状态的，不能在执行中间恢复，需要再次计算，不能复用之前的状态。
+
+## Fiber 工作原理
+
+在**React架构**中提到，新的架构有**调度器**、**协调器**以及**渲染器**。
+
+在`Fiber`的工作过程中，有两个阶段**render阶段**和**commit阶段**
+
+- render 阶段：包括调度过程以及协调过程，整个过程都在内存中进程，是可以**中断**的
+- commit阶段：得到协调结果（具有副作用的`Fiber`链表），然后同步的将这些副作用更新到真实的DOM上
+
+### render 阶段
+
+**render 阶段**主要分为两个过程：
+
+- 首次页面渲染：主要生成`Fiber`树
+- 发生更新渲染：用户交互`setState`或者`forceUpdate`之后，会复用之前存在的`Fiber `树，然后生成新的`Fiber`树，这里就产生了**双缓存Fiber树**
+
+这里**rende 阶段**结束之后，会产生一条`Fiber节点`带有副作用的链表。
+
+#### 双缓存Fiber树
+
+在`Fiber节点`静态结构中，有一个属性，可以关联**正在展示的Fiber节点**和**正在构建的Fiber节点**，这个属性是`alternate`。
+
+`React16`中，最多会存在两颗`Fiber树 `，一个是页面上正在展示的，称之为`current Fiber树`；另一个是正在内存中构建的，被称之为`workingInProgress Fiber树`；
+
+`React`应用有一个**根Fiber节点**，其有一个`current`指针，指向的是当前页面展示的`Fiber树`，而当发生*更新*时，就会构建`workInProgress Fiber树`，构建结束之后，进入**commit阶段之前**，**根Fiber节点**的`current`指针就会指向构建完成的`workInProgress Fiber 树`；如果再发生更新的话，也会按这样的流程走。
+
+正是这两颗`Fiber树`，构成了**双缓存Fiber树**。
+
+```jsx
+const App = () => {
+  return (
+  	<div>
+      <p></p>
+    </div>
+  )
+}
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+`ReactDOM.render()`会创建`FiberRoot`和`rootFiber`节点。
+
+首次渲染时，此时没有`Fiber树`，所以需要第一次构建`workInProgrss树`，当构建完成，`FiberRoot`的`current`会指向`workInProgrss Fiber树`
+
+此时树结构为：
+
+![double-fiber-update](https://media.wangbaoqi.tech/assets/blog/react/fiber/double-fiber-update.svg)
+
+
+当发生更新时，又会重新构建`workInProgress Fiber树 `，此时会复用`current Fiber树`中节点的状态（如果没有更新的话）
+
+此时树结构为：
+
+![double-fiber](https://media.wangbaoqi.tech/assets/blog/react/fiber/double-fiber.svg)
+
+
+上述过程就是**双缓存FIber树**产生以及运行的过程，其中的细节如`Fiber节点`的产生、`diff算法`、`副作用链表`的对比等，会在架构篇中阐述到。
+
+### commit 阶段
+
+**commit阶段** 主要是**同步操作**，遍历`effectList`（副作用链表），然后执行每一个`副作用Fiber节点 `。
+
+**commit阶段**主要有三个过程：
+
+- `commitBeforeMutationEffects` 在执行**DOM**之前处理
+- `commitMutationEffect` 在执行**DOM**的时候处理
+- `commitLayoutEffect`在执行**DOM**之后处理
+
+在这个过程中，主要处理一些生命周期方法以及`hooks`方法等，在架构篇会详细说到。
+
+## 总结
+
+本篇主要说到`Fiber架构`，`React`为什么选择`Fiber`,`Fiber架构`主要解决了`react 15`中**同步递归渲染**的弊端，为了更好的实现**快速响应**的目标。以及介绍了`Fiber`的静态结构、作为动态单元如何生成**双缓存Fiber树**，下面着重阐述在`render阶段`和`commit阶段`是如何工作的。
+

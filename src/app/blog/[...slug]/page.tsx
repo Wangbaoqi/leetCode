@@ -8,16 +8,20 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
 import { MDXComponents } from '@/components/mdx';
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return allPosts.map((post) => ({
-    slug: post._raw.flattenedPath
+    slug: post._raw.flattenedPath.split('/')
   }));
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Page({ params }: { params: { slug: string[] } }) {
+  const { slug } = params;
+
   const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `blog/${params.slug}`
+    (post) => post._raw.flattenedPath === `blog/${params.slug.join('/')}`
   );
+
+  console.log(post?._raw);
 
   if (!post) notFound();
 

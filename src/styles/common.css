@@ -1,0 +1,24 @@
+
+@font-face {
+  font-family: 'wotfard';
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+  src: url(/fonts/wotfard/wotfard-semibold-webfont.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'wotfard';
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url(/fonts/wotfard/wotfard-medium-webfont.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'wotfard';
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url(/fonts/wotfard/wotfard-regular-webfont.woff2) format('woff2');
+}

@@ -2,25 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './common.css';
 
 @layer utilities {
-  /* searchBox */
-  .DocSearch {
-    @apply text-sm font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20
-  }
-  /* .docSearch kbd {
-    @apply h-6 w-6 border border-transparent mr-1  align-middle p-0 inline-flex justify-center items-center text-xs text-center rounded
-  }
-  .docSearch-top button {
-    @apply h-full bg-transparent
-  }
-  .docSearch-top button .DocSearch-Button-Placeholder,
-  .docSearch-top button .DocSearch-Button-Keys {
-    @apply hidden
-  }
-  .docSearch-top button:hover,
-  .docSearch-top button:active,
-  .docSearch-top button:focus {
-    @apply bg-transparent
-  } */
 }

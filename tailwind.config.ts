@@ -61,7 +61,8 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
         serif: defaultTheme.fontFamily.serif,
-        mono: defaultTheme.fontFamily.mono
+        mono: defaultTheme.fontFamily.mono,
+        wotfard: ['wotfard', 'Wotfard-fallback', 'sans-serif']
       }
     }
   },

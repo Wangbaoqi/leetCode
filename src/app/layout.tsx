@@ -7,8 +7,8 @@ import { fontSans, firaMono, ysabeauOffice } from '@/app/fonts';
 import '@/styles/globals.css';
 
 const bodyClsx = clsx(
-  fontSans.variable,
-  'min-h-screen text-foreground font-sans bg-background scroll-smooth antialiased'
+  // fontSans.variable,
+  'min-h-screen text-foreground font-wotfard bg-background scroll-smooth antialiased'
 );
 
 export default function RootLayout({

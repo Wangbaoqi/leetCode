@@ -1,33 +1,37 @@
-import InlineCode from './InlineCode';
+// import InlineCode from './InlineCode';
 import CodeBlock from './CodeBlock';
 import { Intro } from './Intro';
 // import WrapperMdx from './Wrapper';
+import * as Components from '@nextui-org/react';
+import { Language } from 'prism-react-renderer';
+
 import ConsoleBlock from './ConsoleBlock';
 import ExpandableCallout from './ExpandableCallout';
 import TerminalBlock from './TerminalBlock';
 import clsx from 'clsx';
 import Link from './Link';
 import Sandpack from './Sandpack';
-import type { MDXComponents as MDXComponentType } from 'mdx/types';
+import NextImage from 'next/image';
+// import { Image as NextImage } from '@nextui-org/react';
 
 const H1 = (p: JSX.IntrinsicElements['h1']) => (
-  <h1 className='text-3xl font-display font-bold leading-tight' {...p} />
+  <h1 className='text-3xl font-bold leading-tight' {...p} />
 );
 
 const H2 = (p: JSX.IntrinsicElements['h2']) => (
-  <h2 className='text-2xl font-display font-bold leading-tight' {...p} />
+  <h2 className='text-2xl font-bold leading-tight' {...p} />
 );
 
 const H3 = (p: JSX.IntrinsicElements['h3']) => (
-  <h2 className='text-xl font-display font-bold leading-tight' {...p} />
+  <h2 className='text-xl font-bold leading-tight' {...p} />
 );
 
 const H4 = (p: JSX.IntrinsicElements['h4']) => (
-  <h2 className='text-lg font-display font-bold leading-tight' {...p} />
+  <h2 className='text-lg font-bold leading-tight' {...p} />
 );
 
 const P = (p: JSX.IntrinsicElements['p']) => (
-  <p className='whitespace-pre-wrap leading-7 my-4' {...p} />
+  <p className='text-[16px] whitespace-pre-wrap leading-7 my-3' {...p} />
 );
 const Strong = (strong: JSX.IntrinsicElements['strong']) => (
   <strong className='font-bold' {...strong} />
@@ -36,11 +40,12 @@ const Strong = (strong: JSX.IntrinsicElements['strong']) => (
 const OL = (p: JSX.IntrinsicElements['ol']) => (
   <ol className='ml-6 my-3 list-decimal' {...p} />
 );
-const LI = (p: JSX.IntrinsicElements['li']) => (
-  <li className='leading-relaxed mb-1' {...p} />
-);
+const LI = (p: JSX.IntrinsicElements['li']) => <li className='' {...p} />;
 const UL = (p: JSX.IntrinsicElements['ul']) => (
-  <ul className='ml-6 my-3 list-disc' {...p} />
+  <ul
+    className='list-disc flex flex-col gap-2 ml-4 mt-2 [&>li>strong]:text-pink-500 dark:[&>li>strong]:text-cyan-600'
+    {...p}
+  />
 );
 const Divider = () => (
   <hr className='my-6 block border-b border-t-0 border-border dark:border-border-dark' />
@@ -72,8 +77,73 @@ const Deprecated = ({ children }: { children: React.ReactNode }) => (
   <ExpandableCallout type='deprecated'>{children}</ExpandableCallout>
 );
 
+const InlineCode = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <Components.Code className='font-normal bg-transparent px-0 py-0 text-code-mdx'>
+      {children}
+    </Components.Code>
+  );
+};
+
+const Code = ({
+  className,
+  children,
+  meta
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  meta?: string;
+}) => {
+  const isMultiLine = (children as string)?.split?.('\n')?.length > 2;
+  const language = (className?.replace(/language-/, '') ?? 'jsx') as Language;
+  const codeString = String(children).trim();
+
+  if (!className) {
+    return <InlineCode>{children}</InlineCode>;
+  }
+
+  return (
+    <Components.Snippet
+      disableTooltip
+      fullWidth
+      hideSymbol
+      classNames={{
+        base: clsx(
+          'px-0 bg-default-900 dark:bg-default-500/10 text-default-900 dark:text-default-500 rounded',
+          {
+            'items-start': isMultiLine
+          },
+          className
+        ),
+        pre: 'font-light w-full text-sm',
+        copyButton: 'text-lg text-zinc-500 mr-2'
+      }}
+      codeString={codeString}
+      onCopy={() => {
+        // trackEvent("MDXComponents - Copy", {
+        //   category: "docs",
+        //   action: "copyCode",
+        //   data: codeString,
+        // });
+      }}
+    >
+      <CodeBlock
+        codeString={codeString}
+        language={language}
+        metaString={meta}
+      />
+    </Components.Snippet>
+  );
+};
+
 function Image(props: any) {
-  return <img className='max-w-[calc(min(700px,100%))]' {...props} />;
+  return (
+    <img
+      className='rounded my-6 max-w-[calc(min(700px,100%))]'
+      alt='an image'
+      {...props}
+    />
+  );
 }
 
 function CodeStep({ children, step }: { children: any; step: number }) {
@@ -101,29 +171,30 @@ function CodeStep({ children, step }: { children: any; step: number }) {
 
 export const MDXComponents = {
   // wrapper: WrapperMdx,
-  blockquote: Blockquote,
-  h1: H1,
-  h2: H2,
-  h3: H3,
-  h4: H4,
-  p: P,
-  strong: Strong,
-  ol: OL,
-  li: LI,
-  ul: UL,
-  // pre: Pre,
-  pre: CodeBlock,
-  code: InlineCode,
-  hr: Divider,
-  img: Image,
-  a: Link,
-  Intro,
-  ConsoleBlock,
-  Note,
-  Wip,
-  Pitfall,
-  Deprecated,
-  TerminalBlock,
-  CodeStep,
-  Sandpack
+  // NextUI
+  // ...Components
+  // blockquote: Blockquote,
+  // h1: H1,
+  // h2: H2,
+  // h3: H3,
+  // h4: H4,
+  // p: P,
+  // strong: Strong,
+  // ol: OL,
+  // li: LI,
+  // ul: UL,
+  // pre: CodeBlock,
+  code: Code
+  // hr: Divider,
+  // img: Image,
+  // a: Link,
+  // Intro,
+  // ConsoleBlock,
+  // Note,
+  // Wip,
+  // Pitfall,
+  // Deprecated,
+  // TerminalBlock,
+  // CodeStep,
+  // Sandpack
 };

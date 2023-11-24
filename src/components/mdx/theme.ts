@@ -1,72 +1,111 @@
-import type { PrismTheme } from 'prism-react-renderer';
+import { PrismTheme } from 'prism-react-renderer';
 
-const theme: PrismTheme = {
+const codeTheme: PrismTheme = {
   plain: {
-    color: 'var(--sp-syntax-color-plain)'
+    backgroundColor: 'hsl(var(--nant-code-background))',
+    color: '#F4F4F4',
+    fontWeight: '400',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    textRendering: 'geometricPrecision'
   },
-
   styles: [
     {
-      types: ['comment', 'block-comment', 'prolog', 'doctype', 'cdata'],
+      types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: {
-        color: 'var(--sp-syntax-color-comment)',
-        fontStyle: 'italic'
+        color: 'rgb(var(--code-comment))'
+      }
+    },
+    {
+      types: ['symbol', 'text'],
+      style: {
+        color: 'rgb(var(--code-foreground))'
       }
     },
     {
       types: ['punctuation'],
       style: {
-        color: 'var(--sp-syntax-color-punctuation)'
-      }
-    },
-    {
-      types: [
-        'entity',
-        'url',
-        'symbol',
-        'number',
-        'boolean',
-        'variable',
-        'constant',
-        'property',
-        'regex',
-        'inserted',
-        'tag'
-      ],
-      style: {
-        color: 'var(--sp-syntax-color-tag)'
-      }
-    },
-    {
-      types: ['attr-name', 'char', 'builtin', 'parameter', 'selector'],
-      style: {
-        color: 'var(--sp-syntax-color-property)'
+        color: 'rgb(var(--code-punctuation))'
       }
     },
     {
       types: ['function'],
       style: {
-        color: 'var(--sp-syntax-color-definition)'
+        color: 'rgb(var(--code-function))'
       }
     },
     {
-      types: ['string'],
+      types: ['namespace'],
       style: {
-        color: 'var(--sp-syntax-color-string)'
+        opacity: 1
+      }
+    },
+    {
+      types: ['tag', 'operator', 'number'],
+      style: {
+        color: 'rgb(var(--code-number))'
+      }
+    },
+    {
+      types: ['property', 'function'],
+      style: {
+        color: 'rgb(var(--code-function))'
+      }
+    },
+    {
+      types: ['tag-id', 'selector', 'atrule-id'],
+      style: {
+        color: 'rgb(var(--code-tag))'
+      }
+    },
+    {
+      types: ['attr-name'],
+      style: {
+        color: 'rgb(var(--code-attr-name))'
       }
     },
     {
       types: [
-        'important',
-        'atrule',
-        'keyword',
-        'selector-class',
-        'class-name',
-        'maybe-class-name',
-        'builtin'
+        'boolean',
+        'string',
+        'entity',
+        'url',
+        'attr-value',
+        'control',
+        'directive',
+        'unit',
+        'statement',
+        'regex',
+        'at-rule',
+        'placeholder',
+        'variable'
       ],
       style: {
-        color: 'var(--sp-syntax-color-keyword)'
+        color: 'rgb(var(--code-string))'
+      }
+    },
+    {
+      types: ['deleted'],
+      style: {
+        textDecorationLine: 'line-through'
+      }
+    },
+    {
+      types: ['language-javascript', 'script'],
+      style: {
+        color: 'rgb(var(--code-function))'
+      }
+    },
+    {
+      types: ['inserted'],
+      style: {
+        textDecorationLine: 'underline'
+      }
+    },
+    {
+      types: ['italic'],
+      style: {
+        fontStyle: 'italic'
       }
     },
     {
@@ -76,12 +115,59 @@ const theme: PrismTheme = {
       }
     },
     {
-      types: ['italic'],
+      types: ['important', 'primitive', 'keyword'],
       style: {
-        fontStyle: 'italic'
+        color: 'rgb(var(--code-keyword))'
       }
     }
   ]
 };
 
-export default theme;
+export const getCodeThemeColors = () => {
+  const stringColor = codeTheme.styles.find((style) =>
+    style.types.includes('string')
+  );
+  const punctuationColor = codeTheme.styles.find((style) =>
+    style.types.includes('punctuation')
+  );
+  const numberColor = codeTheme.styles.find((style) =>
+    style.types.includes('number')
+  );
+  const textColor = codeTheme.styles.find((style) =>
+    style.types.includes('text')
+  );
+  const selectorColor = codeTheme.styles.find((style) =>
+    style.types.includes('selector')
+  );
+  const commentColor = codeTheme.styles.find((style) =>
+    style.types.includes('comment')
+  );
+  const classnameColor = codeTheme.styles.find((style) =>
+    style.types.includes('tag')
+  );
+  const attrColor = codeTheme.styles.find((style) =>
+    style.types.includes('attr-name')
+  );
+  const functionColor = codeTheme.styles.find((style) =>
+    style.types.includes('function')
+  );
+  const primitiveColor = codeTheme.styles.find((style) =>
+    style.types.includes('primitive')
+  );
+
+  return {
+    ...codeTheme.plain,
+    stringColor,
+    punctuationColor,
+    numberColor,
+    textColor,
+    selectorColor,
+    commentColor,
+    classnameColor,
+    attrColor,
+    functionColor,
+    primitiveColor
+  };
+};
+
+export default codeTheme;

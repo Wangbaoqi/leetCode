@@ -12,13 +12,12 @@ category: React
 ---
 
 
-Render 阶段主要创建 Fiber节点，生成Fiber树，在更新阶段进行操作，diff产生具有副作用的effectList
-
+Render阶段主要创建 Fiber节点，生成Fiber树，在更新阶段进行操作，diff产生具有副作用的effectList
 
 主要有以下重要的步骤：
 
-- `beginWork`阶段
-- `completeWork`阶段
+- beginWork阶段
+- completeWork阶段
 
 在详细阐述render阶段之前，先看下整个**render阶段**的流程图；
 
@@ -30,7 +29,7 @@ Render 阶段主要创建 Fiber节点，生成Fiber树，在更新阶段进行�
 
 **render 阶段**开始于`ReactDOM.render()`，在这个阶段创建了`FiberRoot`节点和`rootFiber`节点，也就是当前应用的**根节点**，如果存在多应用的话，对应的`FiberRoot`节点也会存在多个，但是`rootFiber`每个应用只有一个。
 
-```tsx
+```jsx
 // 创建FiberRoot节点
 export function createFiberRoot(
   containerInfo: any,

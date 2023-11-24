@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 // import clsx from 'clsx';
 import { isAppleDevice } from '@react-aria/utils';
 import { clsx } from '@nextui-org/shared-utils';
-
 import {
   link,
   Link,
@@ -30,8 +29,13 @@ import {
 import { ThemeSwitcher } from '@/components/ThemeSwitch';
 import { siteConfig } from '@/config/site';
 import SearchDoc from '@/components/Search';
+import { usePathname } from 'next/navigation';
+import { useIsMounted } from '@/hooks/useIsMount';
+import { includes } from 'lodash';
 
 export const NavBar = () => {
+  const pathname = usePathname();
+
   const [commandKey, setCommandKey] = useState<Array<'ctrl' | 'command'>>([
     'command'
   ]);
@@ -50,7 +54,7 @@ export const NavBar = () => {
   const handleOpenCmdk = () => {};
 
   return (
-    <NextUINavbar>
+    <NextUINavbar maxWidth='lg' position='sticky'>
       <NavbarContent className='basis-1/5 sm:basis-full' justify='start'>
         <NavbarBrand as='li' className='gap-1 max-w-fit mr-4'>
           <NextLink href='/' className='flex items-center gap-1'>
@@ -63,7 +67,7 @@ export const NavBar = () => {
             <NextLink
               className={navLinkClasses}
               color='foreground'
-              // data-active={includes(pathname, "blog")}
+              data-active={includes(pathname, 'blog')}
               href='/blog'
               onClick={() => handlePressNavbarItem('Blog', '/blog')}
             >
@@ -74,9 +78,9 @@ export const NavBar = () => {
             <NextLink
               className={navLinkClasses}
               color='foreground'
-              // data-active={includes(pathname, "components")}
+              data-active={includes(pathname, 'algo')}
               href='/algo'
-              onClick={() => handlePressNavbarItem('Components', '/algo')}
+              onClick={() => handlePressNavbarItem('Algorithm', '/algo')}
             >
               Algorithm
             </NextLink>
@@ -86,9 +90,9 @@ export const NavBar = () => {
             <NextLink
               className={navLinkClasses}
               color='foreground'
-              // data-active={includes(pathname, "figma")}
+              data-active={includes(pathname, 'project')}
               href='/project'
-              onClick={() => handlePressNavbarItem('Figma', '/project')}
+              onClick={() => handlePressNavbarItem('project', '/project')}
             >
               Project
             </NextLink>

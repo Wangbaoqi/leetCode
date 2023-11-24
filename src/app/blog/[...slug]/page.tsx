@@ -6,7 +6,7 @@ import {
 } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
-import { MDXComponents } from '@/components/mdx';
+import MDXContent from '@/components/mdx/MDXContent';
 
 export function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -18,19 +18,22 @@ export default function Page({ params }: { params: { slug: string[] } }) {
   const { slug } = params;
 
   const post = allPosts.find(
-    (post) => post._raw.flattenedPath === `blog/${params.slug.join('/')}`
+    (post) => post._raw.flattenedPath === `blog/${slug.join('/')}`
   );
 
   console.log(post?._raw);
 
   if (!post) notFound();
 
-  const MDXContent = useMDXComponent(post.body.code);
+  // const MDXContent = useMDXComponent(post.body.code);
 
   return (
-    <div>
-      <p>blog page</p>
-      <MDXContent components={MDXComponents} />
-    </div>
+    <article className='relative mb-32 max-w-3xl mx-auto prose prose-neutral text-default-700 '>
+      <div></div>
+
+      <h1 className='text-3xl font-bold'>{post.title}</h1>
+
+      <MDXContent code={post.body.code} />
+    </article>
   );
 }

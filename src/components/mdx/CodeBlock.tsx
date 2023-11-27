@@ -132,7 +132,7 @@ const Codeblock = forwardRef<HTMLPreElement, CodeblockProps>(
     }, []);
 
     return (
-      <Highlight code={codeString} language={codeLang} theme={theme} {...props}>
+      <Highlight code={codeString} language={codeLang} theme={theme}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <div className='w-full' data-language={language}>
             <pre
@@ -144,7 +144,7 @@ const Codeblock = forwardRef<HTMLPreElement, CodeblockProps>(
               style={style}
             >
               {tokens.map((line, i) => {
-                const lineProps = getLineProps({ line, key: i });
+                const lineProps = getLineProps({ line });
 
                 return (
                   <div
@@ -170,10 +170,10 @@ const Codeblock = forwardRef<HTMLPreElement, CodeblockProps>(
                         {i + 1}
                       </span>
                     )}
-                    {line.map((token, key) => (
+                    {line.map((token, id) => (
                       <span
-                        key={`${key}-${getUniqueID('line')}`}
-                        {...getTokenProps({ token, key })}
+                        key={`${id}-${getUniqueID('line')}`}
+                        {...getTokenProps({ token, id })}
                         className={className}
                       />
                     ))}

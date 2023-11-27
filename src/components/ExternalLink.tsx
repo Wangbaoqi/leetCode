@@ -1,3 +1,5 @@
+import { LinkExtra } from '@/components/icons';
+
 export function ExternalLink({
   href,
   target,
@@ -7,6 +9,7 @@ export function ExternalLink({
   return (
     <a href={href} target={target ?? '_blank'} rel='noopener' {...props}>
       {children}
+      {/* <LinkExtra /> */}
     </a>
   );
 }

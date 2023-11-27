@@ -7,6 +7,10 @@ import {
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
 import MDXContent from '@/components/mdx/MDXContent';
+import { getHeadings } from '@/lib/docs/utils';
+import { clsx } from '@nextui-org/shared-utils';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
+import { Toc } from '@/components/blogLayout';
 
 export function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -20,20 +24,20 @@ export default function Page({ params }: { params: { slug: string[] } }) {
   const post = allPosts.find(
     (post) => post._raw.flattenedPath === `blog/${slug.join('/')}`
   );
-
-  console.log(post?._raw);
+  const tocList = getHeadings(post?.body.raw);
 
   if (!post) notFound();
 
-  // const MDXContent = useMDXComponent(post.body.code);
-
   return (
-    <article className='relative mb-32 max-w-3xl mx-auto prose prose-neutral text-default-700 '>
-      <div></div>
-
-      <h1 className='text-3xl font-bold'>{post.title}</h1>
-
-      <MDXContent code={post.body.code} />
-    </article>
+    <div className='relative flex flex-row-reverse justify-center mt-20 w-full px-16'>
+      <aside className='hidden lg:block flex-[0_10000_230px] sticky top-32 h-[calc(100vh-121px)] ml-auto overflow-auto pb-4'>
+        <Toc headings={tocList} />
+      </aside>
+      <article className='flex-[0_1_668px] relative mb-32 max-w-[650px] px-2 prose prose-neutral text-default-700 '>
+        <div></div>
+        <h1 className='text-3xl font-bold'>{post.title}</h1>
+        <MDXContent code={post.body.code} />
+      </article>
+    </div>
   );
 }

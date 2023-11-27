@@ -2,6 +2,7 @@ import { ExternalLink } from '../ExternalLink';
 import clsx from 'clsx';
 
 import InnerLink from 'next/link';
+import * as Components from '@nextui-org/react';
 
 export default function Link({
   href,
@@ -10,7 +11,7 @@ export default function Link({
   ...props
 }: JSX.IntrinsicElements['a']) {
   const classes =
-    'inline text-link dark:text-link-dark border-b border-link border-opacity-0 hover:border-opacity-100 duration-100 ease-in transition leading-normal';
+    'inline-flex items-center text-success-600 dark:text-success-600 border-b border-success-600 border-opacity-50 hover:border-opacity-100 duration-100 ease-in transition leading-normal no-underline';
 
   if (!href) {
     return <a href={href} className={className} {...props} />;
@@ -19,13 +20,14 @@ export default function Link({
   return (
     <>
       {href.startsWith('https://') ? (
-        <ExternalLink
+        <Components.Link
           href={href}
+          isExternal
+          showAnchorIcon
           className={clsx(classes, className)}
-          {...props}
         >
           {children}
-        </ExternalLink>
+        </Components.Link>
       ) : href.startsWith('#') ? (
         <a className={clsx(classes, className)} href={href} {...props}>
           {children}

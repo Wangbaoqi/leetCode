@@ -15,73 +15,65 @@ category: React
 
 ## Intro
 
-<Intro>
 
 测试自定义React组件 Intro 组件
 
 
+<Spacer y={4} />
+<Chip className='text-primary font-medium'>Chip</Chip>
+
 ### Intro section
 
 
-</Intro>
 
 ## ConsoleBlock
 
-<ConsoleBlock level="error">
 
 ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot
 
-</ConsoleBlock>
 
 ## Note
 
-<Note>
 
 There is no one-to-one replacement for the old render callback API — it depends on your use case. See the working group post for [Replacing render with createRoot](https://github.com/reactwg/react-18/discussions/5) for more information.
 
-</Note>
-
 ## Deprecated
 
-<Deprecated>
 
-This API will be removed in a future major version of React. [Use `createRef` instead.](/reference/react/createRef)
+This API will be removed in a future major version of React. [Use createRef instead.](/reference/react/createRef)
 
-</Deprecated>
 
 ## Pitfall
 
-<Pitfall>
 
 This API will be removed in a future major version of React. [Use `createRef` instead.](/reference/react/createRef)
 
-</Pitfall>
 
 ## Wip
 
-<Wip>
+{/* <Wip> */}
 
 This API will be removed in a future major version of React. [Use `createRef` instead.](/reference/react/createRef)
 
-</Wip>
+{/* </Wip> */}
 
 
 ## TerminalBlock
 
-<TerminalBlock>
 npm help
-</TerminalBlock>
 
 ## CodeStep
 
-<CodeStep step={1}>codeStep1</CodeStep>
-<CodeStep step={2}>codeStep2</CodeStep>
-<CodeStep step={3}>codeStep3</CodeStep>
-<CodeStep step={4}>codeStep4</CodeStep>
+
+
 
 ## CodeBlock
 
-```jsx showLineNumber {1,4-6,11}
+```shell
+npm help
+```
+
+```jsx showLines {4}
 export default function MyApp () {
   const [count, setCount] = useState(0);
 

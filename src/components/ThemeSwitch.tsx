@@ -4,11 +4,10 @@ import { useTheme } from 'next-themes';
 import { MoonFilledIcon, SunFilledIcon } from '@/components/icons';
 import { useSwitch, SwitchProps } from '@nextui-org/react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
-
-import clsx from 'clsx';
-
+import { clsx } from '@nextui-org/shared-utils';
 import { useIsSSR } from '@react-aria/ssr';
-export function ThemeSwitcher() {
+
+export function ThemeSwitcher(props: SwitchProps) {
   const { theme, setTheme } = useTheme();
   const isSSR = useIsSSR();
 
@@ -16,17 +15,14 @@ export function ThemeSwitcher() {
     theme === 'light' ? setTheme('dark') : setTheme('light');
   };
 
-  console.log(typeof window !== 'undefined');
-
   const {
     Component,
     slots,
-    isSelected,
+    isSelected = false,
     getBaseProps,
     getInputProps,
     getWrapperProps
   } = useSwitch({
-    isSelected: theme === 'light',
     onChange
   });
 

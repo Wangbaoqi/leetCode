@@ -30,12 +30,23 @@ const H4 = (p: JSX.IntrinsicElements['h4']) => (
   <h2 className='text-lg font-bold leading-tight' {...p} />
 );
 
-const P = (p: JSX.IntrinsicElements['p']) => (
-  <p className='text-[16px] whitespace-pre-wrap leading-7 my-3' {...p} />
-);
 const Strong = (strong: JSX.IntrinsicElements['strong']) => (
-  <strong className='font-bold' {...strong} />
+  <strong className='font-bold text-inherit' {...strong} />
 );
+
+const Pre = (p: JSX.IntrinsicElements['pre']) => (
+  <pre className='-mx-6 my-4' {...p} />
+);
+
+const Table: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+  return (
+    <div className='overflow-x-auto overflow-y-hidden'>
+      <table className='border-collapse border-spacing-0 w-full'>
+        {children}
+      </table>
+    </div>
+  );
+};
 
 const OL = (p: JSX.IntrinsicElements['ol']) => (
   <ol className='ml-6 my-3 list-decimal' {...p} />
@@ -79,7 +90,7 @@ const Deprecated = ({ children }: { children: React.ReactNode }) => (
 
 const InlineCode = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <Components.Code className='font-normal bg-transparent px-0 py-0 text-code-mdx'>
+    <Components.Code className='font-normal bg-transparent px-0 py-0 text-secondary'>
       {children}
     </Components.Code>
   );
@@ -139,7 +150,7 @@ const Code = ({
 function Image(props: any) {
   return (
     <img
-      className='rounded my-6 max-w-[calc(min(700px,100%))]'
+      className='rounded  my-6 max-w-[calc(min(700px,100%))]'
       alt='an image'
       {...props}
     />
@@ -170,24 +181,24 @@ function CodeStep({ children, step }: { children: any; step: number }) {
 }
 
 export const MDXComponents = {
-  // wrapper: WrapperMdx,
   // NextUI
-  // ...Components
-  // blockquote: Blockquote,
+  ...Components,
+  blockquote: Blockquote,
   // h1: H1,
   // h2: H2,
   // h3: H3,
   // h4: H4,
   // p: P,
-  // strong: Strong,
+  strong: Strong,
   // ol: OL,
   // li: LI,
   // ul: UL,
-  // pre: CodeBlock,
-  code: Code
+  pre: Pre,
+  code: Code,
   // hr: Divider,
-  // img: Image,
-  // a: Link,
+  table: Table,
+  img: Image,
+  a: Link
   // Intro,
   // ConsoleBlock,
   // Note,

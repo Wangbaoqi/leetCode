@@ -1,6 +1,8 @@
 // contentlayer.config.ts
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
-
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import { visit } from 'unist-util-visit';
 export const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: `content/blog/**/*.mdx`,
@@ -41,5 +43,18 @@ export const Algo = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Post, Algo]
+  documentTypes: [Post, Algo],
+  mdx: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      rehypeSlug,
+      () => (tree) => {
+        visit(tree, 'element', (node) => {
+          if (node.tagName === 'code' && node.data && node.data.meta) {
+            node.properties.meta = node.data.meta;
+          }
+        });
+      }
+    ]
+  }
 });

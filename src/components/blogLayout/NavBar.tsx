@@ -28,7 +28,7 @@ import {
 
 import { ThemeSwitcher } from '@/components/ThemeSwitch';
 import { siteConfig } from '@/config/site';
-import SearchDoc from '@/components/Search';
+import { Search } from '@/components';
 import { usePathname } from 'next/navigation';
 import { useIsMounted } from '@/hooks/useIsMount';
 import { includes } from 'lodash';
@@ -36,25 +36,20 @@ import { includes } from 'lodash';
 export const NavBar = () => {
   const pathname = usePathname();
 
-  const [commandKey, setCommandKey] = useState<Array<'ctrl' | 'command'>>([
-    'command'
-  ]);
   const navLinkClasses = clsx(
     link({ color: 'foreground' }),
     'font-medium text-[15px]',
     'data-[active=true]:text-primary'
   );
 
-  useEffect(() => {
-    setCommandKey(isAppleDevice() ? ['command'] : ['ctrl']);
-  }, []);
-
   const handlePressNavbarItem = (name: string, url: string) => {};
 
-  const handleOpenCmdk = () => {};
-
   return (
-    <NextUINavbar maxWidth='lg' position='sticky'>
+    <NextUINavbar
+      maxWidth='lg'
+      position='sticky'
+      className='[&>header]:max-w-5.5xl'
+    >
       <NavbarContent className='basis-1/5 sm:basis-full' justify='start'>
         <NavbarBrand as='li' className='gap-1 max-w-fit mr-4'>
           <NextLink href='/' className='flex items-center gap-1'>
@@ -171,28 +166,7 @@ export const NavBar = () => {
           <ThemeSwitcher />
         </NavbarItem>
         <NavbarItem className='hidden lg:flex'>
-          <Button
-            aria-label='Quick search'
-            className='text-sm font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20'
-            endContent={
-              <Kbd
-                className='hidden py-0.5 px-2 lg:inline-block'
-                keys={commandKey}
-              >
-                K
-              </Kbd>
-            }
-            startContent={
-              <SearchLinearIcon
-                className='text-base text-default-400 pointer-events-none flex-shrink-0'
-                size={18}
-                strokeWidth={2}
-              />
-            }
-            onPress={handleOpenCmdk}
-          >
-            Quick Search...
-          </Button>
+          <Search />
         </NavbarItem>
       </NavbarContent>
     </NextUINavbar>

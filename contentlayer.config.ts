@@ -31,7 +31,9 @@ export const Algo = defineDocumentType(() => ({
   contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
-    date: { type: 'date', required: true }
+    date: { type: 'date', required: true },
+    type: { type: 'string', required: true },
+    tags: { type: 'list', of: { type: 'string' } }
   },
   computedFields: {
     url: {

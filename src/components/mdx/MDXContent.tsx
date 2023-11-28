@@ -11,7 +11,7 @@ export default function MDXContent({ code }: MdxType) {
   const Component = useMDXComponent(code);
   return (
     <div>
-      <Component components={MDXComponents as MDXComponentsType} />
+      <Component components={MDXComponents as unknown as MDXComponentsType} />
     </div>
   );
 }

@@ -6,3 +6,4 @@ export * from './MoonFilled';
 export * from './Sun';
 export * from './Search';
 export * from './linear/LinkExtra';
+export * from './linear';

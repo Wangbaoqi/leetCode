@@ -6,7 +6,7 @@ const nextUIConf: NextUIPluginConfig = {
   prefix: 'nant',
   // defaultTheme: 'dark', // has problem
   // defaultExtendTheme: 'dark',
-
+  addCommonColors: true,
   layout: {
     spacingUnit: 4, // in px
     disabledOpacity: 0.5, // this value is applied as opacity-[value] when the component is disabled
@@ -71,6 +71,9 @@ const config: Config = {
         serif: defaultTheme.fontFamily.serif,
         mono: defaultTheme.fontFamily.mono,
         wotfard: ['wotfard', 'Wotfard-fallback', 'sans-serif']
+      },
+      maxWidth: {
+        '5.5xl': '1100px'
       },
       typography: (theme: (arg0: string) => any[]) => ({
         DEFAULT: {

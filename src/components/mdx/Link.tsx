@@ -1,5 +1,5 @@
 import { ExternalLink } from '../ExternalLink';
-import clsx from 'clsx';
+import { clsx } from '@nextui-org/shared-utils';
 
 import InnerLink from 'next/link';
 import * as Components from '@nextui-org/react';
@@ -10,9 +10,11 @@ export default function Link({
   children,
   ...props
 }: JSX.IntrinsicElements['a']) {
-  const classes =
-    'inline-flex items-center text-success-600 dark:text-success-600 border-b border-success-600 border-opacity-50 hover:border-opacity-100 duration-100 ease-in transition leading-normal no-underline';
-
+  const classes = clsx(
+    'inline-flex items-center text-success-600 dark:text-success-600 border-b',
+    'border-success-600 duration-100 ease-in transition leading-normal no-underline',
+    'hover:opacity-100'
+  );
   if (!href) {
     return <a href={href} className={className} {...props} />;
   }

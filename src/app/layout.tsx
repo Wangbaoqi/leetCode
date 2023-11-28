@@ -8,7 +8,7 @@ import '@/styles/globals.css';
 
 const bodyClsx = clsx(
   // fontSans.variable,
-  'min-h-screen text-foreground font-wotfard bg-background scroll-smooth antialiased'
+  'min-h-screen text-foreground font-wotfard text-[15px] bg-background scroll-smooth antialiased'
 );
 
 export default function RootLayout({

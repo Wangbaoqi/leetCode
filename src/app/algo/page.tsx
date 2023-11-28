@@ -1,5 +1,10 @@
 import React from 'react';
 
+import { SideBar } from '@/components/algoLayout';
 export default function AlgoPage() {
-  return <div className='relative flex flex-col'>Algo</div>;
+  return (
+    <>
+      <section className=''>main</section>
+    </>
+  );
 }

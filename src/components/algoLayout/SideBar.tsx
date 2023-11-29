@@ -175,7 +175,8 @@ export const SideBar = () => {
               >
                 <Image
                   width={48}
-                  src='https://nextui-docs-v2.vercel.app/images/album-cover.png'
+                  src={route.cover}
+                  className='rounded-lg'
                   alt='NextUI Album Cover'
                 />
                 <div className='flex flex-col truncate flex-auto'>

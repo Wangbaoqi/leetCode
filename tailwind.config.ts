@@ -61,6 +61,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        'algo-home': {
+          '100': '#F9D1D1',
+          '200': '#F3A5AE',
+          '300': '#DB7188',
+          '400': '#B7496C',
+          '500': '#871B48',
+          '600': '#741345',
+          '700': '#610D41',
+          '800': '#4E083A',
+          '900': '#400535'
+        }
+      },
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

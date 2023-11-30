@@ -4,49 +4,64 @@ export const algoRoutes = [
     title: '数组/字符串',
     description: '字符串是由零个或多个字符组成的有限序列',
     link: '/algo/string',
-    label: 'string'
+    label: 'string',
+    color: '#1e3a8a',
+    darkColor: '#1e3a8a'
   },
   {
     cover: '/cover/stack1.png',
     title: '栈/队列',
     description: '字符串是由零个或多个字符组成的有限序列',
     link: '/algo/stack',
-    label: 'stack'
+    label: 'stack',
+    color: '#da2735',
+    darkColor: '#7f1d1d'
   },
   {
     cover: '/cover/linklist1.png',
     title: '链表',
     description: '字符串是由零个或多个字符组成的有限序列',
-    link: '/algo/linklist',
-    label: 'linklist'
+    link: '/algo/linkList',
+    blogLink: '/blog/dataAlgorithm/LinkList',
+    label: 'linkList',
+    color: '#394bd5',
+    darkColor: '#312e81'
   },
   {
     cover: '/cover/tree3.png',
     title: '二叉树',
     description: '字符串是由零个或多个字符组成的有限序列',
     link: '/algo/binaryTree',
-    label: 'binaryTree'
+    label: 'binaryTree',
+    color: '#21c872',
+    darkColor: '#14532d'
   },
   {
     cover: '/cover/hashmap1.png',
     title: '哈希表',
     description: '字符串是由零个或多个字符组成的有限序列',
     link: '/algo/hashmap',
-    label: 'hashmap'
+    label: 'hashmap',
+    color: '#df24ff',
+    darkColor: '#581c87'
   },
   {
     cover: '/cover/graph.png',
     title: '图',
     description: '字符串是由零个或多个字符组成的有限序列',
     link: '/algo/graph',
-    label: 'graph'
+    label: 'graph',
+    color: '#0c6e54',
+    darkColor: '#064e3b'
   },
   {
     cover: '/cover/heap1.png',
     title: '堆',
     description: '字符串是由零个或多个字符组成的有限序列',
     link: '/algo/heap',
-    label: 'heap'
+    label: 'heap',
+    color: '#cc5400',
+    darkColor: '#7c2d12'
   }
 ];
 

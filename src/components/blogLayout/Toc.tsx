@@ -29,7 +29,7 @@ export function Toc({ headings }: { headings: Heading[] }) {
               className={clsx(
                 'block',
                 'transition-colors',
-                'text-sm text-default-600 dark:text-default-600',
+                'text-[13px] text-default-600 dark:text-default-600',
                 'hover:text-foreground hover:dark:text-foreground',
                 'mt-3',
                 `${paddingLeftByLevel[toc.level]}`,

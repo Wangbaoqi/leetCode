@@ -5,9 +5,7 @@ const codeTheme: PrismTheme = {
     backgroundColor: 'hsl(var(--nant-code-background))',
     color: '#F4F4F4',
     fontWeight: '400',
-    fontSize: '14px',
-    fontStyle: 'normal',
-    textRendering: 'geometricPrecision'
+    fontStyle: 'normal'
   },
   styles: [
     {

@@ -1,0 +1,130 @@
+---
+title: 两数相加
+date: 2022-1-24
+tag: 链表
+status: MEDIUM
+leetCode: https://leetcode.cn/problems/add-two-numbers/
+---
+
+
+# 两数相加
+
+import TestCode from '!!raw-loader!./addTwoNumber.test';
+import SourceCode from '!!raw-loader!./index.ts';
+
+
+
+:::info
+给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+
+请你将两个数相加，并以相同形式返回一个表示和的链表。
+
+你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+进阶：[两数相加II](/docs/algo-linkList/leetCode/addTwoNumberII/)
+
+{/* ```mermaid
+flowchart TB;
+
+  subgraph one
+  direction LR
+
+  B1(2) --> A1(4)
+  A1(4) --> D1(3)
+
+  end
+
+  subgraph two
+  direction LR
+
+  B(5) --> A(6)
+  A(6) --> D(4)
+
+  end
+
+  subgraph three
+  direction RL
+
+  A2(7) --> B2(0)
+  B2(0) --> C2(8)
+
+  end
+
+  one---|+|two--->three
+``` */}
+:::
+
+**同时遍历**
+
+```ts
+export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+
+  // 9 9 9 9 9 9 9
+  // 9 9 9 9
+  // 8 9 9 9 0 0 0 1
+  // 1 1 1 1 1 1 1
+
+  const dummy = new ListNode(-1);
+  let nextNode = dummy;
+
+  let tmp = 0;
+
+  while (l1 !== null && l2 !== null) {
+
+    const sum = l1.val + l2.val + tmp;
+
+    tmp = 0;
+    let res = 0;
+    if (sum >= 10) {
+      tmp = 1
+    }
+    res = sum % 10;
+
+    const node = new ListNode(res);
+    nextNode.next = node;
+
+    nextNode = nextNode.next;
+
+    l1 = l1.next;
+    l2 = l2.next;
+  }
+
+  let curNode = l1 === null ? l2 : l1;
+
+  while (curNode !== null) {
+    const sum = curNode.val + tmp;
+
+    tmp = 0
+    if (sum >= 10) {
+      tmp = 1
+    }
+    const res = sum % 10;
+    const node = new ListNode(res)
+    nextNode.next = node;
+    nextNode = nextNode.next;
+    curNode = curNode.next;
+  }
+
+  if (curNode === null) {
+    if (tmp > 0) {
+      const node = new ListNode(tmp);
+      nextNode.next = node;
+    }
+  }
+
+  return dummy.next;
+};
+```
+
+**进行优化**
+
+{/* <CodeSandpack
+  id={'2'}
+  activePath='/index.ts'
+  visibleFiles={["/index.ts", "/addTwoNumber.test.ts"]}
+  files={{
+    '/index.ts': SourceCode,
+    '/addTwoNumber.test.ts': TestCode
+  }}
+/> */}
+

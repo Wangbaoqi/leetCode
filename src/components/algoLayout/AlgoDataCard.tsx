@@ -17,10 +17,9 @@ export function AlgoDataCard() {
     <div className='grid gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-6'>
       {algoRoutes.map((route, idx) => (
         <NextLink
-          href={'/'}
+          href={route.link || '/'}
           key={idx}
           className='group relative transition-all duration-300'
-          data-color='#14532d'
         >
           <Card isHoverable isBlurred>
             <CardBody>

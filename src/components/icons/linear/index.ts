@@ -7,3 +7,4 @@ export * from './Albums';
 export * from './FileTrayFull';
 export * from './Shapes';
 export * from './Easel';
+export * from './chevronRight';

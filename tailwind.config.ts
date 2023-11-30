@@ -72,6 +72,11 @@ const config: Config = {
           '700': '#610D41',
           '800': '#4E083A',
           '900': '#400535'
+        },
+        'algo-context': {
+          dark: 'var(--context-dark-color)',
+          DEFAULT: 'var(--context-color)',
+          light: 'var(--context-color)'
         }
       },
 

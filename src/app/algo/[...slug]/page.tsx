@@ -1,4 +1,3 @@
-'use client';
 import {
   allPosts,
   type Post,
@@ -18,11 +17,17 @@ export default function Page({ params }: { params: { slug: string[] } }) {
     (route) => route.label === params.slug?.join('')
   );
 
-  console.log(pageConf, params.slug?.join('/'), 'hook params');
-
   return (
     <>
-      <section className='relative min-h-full flex flex-col overflow-x-hidden rounded-lg z-0'>
+      <section
+        className='relative min-h-full flex flex-col overflow-x-hidden rounded-lg z-0'
+        style={
+          {
+            '--context-color': `${pageConf?.color}`,
+            '--context-dark-color': pageConf?.darkColor
+          } as React.CSSProperties
+        }
+      >
         <div className='relative py-4 px-6 flex justify-between '>
           <Button
             isIconOnly
@@ -57,7 +62,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
 
         <div
           className={clsx(
-            'absolute h-screen w-full z-[-1] bg-gradient-to-b dark:from-algo-context-dark from-algo-context '
+            'absolute h-full w-full z-[-1] bg-gradient-to-b dark:from-algo-context-dark from-algo-context '
           )}
           style={
             {

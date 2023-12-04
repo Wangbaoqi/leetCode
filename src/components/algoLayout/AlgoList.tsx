@@ -1,5 +1,6 @@
 'use client';
 import React, { useCallback, useMemo, useState } from 'react';
+import NextLink from 'next/link';
 
 import {
   Table,
@@ -10,71 +11,58 @@ import {
   TableCell,
   Input,
   Button,
+  Link,
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
   DropdownItem,
   Chip,
   User,
-  Pagination
+  Pagination,
+  SortDescriptor
 } from '@nextui-org/react';
 
+import { allPosts, allAlgos, type Algo, MDX } from 'contentlayer/generated';
 import { ChevronRightLinearIcon, SearchLinearIcon } from '@/components/icons';
+import * as Local from 'contentlayer/source-files';
 
-const users: any[] = [
-  {
-    id: 1,
-    name: 'Tony Reichert',
-    role: 'CEO',
-    team: 'Management',
-    status: 'active',
-    age: '29',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
-    email: 'tony.reichert@example.com'
-  },
-  {
-    id: 2,
-    name: 'Zoey Lang',
-    role: 'Tech Lead',
-    team: 'Development',
-    status: 'paused',
-    age: '25',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
-    email: 'zoey.lang@example.com'
-  },
-  {
-    id: 3,
-    name: 'Jane Fisher',
-    role: 'Sr. Dev',
-    team: 'Development',
-    status: 'active',
-    age: '22',
-    avatar: 'https://i.pravatar.cc/150?u=a04258114e29026702d',
-    email: 'jane.fisher@example.com'
-  }
-];
+interface AlgoType extends Algo {
+  [key: string]: string | number | MDX | Local.RawDocumentData;
+}
+interface AlgoStatusType {
+  [key: string]:
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | undefined;
+}
+
+const users: AlgoType[] = allAlgos;
+
 const statusOptions = [
-  { name: 'Active', uid: 'active' },
-  { name: 'Paused', uid: 'paused' },
-  { name: 'Vacation', uid: 'vacation' }
+  { name: 'Easy', uid: 'easy' },
+  { name: 'Hard', uid: 'hard' },
+  { name: 'Medium', uid: 'medium' }
 ];
-const statusColorMap = {
-  active: 'success',
-  paused: 'danger',
-  vacation: 'warning'
+
+const statusColorMap: AlgoStatusType = {
+  easy: 'success',
+  hard: 'danger',
+  medium: 'warning'
 };
+
 const columns = [
   { name: 'ID', uid: 'id', sortable: true },
-  { name: 'NAME', uid: 'name', sortable: true },
-  { name: 'AGE', uid: 'age', sortable: true },
-  { name: 'ROLE', uid: 'role', sortable: true },
-  { name: 'TEAM', uid: 'team' },
-  { name: 'EMAIL', uid: 'email' },
-  { name: 'STATUS', uid: 'status', sortable: true },
-  { name: 'ACTIONS', uid: 'actions' }
+  { name: 'TITLE', uid: 'title' },
+  { name: 'DATE', uid: 'date', sortable: true },
+  { name: 'STATUS', uid: 'status' },
+  { name: 'LEETCODE', uid: 'leetCode' }
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ['name', 'role', 'status', 'actions'];
+const INITIAL_VISIBLE_COLUMNS = ['id', 'title', 'date', 'status', 'leetCode'];
 
 export function AlgoList() {
   const [page, setPage] = useState(1);
@@ -86,10 +74,22 @@ export function AlgoList() {
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
 
-  const [sortDescriptor, setSortDescriptor] = useState({
-    column: 'age',
+  console.log(allAlgos, 'allAlgos');
+
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
+    column: 'id',
     direction: 'ascending'
   });
+
+  const headerColumns = React.useMemo(() => {
+    if (visibleColumns.has('all')) return columns;
+
+    return columns.filter((column) =>
+      Array.from(visibleColumns).includes(column.uid)
+    );
+  }, [visibleColumns]);
+
+  console.log(visibleColumns, 'headerColumns');
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -98,20 +98,11 @@ export function AlgoList() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.title.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (
-      statusFilter !== 'all' &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
-      );
-    }
-
     return filteredUsers;
-  }, [hasSearchFilter, statusFilter, filterValue]);
+  }, [hasSearchFilter, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -122,18 +113,10 @@ export function AlgoList() {
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
-  const headerColumns = React.useMemo(() => {
-    if (visibleColumns.has('all')) return columns;
-
-    return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid)
-    );
-  }, [visibleColumns]);
-
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
+      const first = sortDescriptor.column ? a[sortDescriptor.column] : 0;
+      const second = sortDescriptor.column ? b[sortDescriptor.column] : 1;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === 'descending' ? -cmp : cmp;
@@ -144,28 +127,26 @@ export function AlgoList() {
     const cellValue = user[columnKey];
 
     switch (columnKey) {
-      case 'name':
+      case 'title':
         return (
-          <User
-            avatarProps={{ radius: 'lg', src: user.avatar }}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
+          <NextLink href={user.url} className='hover:text-default-500'>
+            {user.title}
+          </NextLink>
         );
-      case 'role':
+      case 'leetCode':
         return (
-          <div className='flex flex-col'>
-            <p className='text-bold text-small capitalize'>{cellValue}</p>
-            <p className='text-bold text-tiny capitalize text-default-400'>
-              {user.team}
-            </p>
-          </div>
+          <Link isExternal href={user.leetCode} showAnchorIcon>
+            LeetCode
+          </Link>
         );
       case 'status':
         return (
-          <Chip className='capitalize' size='sm' variant='flat'>
+          <Chip
+            className='capitalize'
+            color={statusColorMap[user.status]}
+            size='sm'
+            variant='flat'
+          >
             {cellValue}
           </Chip>
         );
@@ -218,53 +199,6 @@ export function AlgoList() {
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <div className='flex gap-3'>
-            {/* <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown> */}
-            {/* <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronRightLinearIcon className="text-small" />} variant="flat">
-                  Columns
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                selectionMode="multiple"
-                onSelectionChange={setVisibleColumns}
-              >
-                {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown> */}
-            {/* <Button color="primary" endContent={<PlusIcon />}>
-              Add New
-            </Button> */}
-          </div>
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-default-400 text-small'>
@@ -289,12 +223,19 @@ export function AlgoList() {
   const bottomContent = useMemo(() => {
     return (
       <div className='py-2 px-2 flex justify-between items-center'>
-        <span className='w-[30%] text-small'>All: 300</span>
         <Pagination
           isCompact
           showControls
           showShadow
-          color='primary'
+          // color='primary'
+          classNames={{
+            // wrapper: 'dark:text-algo-context-dark text-algo-context',
+            // item: ' bg-transparent dark:text-algo-context-dark text-algo-context'
+            wrapper: '',
+            item: '',
+            cursor:
+              'bg-gradient-to-r from-algo-context dark:from-algo-context-dark text-white font-bold'
+          }}
           page={page}
           total={pages}
           onChange={setPage}
@@ -323,26 +264,23 @@ export function AlgoList() {
 
   return (
     <Table
-      aria-label='Example table with custom cells, pagination and sorting'
+      aria-label='the problems of the leetCode algorithms'
       isHeaderSticky
       bottomContent={bottomContent}
       bottomContentPlacement='outside'
       classNames={{
         wrapper: 'max-h-[382px] bg-content1/30 '
       }}
-      selectedKeys={selectedKeys}
-      selectionMode='multiple'
-      // sortDescriptor={sortDescriptor}
+      sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement='outside'
-      // onSelectionChange={setSelectedKeys}
-      // onSortChange={setSortDescriptor}
+      onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn
             key={column.uid}
-            align={column.uid === 'actions' ? 'center' : 'start'}
+            align={column.uid === 'leetCode' ? 'center' : 'start'}
             allowsSorting={column.sortable}
           >
             {column.name}

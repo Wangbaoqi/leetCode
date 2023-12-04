@@ -30,6 +30,7 @@ export const Algo = defineDocumentType(() => ({
   filePathPattern: `content/algo/**/*.mdx`,
   contentType: 'mdx',
   fields: {
+    id: { type: 'number', required: true },
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
     tag: { type: 'string', required: true },

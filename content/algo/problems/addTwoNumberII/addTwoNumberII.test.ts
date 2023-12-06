@@ -1,4 +1,4 @@
-import { ListNode, addTwoNumbersII } from './index';
+import { ListNode, addTwoNumbersII } from './code';
 
 const printLink = (head: ListNode | null): number[] => {
   const res: number[] = [];
@@ -14,10 +14,7 @@ describe('test addTwoNumbers for LinkList', () => {
       7,
       new ListNode(2, new ListNode(4, new ListNode(3)))
     );
-    const l2 = new ListNode(
-      5,
-      new ListNode(6, new ListNode(4))
-    );
+    const l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
     const expected = [7, 8, 0, 7];
     const result = printLink(addTwoNumbersII(l1, l2));
 
@@ -42,6 +39,4 @@ describe('test addTwoNumbers for LinkList', () => {
     const expected = [1, 3, 5, 7];
     expect(printLink(addTwoNumbersII(l1, l2))).toEqual(expected);
   });
-
-  
 });

@@ -25,6 +25,7 @@ import {
 import { allPosts, allAlgos, type Algo, MDX } from 'contentlayer/generated';
 import { ChevronRightLinearIcon, SearchLinearIcon } from '@/components/icons';
 import * as Local from 'contentlayer/source-files';
+import { compareAsc, format } from 'date-fns';
 
 interface AlgoType extends Algo {
   [key: string]: string | number | MDX | Local.RawDocumentData;
@@ -139,6 +140,8 @@ export function AlgoList() {
             LeetCode
           </Link>
         );
+      case 'date':
+        return <>{format(new Date(user.date), 'yyyy-MM-dd')}</>;
       case 'status':
         return (
           <Chip

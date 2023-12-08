@@ -1,12 +1,15 @@
 import React from 'react';
 import { clsx } from '@nextui-org/shared-utils';
-
-import { Post } from 'contentlayer/generated';
-import { HolidayChristmasTree } from './HolidayChristmasTree';
+import { Post, Algo } from 'contentlayer/generated';
+import {
+  ChallengeDifficultyIcon,
+  HolidayChristmasTree
+} from './HolidayChristmasTree';
 import { DifficultyBadge } from './CategoryBadge';
 import { format } from 'date-fns';
 interface CardProps {
   blog: Post;
+  isHoliday?: boolean;
 }
 
 const BORDERS_BY_DIFFICULTY: {
@@ -14,15 +17,15 @@ const BORDERS_BY_DIFFICULTY: {
 } = {
   React:
     'dark:hover:border-sky-200 hover:border-sky-500 dark:group-focus:border-sky-200 group-focus:border-sky-500',
-  EASY: 'dark:hover:border-difficulty-easy-dark hover:border-difficulty-easy dark:group-focus:border-difficulty-easy-dark group-focus:border-difficulty-easy',
-  MEDIUM:
-    'dark:hover:border-difficulty-medium-dark hover:border-difficulty-medium dark:group-focus:border-difficulty-medium-dark group-focus:border-difficulty-medium',
-  HARD: 'dark:hover:border-difficulty-hard-dark hover:border-difficulty-hard dark:group-focus:border-difficulty-hard-dark group-focus:border-difficulty-hard',
-  EXTREME:
-    'dark:hover:border-difficulty-extreme-dark hover:border-difficulty-extreme dark:group-focus:border-difficulty-extreme-dark group-focus:border-difficulty-extreme',
-  // this will never actually be used
-  EVENT:
-    'dark:hover:border-difficulty-extreme-dark hover:border-difficulty-extreme dark:group-focus:border-difficulty-extreme-dark group-focus:border-difficulty-extreme'
+  Algo: 'dark:hover:border-green-200 hover:border-green-500 dark:group-focus:border-green-200 group-focus:border-green-500',
+  Structure:
+    'dark:hover:border-yellow-200 hover:border-yellow-500 dark:group-focus:border-yellow-200 group-focus:border-yellow-500',
+  Browser:
+    'dark:hover:border-red-200 hover:border-red-500 dark:group-focus:border-red-200 group-focus:border-red-500',
+  Network:
+    'dark:hover:border-purple-200 hover:border-purple-500 dark:group-focus:border-purple-200 group-focus:border-purple-500',
+  Toolchain:
+    'dark:hover:border-cyan-200 hover:border-cyan-500 dark:group-focus:border-cyan-200 group-focus:border-cyan-500'
 };
 
 const SHADOWS_BY_DIFFICULTY: {
@@ -30,28 +33,32 @@ const SHADOWS_BY_DIFFICULTY: {
 } = {
   React:
     'hover:shadow-[0_0_16px_-2.4px_#bae6fd]  dark:hover:shadow-[0_0_16px_-2.4px_#bae6fd] dark:group-focus:shadow-[0_0_16px_-2.4px_#bae6fd]',
-  EASY: 'hover:shadow-easy group-focus:shadow-easy dark:hover:shadow-easy-dark dark:group-focus:shadow-easy-dark',
-  MEDIUM:
-    'hover:shadow-medium group-focus:shadow-medium dark:hover:shadow-medium-dark dark:group-focus:shadow-medium-dark',
-  HARD: 'hover:shadow-hard group-focus:shadow-hard dark:hover:shadow-hard-dark dark:group-focus:shadow-hard-dark',
-  EXTREME:
-    'hover:shadow-extreme group-focus:shadow-extreme dark:hover:shadow-extreme-dark dark:group-focus:shadow-extreme-dark',
-  // this will never actually be used
-  EVENT:
-    'hover:shadow-extreme group-focus:shadow-extreme dark:hover:shadow-extreme-dark dark:group-focus:shadow-extreme-dark'
+  Algo: 'hover:shadow-[0_0_16px_-2.4px_#FBDBA7] hover:shadow-green-200 group-focus:shadow-easy dark:hover:shadow-easy-dark dark:group-focus:shadow-easy-dark',
+  Structure:
+    'hover:shadow-[0_0_16px_-2.4px_#FBDBA7]  group-focus:shadow-[0_0_16px_-2.4px_#FBDBA7] dark:hover:shadow-[0_0_16px_-2.4px_#FBDBA7] dark:group-focus:shadow-[0_0_16px_-2.4px_#FBDBA7]',
+  Browser:
+    'hover:shadow-[0_0_16px_-2.4px_#fecaca] group-focus:shadow-[0_0_16px_-2.4px_#fecaca] dark:hover:shadow-[0_0_16px_-2.4px_#fecaca] dark:group-focus:shadow-[0_0_16px_-2.4px_#fecaca]',
+  Network:
+    'hover:shadow-[0_0_16px_-2.4px_#e9d5ff] group-focus:shadow-[0_0_16px_-2.4px_#e9d5ff] dark:hover:shadow-[0_0_16px_-2.4px_#e9d5ff] dark:group-focus:shadow-[0_0_16px_-2.4px_#e9d5ff]',
+  Toolchain:
+    'hover:shadow-[0_0_16px_-2.4px_#bae6fd] group-focus:shadow-[0_0_16px_-2.4px_#bae6fd] dark:hover:shadow-[0_0_16px_-2.4px_#bae6fd] dark:group-focus:shadow-[0_0_16px_-2.4px_#bae6fd]'
 };
 
-export function FeatureBlogCard({ blog }: CardProps) {
+export function FeatureBlogCard({ blog, isHoliday = false }: CardProps) {
   return (
     <div
       className={`
-        group/card relative overflow-hidden duration-300  rounded-2xl border border-default-200  sm:min-w-[300px] xl:min-w-[320px]
+        group/card relative overflow-hidden duration-300  rounded-2xl border border-default-200/50  sm:min-w-[300px] xl:min-w-[320px]
         ${SHADOWS_BY_DIFFICULTY[blog.category]}
         ${BORDERS_BY_DIFFICULTY[blog.category]}
       `}
     >
       <>
-        <HolidayChristmasTree difficulty={blog.category} />
+        {isHoliday ? (
+          <HolidayChristmasTree difficulty={blog.category} />
+        ) : (
+          <ChallengeDifficultyIcon difficulty={blog.category} />
+        )}
       </>
       <div className='relative flex flex-col items-start gap-1 py-5 p-6'>
         <h2 className='max-w-[75%] truncate text-[20px] font-medium duration-300'>

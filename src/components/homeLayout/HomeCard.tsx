@@ -5,6 +5,7 @@ import { Carousel } from './Carousel';
 import NextLink from 'next/link';
 import { allPosts, Post, allAlgos, Algo } from 'contentlayer/generated';
 import { FeatureBlogCard } from './FeatureBlogCard';
+import { compareDesc } from 'date-fns';
 
 interface HomeCardProps {
   title: string;
@@ -15,34 +16,37 @@ interface HomeCardProps {
 const TITLES_BY_TAG: {
   [key: string]: string;
 } = {
-  POPULAR: '',
-  NEWEST: '',
   React:
     'bg-clip-text text-transparent select-none bg-gradient-to-r from-sky-500 to-sky-500 dark:from-sky-500 dark:to-sky-200',
-  EASY: 'bg-clip-text text-transparent select-none bg-gradient-to-r from-green-600 to-green-500 dark:from-green-300 dark:to-green-100',
-  MEDIUM:
+  Algo: 'bg-clip-text text-transparent select-none bg-gradient-to-r from-green-600 to-green-500 dark:from-green-300 dark:to-green-100',
+  Structure:
     'bg-clip-text text-transparent select-none bg-gradient-to-r from-yellow-600 to-yellow-500 dark:from-yellow-300 dark:to-yellow-100',
-  HARD: 'bg-clip-text text-transparent select-none bg-gradient-to-r from-red-600 to-red-500 dark:from-red-300 dark:to-red-100',
-  EXTREME:
+  Browser:
+    'bg-clip-text text-transparent select-none bg-gradient-to-r from-red-600 to-red-500 dark:from-red-300 dark:to-red-100',
+  Network:
     'bg-clip-text text-transparent select-none bg-gradient-to-r from-purple-600 to-purple-500 dark:from-purple-400 dark:to-purple-100',
-  // this will never actually be used
-  EVENT:
-    'bg-clip-text text-transparent select-none bg-gradient-to-r from-purple-600 to-purple-500 dark:from-purple-400 dark:to-purple-100'
+  Toolchain:
+    'bg-clip-text text-transparent select-none bg-gradient-to-r from-cyan-600 to-cyan-500 dark:from-cyan-400 dark:to-cyan-100'
 } as const;
 
 export const COLORS_BY_TAGS = {
-  React: 'dark:bg-pink-300 bg-pink-600/50',
-  NEWEST: 'dark:bg-orange-300 bg-orange-500/50',
-  BEGINNER: 'dark:bg-blue-300 bg-blue-600/50',
-  EASY: 'dark:bg-green-300 bg-green-500/50',
+  React: 'dark:bg-sky-300 bg-sky-600/50',
+  Algo: 'dark:bg-green-300 bg-green-500/50',
+  Structure: 'dark:bg-yellow-300 bg-yellow-600/50',
+  Browser: 'dark:bg-red-300 bg-red-600/50',
+  Network: 'dark:bg-purple-300 bg-purple-600/50',
+  Toolchain: 'dark:bg-cyan-300 bg-cyan-600/50',
   MEDIUM: 'dark:bg-yellow-300 bg-yellow-600/50',
-  HARD: 'dark:bg-red-300 bg-red-600/50',
-  EXTREME: 'dark:bg-purple-300 bg-purple-600/50',
   // this will never actually be used
   EVENT: 'dark:bg-purple-300 bg-purple-600/50'
 } as const;
 
 export function HomeCard({ title, tag, redirectRoute }: HomeCardProps) {
+  const posts = allPosts
+    .filter((post) => post.category === tag)
+    .sort((a: Post, b: Post) =>
+      compareDesc(new Date(a.date), new Date(b.date))
+    );
   return (
     <div>
       <div className='max-w-5.5xl mx-auto flex items-center justify-between gap-3 px-6 pt-5'>
@@ -58,13 +62,13 @@ export function HomeCard({ title, tag, redirectRoute }: HomeCardProps) {
       </div>
       <section className='relative flex w-full flex-col overflow-hidden rounded-[2.5rem]'>
         <Carousel>
-          {allPosts.map((post, idx) => (
+          {posts.map((post, idx) => (
             <NextLink
               key={idx}
               href={post.url}
               className='group relative rounded-2xl duration-300 sm:min-w-[300px] xl:min-w-[320px]'
             >
-              <FeatureBlogCard blog={post} />
+              <FeatureBlogCard blog={post} isHoliday />
             </NextLink>
           ))}
         </Carousel>

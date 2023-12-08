@@ -9,3 +9,4 @@ export * from './linear/LinkExtra';
 export * from './linear';
 
 export * from './lucide';
+export * from './logo';

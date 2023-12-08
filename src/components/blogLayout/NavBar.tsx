@@ -62,11 +62,11 @@ export const NavBar = () => {
             <NextLink
               className={navLinkClasses}
               color='foreground'
-              data-active={includes(pathname, 'blog')}
-              href='/blog'
-              onClick={() => handlePressNavbarItem('Blog', '/blog')}
+              data-active={includes(pathname, 'tags')}
+              href='/tags'
+              onClick={() => handlePressNavbarItem('Tag', '/tags')}
             >
-              Blog
+              Tags
             </NextLink>
           </NavbarItem>
           <NavbarItem>

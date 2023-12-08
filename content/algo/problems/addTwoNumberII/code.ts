@@ -9,18 +9,16 @@
  * Definition for singly-linked list.
  */
 
-
 export class ListNode {
-  val: number
-  next: ListNode | null
+  val: number;
+  next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {
-    this.val = (val===undefined ? 0 : val)
-    this.next = (next===undefined ? null : next)
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
   }
 }
 
-function reverseList(head: ListNode | null): ListNode | null { 
-
+function reverseList(head: ListNode | null): ListNode | null {
   if (head === null || head.next === null) return head;
 
   const dummy = new ListNode(-1, head);
@@ -30,15 +28,17 @@ function reverseList(head: ListNode | null): ListNode | null {
   while (curNode) {
     forward.next = curNode.next;
     curNode.next = dummy.next;
-    dummy.next = curNode
+    dummy.next = curNode;
 
     curNode = forward.next;
   }
   return dummy.next;
 }
 
-export function addTwoNumbersII(l1: ListNode | null, l2: ListNode | null): ListNode | null {
-
+export function addTwoNumbersII(
+  l1: ListNode | null,
+  l2: ListNode | null
+): ListNode | null {
   l1 = reverseList(l1);
   l2 = reverseList(l2);
 
@@ -48,16 +48,15 @@ export function addTwoNumbersII(l1: ListNode | null, l2: ListNode | null): ListN
   const dummy = new ListNode(-1);
   let node = dummy;
 
-  let h1 = l1;
-  let h2 = l2;
+  let h1: ListNode | null = l1;
+  let h2: ListNode | null = l2;
   let digit = 0;
 
-  while (h1 !== null || h2 !== null) { 
-
+  while (h1 !== null || h2 !== null) {
     const h1Val = h1 ? h1.val : 0;
     const h2Val = h2 ? h2.val : 0;
     const sum = (h1Val + h2Val + digit) % 10;
-    
+
     digit = ~~((h1Val + h2Val + digit) / 10);
 
     node.next = new ListNode(sum);
@@ -65,15 +64,12 @@ export function addTwoNumbersII(l1: ListNode | null, l2: ListNode | null): ListN
     node = node.next;
     h1 = h1 && h1.next;
     h2 = h2 && h2.next;
-
   }
 
   if (digit) {
-    node.next = new ListNode(digit)
+    node.next = new ListNode(digit);
   }
 
   return reverseList(dummy.next);
-
-};
+}
 // @lc code=end
-

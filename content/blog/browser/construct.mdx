@@ -1,0 +1,134 @@
+---
+title: 'Construct of Browser'
+excerpt: 了解浏览器的架构模式
+type: Post
+coverImage: 'https://media.wangbaoqi.tech/assets/blog/react/cover/api.webp'
+date: '2021-05-06'
+author: NateWang
+authorIcon: 'https://media.wangbaoqi.tech/assets/authors/logo.png'
+tags:
+  - Browser
+category: Browser
+---
+
+想要构建高性能的**Web**应用程序(网络流程、渲染流程、**JavaScript**执行以及Web安全),必然离不开浏览器。因此，掌握浏览器是非常重要的。
+
+
+<Note>
+
+那什么是浏览器?
+
+网页浏览器是一种从[Web](https://developer.mozilla.org/zh-CN/docs/Glossary/World_Wide_Web)获取和显示页面的程序，并且让用户通过[超链接](https://developer.mozilla.org/zh-CN/docs/Glossary/Hyperlink)访问更多页面。
+**维基百科**也给出了网页浏览器的[定义](https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88%E5%99%A8)。
+
+浏览器有很多种，而使用最多的是Chrome 浏览器，除此之外，还有**Safari**, **IE** , **FireFox**, **chrome** 浏览器等。
+
+浏览器最重要的就是其内核，也是 **渲染引擎**，用来解释网页语法并且将其渲染到页面，不同的浏览器其解释语法也不一样，因此，部分语法需要兼容多个浏览器。
+
+浏览器内核除了渲染引擎之外，还包括了 **JS引擎**，不过现在JS引擎越来越独立了，内核就更倾向渲染引擎了，比如，著名的 **Google V8引擎**。
+
+</Note>
+
+**Chrome 浏览器**是 Google 开发的一个免费网络[浏览器](https://developer.mozilla.org/zh-CN/docs/Glossary/Browser). 它基于开源项目 [Chromium](https://www.chromium.org)。
+
+在 [Chromium wiki](https://code.google.com/p/chromium/wiki/ChromiumBrowserVsGoogleChrome) 中描述了它们之间的差异： Chrome维护使用自己的渲染引擎： 开源引擎[WebKit (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/WebKit)中WebCore组件的一个分支 [Blink](https://developer.mozilla.org/zh-CN/docs/Glossary/Blink)，注意：IOS 版本的 Chrome 使用了 IOS 平台的渲染引擎，而非 **Blink**。
+
+**Safari浏览器**是苹果公司开发的Web browser，与Mac OS X 和iOS绑定。它基于开源的[WebKit](https://www.webkit.org)引擎。
+
+**Internet Explorer浏览器**，是微软公司推出的一款网页浏览器。 也就是我们Windows系统默认的IE浏览器， 也是使用最广泛的浏览器。IE浏览器内核： **Trident**内核， 也是俗称的IE内核。
+
+**Mozilla Firefox**，中文俗称**火狐**，是一个自由及开放源代码的网页浏览器， 该浏览器提供了两种版本， 普通版和ESR（ Extended Support Release，延长支持）版。 Firefox浏览器内核： **Gecko**内核，俗称Firefox内核。
+
+**Opera浏览器**，是挪威**Opera Software ASA**公司制作的支持多页面标签式浏览的网络浏览器。Opera浏览器内核：最初是自己的**Presto**内核，后来是**Webkit**，现在是**Blink**内核；
+
+了解了浏览器的内核以及各个浏览器之间的内核区别之后，接下来探索一下浏览器的架构。
+
+
+## 进程和线程
+
+当打开了一个浏览器**Tab**标签页面时，可以看到浏览器为该页面创建了多个进程，也为这个页面分配了内存，**内存用来存放代码、运行中的数据以及一个执行的主线程** 这个环境也就是进程。 当关闭掉标签页时，这些进程所占的内存也会被释放。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browser-m.webp)
+
+**进程**是一个应用程序的执行程序，当打开一个应用程序时，操作系统会为该程序分配一个进程，同时分配存储应用程序状态的内存块。
+**线程**是为了辅助进程而存在的。线程是依赖于进程的，进程中是可以存在多个线程的，这样可以并行处理任务，可以提高效率。
+
+### 进程和线程的关系
+
+1. 进程中的任何线程出现奔溃，则整个进程也会垮掉
+2. 线程之间共享进程的数据
+3. 进程关闭后，操作系统会回收其占用的内存
+4. 进程之间隔绝，通信采用**IPC技术**
+
+## 浏览器架构
+
+### 单进程架构
+
+浏览器早期（2007之前）使用的是**单进程架构**，该进程包含了浏览器中所有模块，**渲染线程**、**页面线程**（**包含了页面渲染，页面展现、JavaScript运行环境、插件**）、**网络线程**和**其他线程**。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browser-e.webp)
+
+这种单进程架构的浏览器会出现**不稳定**、**不流畅**以及**不安全**的问题**。**
+
+**不稳定**是只要一个线程发生奔溃，则整个进程就会崩掉。
+
+**不流畅**是页面渲染、JavaScript执行、插件都在一个线程中，只能执行一个，其他都会暂停，影响了展现效率。
+
+**不安全**是通过运行恶意插件，可以获取系统信息，造成安全问题。
+
+### **早期的多进程架构**
+
+现在浏览器采用了**多进程架构（早期的多进程架构）**，已经解决了这些问题。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browser-n.webp)
+
+**多进程**解决了**不稳定**的问题，一个进程奔溃不会影响其他的进程和整个浏览器。
+
+**多进程**也解决了**不流畅**的问题，页面渲染只在渲染进程进行，尽管JavaScript的执行会影响页面渲染，这只仅限于当前页面中，不会对其他进程和浏览器造成奔溃。
+
+多进程架构中增加了**安全沙箱，Chrome为插件进程和渲染进程上了一把锁，只能读取数据，而不能写入数据，**因此恶意插件也获取不到系统信息**。**
+
+### 最新的多进程架构
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browser-p.webp)
+
+目前最新的多进程架构包含了以下进程：
+
+* **一个浏览器主进程** ：主要负责页面显示、用户交互、子进程管理，同时提供存储等功能
+* **一个网络进程**：主要负责页面的网络资源加载
+* **一个GPU进程**： 初衷是为了实现3D CSS效果的，之后页面都采用了GPU绘制，成了普遍的功能
+* **多个渲染进程**：主要将HTML、CSS以及JavaScript转换为用户可以交互的页面，渲染引擎blink（内核）和Google V8都运行在该进程中。
+* **多个插件进程**： 主要负责插件的运行，因为插件容易奔溃，因此用进程来隔离
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browserui.webp)
+
+### 浏览器主进程
+
+主要负责页面显示、用户交互、子进程管理，同时提供存储等功能。针对不同的功能，浏览器主进程分了一下的线程，主要处理不同的需求：
+
+* UI 线程： 控制浏览器上的按钮以及输入
+* storage 线程：控制文件的访问等
+
+### 渲染进程
+
+渲染进程是最重要的一个进程，浏览器内核包括JavaScript解释器都在其中。在页面渲染的过程中，会有不同的线程来做不同的工作。
+
+渲染进程中以下几个线程在渲染过程中担当着重要的角色。
+
+* 主线程 (Main Thread)
+* 合成线程（compositor Thread)
+* 格栅化线程池 (Raster Thread)
+* 工作线程 （work Thread）
+
+这一部分也是`浏览器渲染机制`中最重要的一环，下一篇来着重分析。
+
+### 未来服务化的架构
+
+随着多进程的架构发展，多进程的数量一增多也凸显了弊端，占用的内存资源就会过多。而且进程之间的耦合度过高。随着这些问题的出现，Chrome 正在经历架构变革，提出了**服务化的架构，**将现在每个模块作为单独的服务进行运行，每个服务可在独立的进程中运行，访问服务必须通过IPC来访问，从而构建一个更内聚、松耦合、易于维护和扩展的系统。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browser-s.webp)
+
+## 参考
+
+* [浏览器工作原理](https://time.geekbang.org/column/article/116588)
+* [了解现代浏览器part(一)](https://developers.google.com/web/updates/2018/09/inside-browser-part1)

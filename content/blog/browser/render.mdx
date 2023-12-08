@@ -1,0 +1,326 @@
+---
+title: 'Render of Browser'
+excerpt: 深入掌握浏览器的渲染机制
+type: Post
+coverImage: 'https://media.wangbaoqi.tech/assets/blog/react/cover/api.webp'
+date: '2021-05-06'
+author: NateWang
+authorIcon: 'https://media.wangbaoqi.tech/assets/authors/logo.png'
+tags:
+  - Browser
+category: Browser
+---
+
+本章以一道经典的问题来开启浏览器的渲染，**浏览器中输入URL到页面展示，到底发生了什么？**
+
+
+![输入URL到页面展示完整流程图](https://media.wangbaoqi.tech/assets/blog/browser/url_load.webp)
+
+浏览器多进程架构中，浏览器进程负责用户交互、处理输入信息，管理子进程等。这里UI线程是浏览器进程中的线程，是处理用户输入的。接下来逐一分析每一个过程。
+
+页面加载分为以下一个过程：
+
+* 处理输入
+* 请求URL
+* 准备渲染进程
+* 提交文档
+* 渲染阶段
+
+## 处理输入
+
+当在浏览器地址栏输入内容后，点击搜索或者回车，**UI线程** 会判断这个内容是不是URL。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/input.webp)
+
+
+如果是**搜索词**，则搜索对应的内容，合成新的URL。
+
+如果是**URL**，则完善整个请求的URL，包括协议等。
+
+在请求到的新页面替换当前页面之前，当前页面会执行一次`beforeUnload`事件，清除当前页面的数据。或者询问用户是否需要离开当前页面，如果拒绝离开当前，浏览器则不会进行后续的操作。如果同意离开，就进入了请求URL的过程。
+
+## 开始导航
+
+此时`UI线程`跟网络进程进行**进程之间通信（IPC）**，将URL请求发送到网络进程，在网络进程中开始了真正的请求。这个就是`Client`和`Server`进行网络的交互的过程，也是HTTP请求的过程。有以下几个步骤：
+
+* 查找是否有HTTP缓存
+* DNS解析
+* 建立TCP连接，如果是HTTPS，建立TLS连接
+* 发起HTTP请求
+* 接收响应头，响应体
+
+这个过程在[计算机网络](/computer/network)查看。
+
+### 重定向
+
+当接收到响应头中的状态码为 `301` 或者 `302`  ，说明服务器需要浏览器重定向到其他地址，该地址在响应头中`Location` ，然后重新发起新的HTTP、HTTPS请求。
+
+如果状态码为 `200` ，则说明可以继续处理后面的流程。首先处理的是响应体数据，浏览器根据响应头的`Content-type` 来判断是继续渲染页面还是下载文件或者其他。
+
+### 处理响应数据类型
+
+浏览器根据`Content-Type` 的类型处理不同的数据。
+
+如果是`Content-Type` 的类型为下载类型，则浏览器将该请求交给下载管理器，同时导航过程结束。
+
+如果是`Content-Type: text/html` 的类型，则说明是HTML文件，继续导航过程。
+
+在进入渲染流程之前，浏览器会进行一次**安全检查**。
+
+## 准备渲染进程
+
+该过程就是在开始渲染页面之前，提前准备好渲染进程，以便后续渲染流程顺利进行。
+
+我们知道，打开一个页面，浏览器会为这个页面分配一个渲染进程。但是也有**多个页面共用一个渲染进程**的情况，这个就跟**同一站点**有关系了
+
+**同一站点**则是**根域名**加上**协议**，包括根域名下的所有子域名和端口。
+
+```http
+https://wangbaoqi.github.com
+https://www.wangbaoqi.github.com
+```
+
+类似上面地址，这两个地址是同一站点，所以共用一个渲染进程。
+
+## 提交导航
+
+渲染进程准备好之后，浏览器进程向渲染进程提交网络进程接收到的响应体（HTML数据）。
+
+* 浏览器进程接收到网络进程的响应头，就开始向渲染进程发起提交文档的消息
+* 渲染进程接收到消息之后，就和网络进程建立消息传输的管道
+* 等数据传输完成之后，渲染进程就会返回**确认导航**的消息给浏览器进程
+* 浏览器进程收到确认导航的消息之后，会更新浏览器界面状态，包含了安全状态，前进后退状态以及地址栏URL，并且更新web页面
+
+这也就是为什么打开一个页面会有一个加载的过程，到此为止，导航过程就结束了，接下来到了渲染过程，也就是最重要的一个环节，这个也是浏览器内核所做的事情。
+
+## 渲染阶段
+
+在导航结束之后，**渲染进程**就会开始页面解析以及子资源加载，一旦页面生成，就会向**浏览器进程**发送`IPC`消息(在`onLoad`事件执行结束之后)，浏览器进程接收到消息之后，就会停止`loading`加载动画。
+
+接下来详细阐述下整个过程
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/browser-render.webp)
+
+
+当网络进程将URL请求的响应通过消息管道传输到渲染进程之后，渲染进程就会开始解析响应数据（也就是HTML文件)。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="/static/js/bundle.js"></script>
+    <script src="/static/js/vendors~main.chunk.js"></script>
+    <script src="/static/js/main.chunk.js"></script>
+  </body>
+</html>
+```
+
+上述的HTML文件就是发布到正式环境之后的文件。
+
+渲染进程要通过以下几个过程才能得到最后的图像，每个过程都会有**输入的内容**，**处理过程**以及**输出结果。**
+
+* 构建DOM
+* 样式计算
+* 布局阶段
+  * 创建布局树
+  * 计算几何位置
+* 分层阶段
+* 绘制
+  * 生成绘制顺序
+* 合成显示
+  * 光栅化
+  * 屏幕展示
+
+### 构建DOM树
+
+DOM树是浏览器能够理解的数据结构，因此需要将HTML解析成DOM树。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/dom.webp)
+
+
+DOM树的形式是**JavaScript对象**，因此可以用JS来修改节点的属性。
+
+DOM树是由**HTML 解析器**将HTML解析完成的。在`「HTML - 解析HTML文档」`会详细说到如何将HTML解析成DOM树的。
+
+在解析HTML的过程中，可能会加载一些图片、CSS或者JavaScript的子资源，但是为了提高速度，渲染引擎会提供**预加载扫描器**让类似图片、CSS的这些资源并行加载。
+
+如果解析到**script**标签，则会阻塞HTML的解析，因为JavaScript有可以操作DOM的能力，有可能会改变DOM的结构，因此，遇到script标签，则一定会执行`加载`、`解析`以及`执行`JS的操作，结束之后继续解析HTML。
+
+为了让JS脚本不影响DOM的解析，可以使用`script`的属性[`async`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script)和[`defer`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script) 来异步加载脚本和执行脚本。
+
+* `async`属性，意味着脚本会被并行请求，且尽快的解析和执行。
+* `defer`属性，则是在整个文档解析完成之后，且在`DOMContentLoaded`事件结束之前，会去解析和执行脚本。因此，也会阻塞文档的加载。
+
+或者可以使用[JavaScript模块](https://v8.dev/features/modules)。
+
+### 样式计算
+
+样式计算就是计算出DOM树中每个节点的样式。也是`CSS的解析`。
+
+**首先**，将纯文本CSS转换成浏览器能够理解的格式 - **styleSheets** 得到了`CSSOM`, 可以通过`document.stylesheets`来查看其结构。
+
+这些纯文本CSS引入方式有**外部引入Link、style 内联**以及**style属性内嵌**
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/computedstyle.webp)
+
+
+**其次，转换样式表中的属性值，使其标准化。**
+
+比如将rem、em转化成`px`，将`color`转换成`rgb` 等。
+
+**最后**，计算每个DOM节点的样式，这里涉及到了`CSS层叠规则和继承规则`，最终得到每一个节点有样式的DOM树。
+
+### 布局阶段
+
+现在有了有样式的DOM，接下来计算DOM树节点的几何位置，这个过程是布局阶段。
+
+布局阶段有**创建布局树**和**布局计算**
+
+* **创建布局树**
+
+这个过程新建一课树，只包含**可见的DOM节点**的DOM树，该树为布局树。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/layout.webp)
+
+
+在创建布局树过程，遍历DOM树，将可见的DOM节点添加到布局树中，不可见的节点会被布局树忽略掉。
+
+**不可见的节点**大概有`display:none` 、`visibility`以及`opacity`
+
+这三者的区别，只有**display**在布局阶段不会添加到布局树中。其他两者都会存在于布局树中。
+
+* **布局计算**
+
+有了完整的布局树之后，然后需要计算布局树中每个节点的几何位置了。
+
+### 分层阶段
+
+当有了有几何位置的DOM树之后，接下就是绘制的过程了。
+
+如果说按照顺序绘制的话，当出现3D动画、页面滚动以及`z-index`有层级的属性后，其页面展示结构会混乱。
+
+因此，在绘制之前，首先会将布局树进行分层，**渲染引擎为这样的节点实现了专门的图层，并且生成了图层树**
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/layer-dom.webp)
+
+可以看到，当元素具备一定的特性的时候，就会生成单独的图层。当元素具有以下特性时，就会生成单独的图层。
+
+* **具有层叠上下文的元素会被提升为单独的一层**
+
+层叠上下文，满足以下任一条件的元素：
+
+1. 文档根元素 `<html> `
+2. `position` 值为 `absolute`（绝对定位）或  `relative`（相对定位）且 `z-index` 值不为 `auto` 的元素
+3. `position` 值为 `fixed`（固定定位）或 `sticky`（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）
+4. flex `flexbox`  容器的子元素，且 `z-index` 值不为 `auto`
+5. [`grid`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid) 容器的子元素，且 `z-index` 值不为 `auto`
+6. [`opacity`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity) 属性值小于 `1` 的元素
+7. 以下任意属性值不为 `none` 的元素：
+   * [`transform`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform)
+   * [`filter`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)
+   * [`perspective`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective)
+   * [`clip-path`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path)
+   * [`mask`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask) / [`mask-image`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask-image) / [`mask-border`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask-border)
+8. [`-webkit-overflow-scrolling`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling) 属性值为 `touch` 的元素
+9. [`will-change`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素
+10. [`contain`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain) 属性值为 `layout`、`paint` 或包含它们其中之一的合成值（比如 `contain: strict`、`contain: content`）的元素
+
+* **需要裁剪的地方会被创建为图层**
+
+比如说在固定大小的位置展示文字，多出部分隐藏或者滚动，则这种也就生成了单独的一层。
+
+当分层结束之后，生成带有图层的DOM（图层树），接下来就是进行绘制的阶段了。
+
+### 图层绘制
+
+在构建完图层树之后，就开始绘制每一个图层。渲染引擎会把图层的绘制拆分成很小的**绘制指令**，生成待绘制指令列表，这个可以从浏览器中看到。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/paint.webp)
+
+
+至此，得到了**绘制的指令**和**绘制顺序**。
+
+`而真正的绘制是由合成线程完成的`，之后渲染引擎会把图层树交给**合成线程**，来完成最终的绘制。
+
+
+### 合成显示
+
+#### 合成机制
+
+**合成是一种将页面的各个部分分成多个层，单独光栅化他们，并在合成器（单独线程）中合成为一个页面的技术**。
+
+通过得到图层树，已经有了绘制列表以及绘制的顺序，主线程会将该信息交给合成线程。
+
+合成线程得到图层树之后，会把每一个图层分成多个图块（图块的大小一般为256x256或者512x512），然后将每个图块发送给**光栅线程池**（内部会有多个光栅线程)，**光栅线程会将每个图块转换为位图**，这个过程一般会用**GPU进程**来加速完成，最终将这些**位图保存在GPU的内存中。**
+
+**在合成线程将图块发送给光栅线程池的过程中，合成线程会对不同的光栅线程进行优先级排序，以便优先光栅化视口附近的图块。**
+
+在所有的图块都被光栅化之后，合成线程会收集称为**绘制四边形的位图信息（也称为 Draw Quards)**以及**创建合成器帧。**
+
+**绘制四边形**：包含诸如磁贴在内存中的位置以及在考虑页面合成的情况下在页面中绘制磁贴的位置等信息。
+
+**合成器帧**：代表页面框架的绘制四边形的集合。
+
+之后，合成线程将合成器帧通过`IPC`消息发送给浏览器进程，浏览器进程将合成器帧发送到GPU内存中，然后显示在屏幕上。如果页面发生了滚动事件，合成线程就会再生成一个合成器帧发送到GPU。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/composit.webp)
+
+#### 显示机制
+
+从合成操作中，得到了位于GPU内存中的**合成器帧**，那最终屏幕是如何将合成器帧显示的呢？
+
+我们知道，显示器都会有固定的刷新率，也称为帧率，通常为60帧或者60HZ。也就是每秒显示器刷新60次，或者每秒更新60张图片，或者每秒更新60帧。这样的刷新频率在肉眼角度来看，是很流畅的，不会卡顿（不会掉帧）。
+
+这里的帧也就是合成器帧，每秒更新60个合成器帧，那么生成**一个合成器帧**就需要 `1000ms / 60 = 16.66`ms ，也就是整个**渲染流水线**所需要的时间在16ms左右，才能达到最佳的页面流畅度。
+
+显示器以这样流畅的帧率从**显卡的前缓冲区（GPU的内存）**获取**图片或者帧**，然后显示到屏幕上。
+
+![](https://media.wangbaoqi.tech/assets/blog/browser/composit-show.webp)
+
+## 渲染管道的代价
+
+上述的流程大概主要针对于渲染流程进行了阐述，在线程使用方面，主要涉及到了`主线程`和`合成线程`。
+
+**主线程**主要有`执行JS -> 解析DOM树 -> computed style -> Layout -> Layer -> Paint`
+
+**合成线程**主要是将图层树分成`图块`，然后将`图块`发给`光栅化线程`，通过`GPU`加速生成`位图`，存储在`GPU内存中`。
+
+可以看到，如果在更新页面的时候，涉及到了主线程的任何一个阶段，都会造成主线程的阻塞，尤其是`重绘`和`重排（回流）`，最终都会重新生成绘制指令。
+
+但是针对大量的JS执行动画代码，浏览器也提出了一种解决方案，那就是`RAF(requestAnimationFrame)`，会把JS代码分成小块，分散到每一个`合成器帧`中执行，执行时机是在每一帧开始的是时候，这样保证了不会掉帧。
+
+如果在合成线程中更新页面（动画），就不会阻塞主线程的执行。比如，执行一个`transform`动画，此过程会在合成线程上执行。类似的`CSS`属性还有一个`opacity`，这两种属性经过浏览器内部高度优化的。
+
+有关其他`CSS`属性是触发合成线程还是主线程，在[CSS 触发器](https://csstriggers.com/)可以看到。
+
+初次之外，还有一个属性`will-change`可以进行优化，**提前告知浏览器要进行什么操作，一遍浏览器提前做出优化**。
+
+注意，不要滥用`will-change`，不要对没有任何动画属性的选择器添加，否则会造成资源的浪费。但是在当前视图的对要设置动画的元素都可以使用`will-change`。
+
+```css
+.content {
+  will-change: transform
+}
+```
+
+## 参考
+
+* [浏览器工作原理-渲染机制]()
+* [现代浏览器part（二）](https://developers.google.com/web/updates/2018/09/inside-browser-part2)

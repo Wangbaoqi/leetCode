@@ -9,7 +9,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import Link from 'next/link';
 import { MDXComponents } from '@/components/mdx';
 import { ThemeSwitcher } from '@/components/ThemeSwitch';
-import { NavBar, PostWrapper } from '@/components/blogLayout';
+import { NavBar, Footer } from '@/components/blogLayout';
 import { motion } from 'framer-motion';
 
 import { IconSparkles } from '@/components/icons';
@@ -27,28 +27,50 @@ export default function Home() {
             target='_blank'
             rel='noreferrer'
             className={clsx(
-              'relative group/card hover:shadow-[0_0_16px_-2.4px_#bae6fd] flex w-full h-32 flex-col items-center justify-center overflow-hidden rounded-sm bg-zinc-200 p-4 text-center duration-300 dark:bg-zinc-900 md:max-w-[800px]'
+              'relative group/card flex w-full h-32 flex-col items-center justify-center overflow-hidden rounded-sm bg-zinc-200 p-4 text-center duration-300 dark:bg-zinc-900 md:max-w-[800px]'
             )}
           >
-            <IconSparkles className='group-hover/card:text-difficulty-extreme dark:group-hover/card:text-difficulty-extreme-dark absolute -right-4 -top-10 h-24 w-24 stroke-[0.5] text-black/10 duration-500 group-hover/card:-translate-x-4 group-hover/card:translate-y-10 group-hover/card:-rotate-[125deg] dark:text-white/10' />
-            <IconSparkles className='group-hover/card:text-difficulty-extreme dark:group-hover/card:text-difficulty-extreme-dark absolute -left-1 bottom-1 h-48 w-48  -rotate-12 stroke-[0.33] text-black/10 duration-700 group-hover/card:-translate-y-5  group-hover/card:translate-x-5 group-hover/card:rotate-[160deg]  group-hover/card:scale-75 dark:text-white/10' />
+            <IconSparkles className='group-hover/card:text-sky-200 dark:group-hover/card:text-sky-200-dark absolute -right-4 -top-10 h-24 w-24 stroke-[0.5] text-black/10 duration-500 group-hover/card:-translate-x-4 group-hover/card:translate-y-10 group-hover/card:-rotate-[125deg] dark:text-white/10' />
+            <IconSparkles className='group-hover/card:text-sky-200 dark:group-hover/card:text-sky-200-dark absolute -left-1 bottom-1 h-48 w-48  -rotate-12 stroke-[0.33] text-black/10 duration-700 group-hover/card:-translate-y-5  group-hover/card:translate-x-5 group-hover/card:rotate-[160deg]  group-hover/card:scale-75 dark:text-white/10' />
           </a>
         </div>
         <Suspense fallback={'loading'}>
           <HomeCard
             title='Posts for React'
             tag='React'
-            redirectRoute='/explore/beginner'
+            redirectRoute='/tags/react'
           />
         </Suspense>
         <Suspense fallback={'loading'}>
           <HomeCard
-            title='Posts for Algo'
+            title='Posts for DataStructure'
             tag='Structure'
-            redirectRoute='/explore/beginner'
+            redirectRoute='/tags/structure'
+          />
+        </Suspense>
+        <Suspense fallback={'loading'}>
+          <HomeCard
+            title='Posts for Browser'
+            tag='Browser'
+            redirectRoute='/tags/structure'
+          />
+        </Suspense>
+        <Suspense fallback={'loading'}>
+          <HomeCard
+            title='Posts for Network'
+            tag='Network'
+            redirectRoute='/tags/network'
+          />
+        </Suspense>
+        <Suspense fallback={'loading'}>
+          <HomeCard
+            title='Posts for Toolchain'
+            tag='Toolchain'
+            redirectRoute='/tags/toolchain'
           />
         </Suspense>
       </div>
+      <Footer />
     </div>
   );
 }

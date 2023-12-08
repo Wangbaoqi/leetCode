@@ -1,4 +1,4 @@
-import { ListNode, addTwoNumbers } from './index';
+import { ListNode, addTwoNumbers } from './code';
 
 describe('test addTwoNumbersII for LinkList', () => {
   it('test_two_link_list_same_sum_less_then_9', () => {
@@ -121,5 +121,3 @@ describe('test addTwoNumbersII for LinkList', () => {
     expect(addTwoNumbers(l1, l2)).toEqual(expected);
   });
 });
-
-

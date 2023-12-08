@@ -1,10 +1,4 @@
-import {
-  allPosts,
-  type Post,
-  allAlgos,
-  type Algo
-} from 'contentlayer/generated';
-
+import NextLink from 'next/link';
 import { ChevronRightLinearIcon } from '@/components/icons';
 import { Button } from '@nextui-org/react';
 import { clsx } from '@nextui-org/shared-utils';
@@ -28,7 +22,10 @@ export default function Page({ params }: { params: { slug: string[] } }) {
           } as React.CSSProperties
         }
       >
-        <div className='relative py-4 px-6 flex justify-between '>
+        <NextLink
+          href={'/algo'}
+          className='relative py-4 px-6 flex justify-between'
+        >
           <Button
             isIconOnly
             size='sm'
@@ -38,7 +35,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
           >
             <ChevronRightLinearIcon size={15} className=' rotate-180' />
           </Button>
-        </div>
+        </NextLink>
         <div className='flex flex-col items-center md:flex-row md:items-stretch gap-8 px-6'>
           <div className='h-52 w-52'>
             <Image

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { allPosts, Post } from 'contentlayer/generated';
 import {
   Avatar,

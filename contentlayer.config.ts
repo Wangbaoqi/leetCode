@@ -33,6 +33,7 @@ export const Algo = defineDocumentType(() => ({
     id: { type: 'number', required: true },
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
+    category: { type: 'string', required: true },
     tag: { type: 'string', required: true },
     leetCode: { type: 'string', required: true },
     status: { type: 'string', required: true }

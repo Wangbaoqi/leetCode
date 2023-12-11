@@ -14,7 +14,7 @@ import { algoList } from '@/config/algoConfig';
 export function AlgoCard() {
   const allAlgoPosts = allPosts.filter((post) => post.category === 'Algorithm');
   return (
-    <div className='grid gap-y-5 gap-x-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 my-6'>
+    <div className='grid gap-y-5 gap-x-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 my-6'>
       {allAlgoPosts.map((route, idx) => (
         <NextLink href={route.url} key={idx}>
           <Card shadow='sm' key={idx} isPressable isHoverable fullWidth>
@@ -44,9 +44,10 @@ export function AlgoCard() {
             <CardBody className='overflow-visible py-2'>
               <Image
                 alt='Card background'
-                className='object-cover rounded-xl'
+                className='object-cover w-full h-[150px] rounded-xl'
                 src={route.coverImage}
-                width={270}
+                width={'100%'}
+                // height={200}
               />
             </CardBody>
           </Card>

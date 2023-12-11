@@ -48,7 +48,7 @@ export function FeatureBlogCard({ blog, isHoliday = false }: CardProps) {
   return (
     <div
       className={`
-        group/card relative overflow-hidden duration-300  rounded-2xl border border-default-200/50  sm:min-w-[300px] xl:min-w-[320px]
+        group/card relative overflow-hidden duration-300 rounded-2xl border border-default-200/50 sm:min-w-[300px] sm:max-w-[300px] xl:max-w-[320px]
         ${SHADOWS_BY_DIFFICULTY[blog.category]}
         ${BORDERS_BY_DIFFICULTY[blog.category]}
       `}

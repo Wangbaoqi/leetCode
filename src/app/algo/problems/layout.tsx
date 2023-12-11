@@ -6,11 +6,9 @@ interface AlgoLayoutProp {
 }
 export default function AlgoLayout({ children }: AlgoLayoutProp) {
   return (
-    <main className='flex items-stretch gap-2 h-screen p-2'>
-      pll
-      <section className='bg-zinc-100 dark:bg-zinc-900 rounded-lg flex-1 mx-auto overflow-y-auto'>
-        {children}
-      </section>
+    <main className='flex items-stretch flex-col h-screen p-2'>
+      <div className='h-12 bg-secondary-100'></div>
+      <section className='flex-1 '>{children}</section>
     </main>
   );
 }

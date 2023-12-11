@@ -15,7 +15,6 @@ import { clsx } from '@nextui-org/shared-utils';
 export default function PostCard({ post, id }: { post: Post; id: number }) {
   const postClsx = clsx('w-full flex p-4 bg-transparent');
 
-  const onClickPost = (post: Post) => {};
   return (
     <Card as={'a'} href={post.url} shadow='none' className={postClsx}>
       <div className='overflow-visible flex flex-col gap-2 justify-between items-start'>

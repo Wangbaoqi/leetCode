@@ -7,6 +7,7 @@ import Editor, {
   EditorProps
 } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
+import { useSandpack } from '@codesandbox/sandpack-react';
 
 export type CodeEditorProps = Omit<EditorProps, 'theme'>;
 
@@ -36,6 +37,12 @@ export function CodeEditor({
     };
   }, []);
 
+  const { sandpack } = useSandpack();
+  const { files, activeFile } = sandpack;
+
+  const code = files['/add.ts'].code;
+  console.log(code, 'code');
+
   function handleEditorChange(value, event) {
     // here is the current value
   }
@@ -58,9 +65,8 @@ export function CodeEditor({
       theme={editorTheme}
       options={editorOptions}
       {...props}
-      height={'calc(100%)'}
       defaultLanguage='typescript'
-      defaultValue='// some comment'
+      defaultValue={code}
       onChange={handleEditorChange}
       onMount={handleEditorDidMount}
       beforeMount={handleEditorWillMount}

@@ -1,13 +1,41 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import Editor, {
   DiffEditor,
   useMonaco,
   loader,
   EditorProps
 } from '@monaco-editor/react';
+import { useTheme } from 'next-themes';
 
-export function CodeEditor() {
+export type CodeEditorProps = Omit<EditorProps, 'theme'>;
+
+const DEFAULT_OPTIONS = {
+  fixedOverflowWidgets: true,
+  lineNumbers: 'on',
+  tabSize: 2,
+  insertSpaces: false,
+  minimap: {
+    enabled: false
+  },
+  fontSize: 14
+} as const satisfies EditorProps['options'];
+
+export function CodeEditor({
+  onChange,
+  onMount,
+  options,
+  value,
+  ...props
+}: CodeEditorProps) {
+  const { theme } = useTheme();
+  const editorTheme = theme === 'dark' ? 'vs-dark' : 'light';
+  const editorOptions = useMemo(() => {
+    return {
+      ...DEFAULT_OPTIONS
+    };
+  }, []);
+
   function handleEditorChange(value, event) {
     // here is the current value
   }
@@ -27,8 +55,11 @@ export function CodeEditor() {
   }
   return (
     <Editor
+      theme={editorTheme}
+      options={editorOptions}
+      {...props}
       height={'calc(100%)'}
-      defaultLanguage='javascript'
+      defaultLanguage='typescript'
       defaultValue='// some comment'
       onChange={handleEditorChange}
       onMount={handleEditorDidMount}

@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Editor, {
   DiffEditor,
   useMonaco,
@@ -39,9 +39,27 @@ export function CodeEditor({
 
   const { sandpack } = useSandpack();
   const { files, activeFile } = sandpack;
+  const monaco = useMonaco();
 
   const code = files['/add.ts'].code;
-  console.log(code, 'code');
+
+  useEffect(() => {
+    // Monaco
+    //   .init()
+    //   .then((monaco) => {
+    //     import("monaco-themes/themes/Blackboard.json").then((data) => {
+    //       monaco.editor.defineTheme("Blackboard", data);
+    //       setIsThemeLoaded(true);
+    //     });
+    //   })
+    //   .catch((error) =>
+    //     console.error(
+    //       "An error occurred during initialization of Monaco: ",
+    //       error
+    //     )
+    //   );
+    console.log(monaco, 'Monaco');
+  }, []);
 
   function handleEditorChange(value, event) {
     // here is the current value

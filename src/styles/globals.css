@@ -57,10 +57,10 @@
   --sp-colors-disabled: #fff;
   --sp-colors-error: #811e18;
   --sp-colors-error-surface: #ffcdca;
-  /* --sp-colors-surface1: #161618;
-  --sp-colors-surface2: #343a46; */
-  /* --sp-colors-divider: #2e2e32;
-  --sp-colors-soft: #202127; */
+  --sp-colors-surface1: #161618;
+  --sp-colors-surface2: #343a46;
+  --sp-colors-divider: #2e2e32;
+  --sp-colors-soft: #202127;
 
   /* --sp-syntax-color-plain: #ffffff;
   --sp-syntax-color-comment: #757575;
@@ -105,10 +105,10 @@
   --sp-colors-disabled: #24292e;
   --sp-colors-error: #811e18;
   --sp-colors-error-surface: #ffcdca;
-  /* --sp-colors-surface1: #fff;
+  --sp-colors-surface1: #fff;
   --sp-colors-surface2: #e4e7eb;
   --sp-colors-divider: #e2e2e3;
-  --sp-colors-soft: #f6f6f7; */
+  --sp-colors-soft: #f6f6f7;
 
 
   /* --sp-syntax-color-plain: #24292e;
@@ -120,6 +120,13 @@
   --sp-syntax-color-property: #005cc5;
   --sp-syntax-color-static: #032f62;
   --sp-syntax-color-string: #032f62; */
+
+
+}
+
+.dark .monaco-editor {
+  /* --vscode-editor-background: #252525; */
+
 }
 
 

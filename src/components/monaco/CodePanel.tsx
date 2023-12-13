@@ -3,19 +3,29 @@ import React from 'react';
 import CodeSplit from './CodeSplit';
 import { SandpackProvider } from '@codesandbox/sandpack-react';
 import { useTheme } from 'next-themes';
+import { createFileMap } from './createFileMap';
+
+type CodeType = {
+  code: string;
+  testCode: string;
+};
 
 interface CodePanelProps {
   settingElement?: React.ReactNode;
+  code: CodeType;
 }
 
-export default function CodePanel(props: CodePanelProps) {
+export default function CodePanel({ settingElement, code }: CodePanelProps) {
   const { theme } = useTheme();
   const codeTheme = theme === 'dark' ? 'dark' : 'light';
+  const files = createFileMap(code);
+
+  console.log(files, 'ddd');
 
   return (
     <>
       <div className='sticky top-0 flex h-[40px] shrink-0 items-center justify-end gap-4 border-b border-default-200/70 dark:border-default-100/80 px-3 py-2 '>
-        {props.settingElement}
+        {settingElement}
       </div>
       <SandpackProvider
         style={{
@@ -24,14 +34,16 @@ export default function CodePanel(props: CodePanelProps) {
           flexDirection: 'column'
         }}
         template='test-ts'
+        files={files}
         theme={codeTheme}
+        options={
+          {
+            // visibleFiles: ['/code.test.ts']
+          }
+        }
       >
         <CodeSplit />
       </SandpackProvider>
-      {/* <div className='sticky bottom-0 flex items-center justify-between border-t border-default-200/70 dark:border-default-100/80 p-2 '>
-        <div className=''>Tests</div>
-        <div className=''>Tests</div>
-      </div> */}
     </>
   );
 }

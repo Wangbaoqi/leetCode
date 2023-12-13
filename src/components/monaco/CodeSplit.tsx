@@ -36,6 +36,11 @@ export default function CodeSplit({ className }: CodeSplitProps) {
   const testPanel = useRef<HTMLDivElement>(null);
   const testPanelBox = useRef<HTMLDivElement>(null);
 
+  const { sandpack } = useSandpack();
+  const { files, activeFile } = sandpack;
+  const code = files[activeFile].code;
+  console.log(sandpack);
+
   useEffect(() => {
     const resizerRef = resizer.current;
     const testPanelRef = testPanel.current;
@@ -134,11 +139,7 @@ export default function CodeSplit({ className }: CodeSplitProps) {
       className={clsx('sandpack flex h-[calc(100%-_0px)] flex-col', className)}
     >
       <section className='overflow-hidden h-full'>
-        <CodeEditor
-          className='overflow-hidden bg-red'
-          height={'100%'}
-          // value={code}
-        />
+        <CodeEditor className='overflow-hidden' height={'100%'} value={code} />
       </section>
 
       <div className='transition-all' ref={testPanelBox}>
@@ -158,12 +159,6 @@ export default function CodeSplit({ className }: CodeSplitProps) {
             <SandpackCodeEditor />
             <SandpackTests />
           </SandpackLayout>
-
-          {/* <CodeEditor
-              className='overflow-hidden'
-              height={'100%'}
-              // value={code}
-            /> */}
         </div>
       </div>
     </div>

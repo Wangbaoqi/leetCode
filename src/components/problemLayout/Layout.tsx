@@ -7,11 +7,18 @@ import RightWrapper from './RightWrapper';
 import LeftWrapper from './LeftWrapper';
 import { iteratee } from 'lodash';
 import { type Algo } from 'contentlayer/generated';
+import CodePanel from '../monaco/CodePanel';
+import { code } from '@nextui-org/react';
 
+type CodeType = {
+  code: string;
+  testCode: string;
+};
 interface Props {
   post: Algo | undefined;
+  code: CodeType;
 }
-export function Layout({ post }: Props) {
+export function Layout({ post, code }: Props) {
   const leftRef = useRef<HTMLDivElement>(null);
   const resizerRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -36,7 +43,7 @@ export function Layout({ post }: Props) {
         ref={rightRef}
         className='flex min-h-[90px] w-full flex-1 flex-grow flex-col overflow-hidden rounded-2xl border border-default-200/70 dark:border-default-100/80 bg-zinc-100 dark:bg-zinc-900 lg:min-w-[500px]'
       >
-        <RightWrapper />
+        <CodePanel code={code} />
       </div>
     </div>
   );

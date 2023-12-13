@@ -1,10 +1,11 @@
 'use client';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Editor, {
   DiffEditor,
   useMonaco,
   loader,
-  EditorProps
+  EditorProps,
+  Monaco
 } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { useSandpack } from '@codesandbox/sandpack-react';
@@ -19,7 +20,8 @@ const DEFAULT_OPTIONS = {
   minimap: {
     enabled: false
   },
-  fontSize: 14
+  fontSize: 14,
+  fontFamily: 'MapleMono'
 } as const satisfies EditorProps['options'];
 
 export function CodeEditor({
@@ -39,27 +41,8 @@ export function CodeEditor({
 
   const { sandpack } = useSandpack();
   const { files, activeFile } = sandpack;
-  const monaco = useMonaco();
 
   const code = files['/add.ts'].code;
-
-  useEffect(() => {
-    // Monaco
-    //   .init()
-    //   .then((monaco) => {
-    //     import("monaco-themes/themes/Blackboard.json").then((data) => {
-    //       monaco.editor.defineTheme("Blackboard", data);
-    //       setIsThemeLoaded(true);
-    //     });
-    //   })
-    //   .catch((error) =>
-    //     console.error(
-    //       "An error occurred during initialization of Monaco: ",
-    //       error
-    //     )
-    //   );
-    console.log(monaco, 'Monaco');
-  }, []);
 
   function handleEditorChange(value, event) {
     // here is the current value
@@ -84,7 +67,8 @@ export function CodeEditor({
       options={editorOptions}
       {...props}
       defaultLanguage='typescript'
-      defaultValue={code}
+      value={value}
+      // defaultValue={code}
       onChange={handleEditorChange}
       onMount={handleEditorDidMount}
       beforeMount={handleEditorWillMount}

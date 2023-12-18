@@ -1,7 +1,9 @@
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { clsx } from '@nextui-org/shared-utils';
-import { CodeEditor } from './CodeEditor';
+// import { CodeEditor } from './CodeEditor';
 import {
+  type SandpackFile,
   SandpackProvider,
   SandpackTests,
   SandpackPreview,
@@ -10,9 +12,10 @@ import {
   SandpackStack,
   SandpackCodeEditor,
   FileTabs,
-  useSandpack
+  useSandpack,
+  SandpackReactContext,
+  CodeEditor
 } from '@codesandbox/sandpack-react';
-// import { sandpackDark } from "@codesandbox/sandpack-themes";
 
 import { useTheme } from 'next-themes';
 import { getEventDeltas } from './utils';
@@ -37,9 +40,10 @@ export default function CodeSplit({ className }: CodeSplitProps) {
   const testPanelBox = useRef<HTMLDivElement>(null);
 
   const { sandpack } = useSandpack();
-  const { files, activeFile } = sandpack;
+  const { files, activeFile, updateFile } = sandpack;
   const code = files[activeFile].code;
-  console.log(sandpack);
+  const testCodeFilePath = '/code.test.ts';
+  const testCode = files[testCodeFilePath].code;
 
   useEffect(() => {
     const resizerRef = resizer.current;
@@ -116,10 +120,7 @@ export default function CodeSplit({ className }: CodeSplitProps) {
         document.addEventListener('touchmove', mouseMoveHandler, false);
         document.addEventListener('touchend', mouseUpHandler, false);
       }
-
       document.addEventListener('selectstart', preventSelection);
-
-      console.log(initHeight, y, 'dddddd');
     };
 
     window.addEventListener('resize', resizeHandle);
@@ -138,9 +139,16 @@ export default function CodeSplit({ className }: CodeSplitProps) {
       ref={codeWrapper}
       className={clsx('sandpack flex h-[calc(100%-_0px)] flex-col', className)}
     >
-      <section className='overflow-hidden h-full'>
-        <CodeEditor className='overflow-hidden' height={'100%'} value={code} />
-      </section>
+      <SandpackStack className='overflow-hidden h-full'>
+        <div className='overflow-hidden h-full'>
+          <CodeEditor
+            initMode='lazy'
+            code={code}
+            filePath={activeFile}
+            onCodeUpdate={(newCode) => updateFile(activeFile, newCode)}
+          />
+        </div>
+      </SandpackStack>
 
       <div className='transition-all' ref={testPanelBox}>
         <div
@@ -156,7 +164,16 @@ export default function CodeSplit({ className }: CodeSplitProps) {
           }}
         >
           <SandpackLayout>
-            <SandpackCodeEditor />
+            <SandpackStack>
+              <CodeEditor
+                initMode='lazy'
+                code={testCode}
+                filePath={testCodeFilePath}
+                onCodeUpdate={(newCode) =>
+                  updateFile(testCodeFilePath, newCode)
+                }
+              />
+            </SandpackStack>
             <SandpackTests />
           </SandpackLayout>
         </div>

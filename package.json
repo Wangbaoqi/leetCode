@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.10.0",
+    "@codesandbox/sandpack-themes": "^2.0.21",
     "@monaco-editor/react": "^4.6.0",
     "@nant-design/nant-icons": "^1.0.0",
     "@nextui-org/react": "^2.2.9",

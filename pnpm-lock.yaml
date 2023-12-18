@@ -4,6 +4,9 @@ dependencies:
   '@codesandbox/sandpack-react':
     specifier: ^2.10.0
     version: 2.10.0(@lezer/common@1.1.1)(react-dom@18.2.0)(react@18.2.0)
+  '@codesandbox/sandpack-themes':
+    specifier: ^2.0.21
+    version: 2.0.21
   '@monaco-editor/react':
     specifier: ^4.6.0
     version: 4.6.0(monaco-editor@0.45.0)(react-dom@18.2.0)(react@18.2.0)
@@ -616,6 +619,10 @@ packages:
       react-is: 17.0.2
     transitivePeerDependencies:
       - '@lezer/common'
+    dev: false
+
+  /@codesandbox/sandpack-themes@2.0.21:
+    resolution: {integrity: sha512-CMH/MO/dh6foPYb/3eSn2Cu/J3+1+/81Fsaj7VggICkCrmRk0qG5dmgjGAearPTnRkOGORIPHuRqwNXgw0E6YQ==}
     dev: false
 
   /@contentlayer/cli@0.3.4(esbuild@0.19.7):

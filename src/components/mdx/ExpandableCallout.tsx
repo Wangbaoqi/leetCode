@@ -66,7 +66,7 @@ function ExpandableCallout({
   return (
     <div
       className={clsx(
-        'pt-8 pb-4 px-5 sm:px-8 my-8 relative rounded-none shadow-inner-border -mx-5 sm:mx-auto sm:rounded-2xl',
+        'pt-8 pb-4 px-5 sm:px-8 my-8 relative rounded-none shadow-inner-border sm:mx-auto sm:rounded-2xl',
         variant.containerClasses
       )}
     >

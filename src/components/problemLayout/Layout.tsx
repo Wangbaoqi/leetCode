@@ -35,13 +35,13 @@ export function Layout({ post, code }: Props) {
       </div>
       <div
         ref={resizerRef}
-        className={`resize group relative cursor-col-resize p-2`}
+        className={`hidden lg:block resize group relative cursor-col-resize p-2`}
       >
         <div className='group-hover:bg-default-400 group-active:bg-default-700 absolute left-1/2 top-1/2 h-1 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-default-200 duration-300 lg:h-24 lg:w-1'></div>
       </div>
       <div
         ref={rightRef}
-        className='flex min-h-[90px] w-full flex-1 flex-grow flex-col overflow-hidden rounded-2xl border border-default-200/70 dark:border-default-100/80 bg-zinc-100 dark:bg-zinc-900 lg:min-w-[500px]'
+        className='hidden lg:flex min-h-[90px] w-full flex-1 flex-grow flex-col overflow-hidden rounded-2xl border border-default-200/70 dark:border-default-100/80 bg-zinc-100 dark:bg-zinc-900 lg:min-w-[500px]'
       >
         <CodePanel code={code} />
       </div>

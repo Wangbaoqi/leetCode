@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { type Algo } from 'contentlayer/generated';
 import MDXContent from '@/components/mdx/MDXContent';
@@ -9,12 +9,14 @@ import { Chip } from '@nextui-org/react';
 interface DescriptionProps {
   post: Algo | undefined;
 }
-export function Description({ post }: DescriptionProps) {
+export const Description = memo(function Description({
+  post
+}: DescriptionProps) {
   if (!post) return null;
 
   return (
-    <article className='bg-zinc-100 dark:bg-zinc-900 px-6 pb-32 pt-4 overflow-y-auto overflow-x-hidden'>
-      <h1 className='text-2xl font-bold'>
+    <article className='custom-scrollbar algo-description prose prose-neutral h-full text-[15px] bg-zinc-100 dark:bg-zinc-900 px-2 lg:px-6 pb-32 pt-4 overflow-y-auto overflow-x-hidden'>
+      <h1 className='text-2xl font-bold m-0'>
         {post.id}.{post.title}
       </h1>
       <div className='mt-2 flex items-center gap-4'>
@@ -36,4 +38,4 @@ export function Description({ post }: DescriptionProps) {
       <MDXContent code={post.body.code} />
     </article>
   );
-}
+});

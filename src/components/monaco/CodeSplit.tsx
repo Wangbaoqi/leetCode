@@ -123,9 +123,9 @@ export default function CodeSplit({ className }: CodeSplitProps) {
       document.addEventListener('selectstart', preventSelection);
     };
 
-    window.addEventListener('resize', resizeHandle);
-    window.addEventListener('mousedown', mouseDownHandle);
-    window.addEventListener('touchstart', mouseDownHandle);
+    // window.addEventListener('resize', resizeHandle);
+    // window.addEventListener('mousedown', mouseDownHandle);
+    // window.addEventListener('touchstart', mouseDownHandle);
 
     return () => {
       window.removeEventListener('resize', resizeHandle);
@@ -139,9 +139,11 @@ export default function CodeSplit({ className }: CodeSplitProps) {
       ref={codeWrapper}
       className={clsx('sandpack flex h-[calc(100%-_0px)] flex-col', className)}
     >
+      <div className='sticky top-0 flex h-[40px] shrink-0 items-center justify-end gap-4 border-b border-default-200/70 dark:border-default-100/80 px-3 py-2 '></div>
       <SandpackStack className='overflow-hidden h-full'>
         <div className='overflow-hidden h-full'>
           <CodeEditor
+            showLineNumbers
             initMode='lazy'
             code={code}
             filePath={activeFile}

@@ -2,7 +2,6 @@ import React from 'react';
 import { allAlgos, type Algo } from 'contentlayer/generated';
 import fg from 'fast-glob';
 import fse from 'fs-extra';
-
 import { Layout } from '@/components/problemLayout';
 
 interface ProblemProps {
@@ -14,8 +13,6 @@ interface ProblemProps {
 const { readFileSync } = fse;
 
 export default async function ProblemPage({ params: { slug } }: ProblemProps) {
-  console.log(slug, allAlgos, 'problem');
-
   const post = allAlgos.find(
     (algo) => algo._raw.flattenedPath === `algo/problems/${slug}`
   );

@@ -130,7 +130,11 @@ export function AlgoList() {
     switch (columnKey) {
       case 'title':
         return (
-          <NextLink href={user.url} className='hover:text-default-500'>
+          <NextLink
+            href={user.url}
+            target='_blank'
+            className='hover:text-default-500'
+          >
             {user.title}
           </NextLink>
         );

@@ -5,6 +5,7 @@ import { SandpackLayout, SandpackProvider } from '@codesandbox/sandpack-react';
 import { useTheme } from 'next-themes';
 import { createFileMap } from './createFileMap';
 import { sandpackDark, cobalt2, nightOwl } from '@codesandbox/sandpack-themes';
+import { useIsSSR } from '@react-aria/ssr';
 
 type CodeType = {
   code: string;
@@ -18,35 +19,30 @@ interface CodePanelProps {
 
 export default function CodePanel({ settingElement, code }: CodePanelProps) {
   const { theme } = useTheme();
-  const codeTheme = theme === 'dark' ? sandpackDark : 'light';
-  const files = createFileMap(code);
+  const isSSR = useIsSSR();
 
-  console.log(codeTheme, 'codeTheme');
+  const codeTheme = !isSSR && theme === 'dark' ? sandpackDark : 'light';
+  const files = createFileMap(code);
 
   return (
     <>
-      <div className='sticky top-0 flex h-[40px] shrink-0 items-center justify-end gap-4 border-b border-default-200/70 dark:border-default-100/80 px-3 py-2 '>
-        {settingElement}
-      </div>
-      <Suspense fallback={<>loading</>}>
-        <SandpackProvider
-          style={{
-            height: 'calc(100% - 40px)',
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-          template='test-ts'
-          files={files}
-          theme={codeTheme}
-          options={
-            {
-              // visibleFiles: ['/code.test.ts']
-            }
+      <SandpackProvider
+        style={{
+          height: 'calc(100% - 40px)',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+        template='test-ts'
+        files={files}
+        theme={codeTheme}
+        options={
+          {
+            // visibleFiles: ['/code.test.ts']
           }
-        >
-          <CodeSplit />
-        </SandpackProvider>
-      </Suspense>
+        }
+      >
+        <CodeSplit />
+      </SandpackProvider>
     </>
   );
 }

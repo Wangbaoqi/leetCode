@@ -155,11 +155,29 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+.algo-description pre {
+  margin: 1rem 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.6rem;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-neutral-300/50 dark:bg-zinc-700/50 rounded-l-xl
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral-300 dark:bg-zinc-600
+}
 
 #blogContainer {
   mask: linear-gradient(90deg, #0000, #000 10% 80%, #0000);
   -webkit-mask: linear-gradient(90deg, #0000, #000 10% 80%, #0000);
 }
+
+
 
 
 @media (min-width: 1100px) {

@@ -1,4 +1,4 @@
-import { SideBar } from '@/components/algoLayout';
+import { AlgoNav } from '@/components/algoLayout';
 import { NavBar } from '@/components/blogLayout';
 import React from 'react';
 
@@ -7,11 +7,9 @@ interface AlgoLayoutProp {
 }
 export default function AlgoLayout({ children }: AlgoLayoutProp) {
   return (
-    <main className='flex items-stretch flex-col h-screen p-2'>
-      <div className='h-12 '>
-        <NavBar />
-      </div>
-      <section className='flex-1 '>{children}</section>
+    <main className='flex items-stretch flex-col lg:h-screen p-2'>
+      <AlgoNav />
+      <section className='flex-1'>{children}</section>
     </main>
   );
 }

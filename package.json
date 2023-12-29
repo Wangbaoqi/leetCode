@@ -30,6 +30,7 @@
     "github-slugger": "^2.0.0",
     "lodash": "^4.17.21",
     "marked": "^10.0.0",
+    "monaco-editor": "^0.45.0",
     "monaco-themes": "^0.4.4",
     "next": "14.0.3",
     "next-contentlayer": "^0.3.4",

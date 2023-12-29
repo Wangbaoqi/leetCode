@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense } from 'react';
+import React, { Suspense, memo } from 'react';
 import CodeSplit from './CodeSplit';
 import { SandpackLayout, SandpackProvider } from '@codesandbox/sandpack-react';
 import { useTheme } from 'next-themes';
@@ -17,7 +17,10 @@ interface CodePanelProps {
   code: CodeType;
 }
 
-export default function CodePanel({ settingElement, code }: CodePanelProps) {
+export default memo(function CodePanel({
+  settingElement,
+  code
+}: CodePanelProps) {
   const { theme } = useTheme();
   const isSSR = useIsSSR();
 
@@ -25,7 +28,7 @@ export default function CodePanel({ settingElement, code }: CodePanelProps) {
   const files = createFileMap(code);
 
   return (
-    <>
+    <Suspense fallback={<>loading</>}>
       <SandpackProvider
         style={{
           height: 'calc(100% - 40px)',
@@ -35,14 +38,25 @@ export default function CodePanel({ settingElement, code }: CodePanelProps) {
         template='test-ts'
         files={files}
         theme={codeTheme}
+        customSetup={{
+          devDependencies: {
+            '@types/jest': 'latest',
+            'ts-jest': 'latest'
+          },
+          dependencies: {
+            jest: 'latest'
+          }
+        }}
         options={
           {
-            // visibleFiles: ['/code.test.ts']
+            // bundlerURL: 'https://sandpack-bundler-beta.vercel.app/'
+            // bundlerTimeOut: 10000
+            // bundlerURL: 'https://codedsandbox-bundler.wangbaoqi.tech'
           }
         }
       >
         <CodeSplit />
       </SandpackProvider>
-    </>
+    </Suspense>
   );
-}
+});

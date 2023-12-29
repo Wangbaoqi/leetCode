@@ -1,7 +1,7 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { clsx } from '@nextui-org/shared-utils';
-// import { CodeEditor } from './CodeEditor';
+import { CodeEditor } from './CodeEditor';
 import {
   type SandpackFile,
   SandpackProvider,
@@ -12,13 +12,15 @@ import {
   SandpackStack,
   SandpackCodeEditor,
   FileTabs,
+  SandpackFileExplorer,
   useSandpack,
-  SandpackReactContext,
-  CodeEditor
+  SandpackReactContext
+  // CodeEditor
 } from '@codesandbox/sandpack-react';
 
 import { useTheme } from 'next-themes';
 import { getEventDeltas } from './utils';
+import { EditorProps } from '@monaco-editor/react';
 interface CodeSplitProps {
   className?: string;
 }
@@ -30,7 +32,7 @@ function preventSelection(event: Event) {
   event.preventDefault();
 }
 
-export default function CodeSplit({ className }: CodeSplitProps) {
+export default memo(function CodeSplit({ className }: CodeSplitProps) {
   const { theme } = useTheme();
   const [panelHeight, setPanelHeight] = useState(300);
   const codeTheme = theme === 'dark' ? 'dark' : 'light';
@@ -38,12 +40,9 @@ export default function CodeSplit({ className }: CodeSplitProps) {
   const resizer = useRef<HTMLDivElement>(null);
   const testPanel = useRef<HTMLDivElement>(null);
   const testPanelBox = useRef<HTMLDivElement>(null);
-
   const { sandpack } = useSandpack();
+  const { code, updateCode } = useActiveCode();
   const { files, activeFile, updateFile } = sandpack;
-  const code = files[activeFile].code;
-  const testCodeFilePath = '/code.test.ts';
-  const testCode = files[testCodeFilePath].code;
 
   useEffect(() => {
     const resizerRef = resizer.current;
@@ -134,52 +133,45 @@ export default function CodeSplit({ className }: CodeSplitProps) {
     };
   }, []);
 
+  const handleFileOnChange: EditorProps['onChange'] = (
+    value: string | undefined,
+    e
+  ) => {
+    updateCode(value || '');
+  };
+
+  const handleFileOnMount: EditorProps['onMount'] = (editor, monaco) => {};
+
+  const handleFileOnValidate: EditorProps['onValidate'] = (markers) => {
+    console.log(markers, 'markers');
+  };
+
   return (
     <div
       ref={codeWrapper}
       className={clsx('sandpack flex h-[calc(100%-_0px)] flex-col', className)}
     >
-      <div className='sticky top-0 flex h-[40px] shrink-0 items-center justify-end gap-4 border-b border-default-200/70 dark:border-default-100/80 px-3 py-2 '></div>
-      <SandpackStack className='overflow-hidden h-full'>
-        <div className='overflow-hidden h-full'>
-          <CodeEditor
-            showLineNumbers
-            initMode='lazy'
-            code={code}
-            filePath={activeFile}
-            onCodeUpdate={(newCode) => updateFile(activeFile, newCode)}
-          />
-        </div>
-      </SandpackStack>
-
-      <div className='transition-all' ref={testPanelBox}>
-        <div
-          ref={resizer}
-          className='group cursor-row-resize border-y border-default-200/10 p-2 '
-        >
-          <div className='group-hover:bg-default-200 group-active:bg-default-500 m-auto h-1 w-24 rounded-full bg-default-300 duration-300' />
-        </div>
-        <div
-          ref={testPanel}
-          style={{
-            height: `${panelHeight || MIN_HEIGHT}px`
-          }}
-        >
-          <SandpackLayout>
-            <SandpackStack>
-              <CodeEditor
-                initMode='lazy'
-                code={testCode}
-                filePath={testCodeFilePath}
-                onCodeUpdate={(newCode) =>
-                  updateFile(testCodeFilePath, newCode)
-                }
-              />
-            </SandpackStack>
-            <SandpackTests />
-          </SandpackLayout>
+      <div className='sticky top-0 flex h-[40px] shrink-0 items-center justify-end gap-4 border-b border-default-200/70 dark:border-default-100/80 px-3 py-2 '>
+        <div className='flex justify-between w-full'>
+          <div className='h-full w-[fit-content] px-4 '>
+            <FileTabs />
+          </div>
+          <div className=''>setting</div>
         </div>
       </div>
+      <SandpackFileExplorer />
+      <CodeEditor
+        key={activeFile}
+        value={code}
+        onMount={handleFileOnMount}
+        onChange={handleFileOnChange}
+        onValidate={handleFileOnValidate}
+      />
+      {/* <div className='h-[200px]'>
+        <SandpackLayout>
+          <SandpackTests />
+        </SandpackLayout>
+      </div> */}
     </div>
   );
-}
+});

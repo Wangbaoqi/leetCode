@@ -16,8 +16,7 @@ export const createFileMap = (
       hidden: false
     },
     '/code.test.ts': {
-      code: testCode,
-      hidden: true
+      code: testCode
     }
   };
 

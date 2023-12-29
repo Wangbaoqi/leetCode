@@ -8,7 +8,11 @@ import Editor, {
   Monaco
 } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
-import { useSandpack } from '@codesandbox/sandpack-react';
+import {
+  SandpackStack,
+  useActiveCode,
+  useSandpack
+} from '@codesandbox/sandpack-react';
 
 export type CodeEditorProps = Omit<EditorProps, 'theme'>;
 
@@ -39,40 +43,17 @@ export function CodeEditor({
     };
   }, []);
 
-  const { sandpack } = useSandpack();
-  const { files, activeFile } = sandpack;
-
-  const code = files['/add.ts'].code;
-
-  function handleEditorChange(value, event) {
-    // here is the current value
-  }
-
-  function handleEditorDidMount(editor: any, monaco: any) {
-    console.log('onMount: the editor instance:', editor);
-    console.log('onMount: the monaco instance:', monaco);
-  }
-
-  function handleEditorWillMount(monaco: any) {
-    console.log('beforeMournt: the monaco instance:', monaco);
-  }
-
-  function handleEditorValidation(markers: any) {
-    // model markers
-    // markers.forEach(marker => console.log('onValidate:', marker.message));
-  }
   return (
-    <Editor
-      theme={editorTheme}
-      options={editorOptions}
-      {...props}
-      defaultLanguage='typescript'
-      value={value}
-      // defaultValue={code}
-      onChange={handleEditorChange}
-      onMount={handleEditorDidMount}
-      beforeMount={handleEditorWillMount}
-      onValidate={handleEditorValidation}
-    />
+    <SandpackStack className='overflow-hidden h-full'>
+      <Editor
+        theme={editorTheme}
+        options={editorOptions}
+        {...props}
+        defaultLanguage='typescript'
+        value={value}
+        defaultValue={value}
+        onChange={onChange}
+      />
+    </SandpackStack>
   );
 }

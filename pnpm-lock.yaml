@@ -64,6 +64,9 @@ dependencies:
   marked:
     specifier: ^10.0.0
     version: 10.0.0
+  monaco-editor:
+    specifier: ^0.45.0
+    version: 0.45.0
   monaco-themes:
     specifier: ^0.4.4
     version: 0.4.4

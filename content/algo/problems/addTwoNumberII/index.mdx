@@ -19,47 +19,5 @@ leetCode: https://leetcode.cn/problems/add-two-numbers-ii/
 
 反转之后的链表则跟 两数相加使用相同的解法。
 
-
 是否还有其他的解法? (利用栈)
 
-
-
-链表是一种线性存储结构，元素未存储的在连续的内存块中，而是通过类似指针的方式连接每一个节点。
-
-![singleList](https://media.wangbaoqi.tech/assets/blog/algorithm/linklist/linkedlist.webp)
-
-## 单链表
-
-单链表是链表一种表现形式，是单向的，最后的节点执行 `null` ，除非出现环形链表。
-
-### 单链表添加节点
-
-单链表添加节点分为头部添加、中间添加以及尾部添加。
-
-![singleaddList](https://media.wangbaoqi.tech/assets/blog/algorithm/linklist/linklist-add.webp)
-
-```javascript dd
-// 添加节点 头部以及尾部
-LinkList.prototype.append = function (newElement) {
-  var newNode = new Node(newElement);
-  var curNode = this.head;
-  while (curNode.next) {
-    curNode = curNode.next;
-  }
-  curNode.next = newNode;
-}
-
-// 指定结点之后插入结点
-LinkList.prototype.insert = function (newElement, element) {
-  var curNode = this.findByValue(element);
-
-  if (curNode == -1) {
-    console.log('未找到结点');
-    return;
-  }
-  var newNode = new Node(newElement);
-  newNode.next = curNode.next;
-  curNode.next = newNode;
-}
-
-```

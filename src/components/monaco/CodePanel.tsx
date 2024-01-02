@@ -24,7 +24,7 @@ export default memo(function CodePanel({
   const { theme } = useTheme();
   const isSSR = useIsSSR();
 
-  const codeTheme = !isSSR && theme === 'dark' ? sandpackDark : 'light';
+  const codeTheme = !isSSR && theme === 'dark' ? 'dark' : 'light';
   const files = createFileMap(code);
 
   return (
@@ -41,11 +41,10 @@ export default memo(function CodePanel({
         customSetup={{
           devDependencies: {
             '@types/jest': 'latest',
-            'ts-jest': 'latest'
-          },
-          dependencies: {
+            'ts-jest': 'latest',
             jest: 'latest'
-          }
+          },
+          dependencies: {}
         }}
         options={
           {

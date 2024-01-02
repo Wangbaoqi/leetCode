@@ -49,7 +49,7 @@ export function CodeEditor({
         theme={editorTheme}
         options={editorOptions}
         {...props}
-        defaultLanguage='typescript'
+        defaultLanguage='javascript'
         value={value}
         defaultValue={value}
         onChange={onChange}

@@ -7,9 +7,10 @@ import { AlgoList } from '@/components/algoLayout';
 import Image from 'next/image';
 
 export default function Page({ params }: { params: { slug: string[] } }) {
-  const pageConf = algoRoutes.find(
-    (route) => route.label === params.slug?.join('')
-  );
+  const slug = params.slug?.join('');
+  const pageConf = algoRoutes.find((route) => route.label === slug);
+
+  console.log(params.slug, params.slug.join(''), 'dd');
 
   return (
     <>
@@ -54,7 +55,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         </div>
 
         <div className='bg-zinc-100 dark:bg-zinc-900/30 mt-6 flex-1 p-6 blur-100'>
-          <AlgoList />
+          <AlgoList slug={slug} />
         </div>
 
         <div

@@ -15,7 +15,7 @@ export function AlgoDataCard() {
   const allDataPost = allPosts.filter((post) => post.category === 'Structure');
 
   return (
-    <div className='grid gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-6'>
+    <div className='grid gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  mt-6'>
       {allDataPost.map((route, idx) => (
         <NextLink
           href={route.url || '/'}

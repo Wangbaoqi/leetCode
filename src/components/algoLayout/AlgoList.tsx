@@ -28,7 +28,13 @@ import * as Local from 'contentlayer/source-files';
 import { compareAsc, format } from 'date-fns';
 
 interface AlgoType extends Algo {
-  [key: string]: string | number | MDX | Local.RawDocumentData;
+  [key: string]:
+    | string
+    | number
+    | string[]
+    | MDX
+    | Local.RawDocumentData
+    | undefined;
 }
 interface AlgoStatusType {
   [key: string]:
@@ -41,7 +47,11 @@ interface AlgoStatusType {
     | undefined;
 }
 
-const users: AlgoType[] = allAlgos;
+interface IAlgoListProps {
+  slug: string;
+}
+
+const originList: AlgoType[] = allAlgos;
 
 const statusOptions = [
   { name: 'Easy', uid: 'easy' },
@@ -65,7 +75,7 @@ const columns = [
 
 const INITIAL_VISIBLE_COLUMNS = ['id', 'title', 'date', 'status', 'leetCode'];
 
-export function AlgoList() {
+export function AlgoList({ slug }: IAlgoListProps) {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filterValue, setFilterValue] = useState('');
@@ -75,7 +85,7 @@ export function AlgoList() {
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
 
-  console.log(allAlgos, 'allAlgos');
+  const typeLists = originList.filter((item) => item.tags?.includes(slug));
 
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'id',
@@ -90,20 +100,17 @@ export function AlgoList() {
     );
   }, [visibleColumns]);
 
-  console.log(visibleColumns, 'headerColumns');
-
   const hasSearchFilter = Boolean(filterValue);
-
   const filteredItems = useMemo(() => {
-    let filteredUsers = [...users];
+    let filterList = [...typeLists];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
+      filterList = filterList.filter((user) =>
         user.title.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    return filteredUsers;
-  }, [hasSearchFilter, filterValue]);
+    return filterList;
+  }, [typeLists, hasSearchFilter, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -212,7 +219,7 @@ export function AlgoList() {
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-default-400 text-small'>
-            Total {users.length} users
+            Total {typeLists.length}
           </span>
           <label className='flex items-center text-default-400 text-small'>
             Rows per page:
@@ -228,7 +235,13 @@ export function AlgoList() {
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, onRowsPerPageChange, onClear]);
+  }, [
+    filterValue,
+    onSearchChange,
+    typeLists.length,
+    onRowsPerPageChange,
+    onClear
+  ]);
 
   const bottomContent = useMemo(() => {
     return (
@@ -297,7 +310,7 @@ export function AlgoList() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={'No users found'} items={sortedItems}>
+      <TableBody emptyContent={'No problems found'} items={sortedItems}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey: any) => (

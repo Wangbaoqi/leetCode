@@ -5,15 +5,12 @@ date: 2022-01-23
 status: medium
 type: Algo
 category: Structure
-tags:
-  - linkList
+tags: linkList
 leetCode: https://leetcode.cn/problems/add-two-numbers/
 ---
 
 
 # 两数相加
-
-
 
 
 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
@@ -24,36 +21,7 @@ leetCode: https://leetcode.cn/problems/add-two-numbers/
 
 进阶：两数相加II
 
-{/* ```mermaid
-flowchart TB;
 
-  subgraph one
-  direction LR
-
-  B1(2) --> A1(4)
-  A1(4) --> D1(3)
-
-  end
-
-  subgraph two
-  direction LR
-
-  B(5) --> A(6)
-  A(6) --> D(4)
-
-  end
-
-  subgraph three
-  direction RL
-
-  A2(7) --> B2(0)
-  B2(0) --> C2(8)
-
-  end
-
-  one---|+|two--->three
-``` */}
-:::
 
 **同时遍历**
 
@@ -119,13 +87,4 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
 
 **进行优化**
 
-{/* <CodeSandpack
-  id={'2'}
-  activePath='/index.ts'
-  visibleFiles={["/index.ts", "/addTwoNumber.test.ts"]}
-  files={{
-    '/index.ts': SourceCode,
-    '/addTwoNumber.test.ts': TestCode
-  }}
-/> */}
 

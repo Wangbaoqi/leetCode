@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { allPosts, Post, allAlgos, Algo } from 'contentlayer/generated';
+import { allPosts, allAlgos } from 'contentlayer/generated';
 import { compareDesc, format, parseISO } from 'date-fns';
 import { clsx } from '@nextui-org/shared-utils';
 

@@ -140,6 +140,15 @@ export default memo(function CodeSplit({ className }: CodeSplitProps) {
     updateCode(value || '');
   };
 
+  const handleFileOnBeforeMount: EditorProps['beforeMount'] = (monaco) => {
+    monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+      target: monaco.languages.typescript.ScriptTarget.Latest,
+      module: monaco.languages.typescript.ModuleKind.ES2015,
+      allowNonTsExtensions: true,
+      lib: ['es2018']
+    });
+  };
+
   const handleFileOnMount: EditorProps['onMount'] = (editor, monaco) => {};
 
   const handleFileOnValidate: EditorProps['onValidate'] = (markers) => {
@@ -159,10 +168,11 @@ export default memo(function CodeSplit({ className }: CodeSplitProps) {
           <div className=''>setting</div>
         </div>
       </div>
-      <SandpackFileExplorer />
+
       <CodeEditor
         key={activeFile}
         value={code}
+        beforeMount={handleFileOnBeforeMount}
         onMount={handleFileOnMount}
         onChange={handleFileOnChange}
         onValidate={handleFileOnValidate}

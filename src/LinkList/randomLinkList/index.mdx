@@ -1,22 +1,17 @@
 ---
-id: 25
-title: 两数相加
-date: 2022-02-26
+id: 382
+title: 链表随机节点
+date: 2022-02-30
 status: medium
 type: Algo
 category: Structure
 tags: linkList
-leetCode: https://leetcode.cn/problems/add-two-numbers/
+leetCode: https://leetcode.cn/problems/linked-list-random-node/description/
 ---
 
 
-# 链表随机节点
+<Note>
 
-
-[leetCode](https://leetcode.cn/problems/linked-list-random-node/description/)
-
-
-:::info
 给你一个单链表，随机选择链表的一个节点，并返回相应的节点值。每个节点 被选中的概率一样 。
 
 实现 `Solution` 类：
@@ -24,7 +19,8 @@ leetCode: https://leetcode.cn/problems/add-two-numbers/
 `Solution(ListNode head)` 使用整数数组初始化对象。
 `int getRandom()` 从链表中随机选择一个节点并返回该节点的值。链表中所有节点被选中的概率相等。
 
-:::
+</Note>
+
 
 **使用线性表存储节点数据**
 
@@ -45,9 +41,10 @@ export class Solution {
 
 **水塘抽样**
 
-:::tip
+<Note>
+
 从链表头开始，遍历整个链表，对遍历到的第 `iii` 个节点，随机选择区间 `[0,i)[0,i)[0,i) `内的一个整数，
 如果其等于 000，则将答案置为该节点值，否则答案不变。
 
-:::
+</Note>
 
